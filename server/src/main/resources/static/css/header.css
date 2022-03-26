@@ -1,0 +1,83 @@
+* {
+    box-sizing: border-box;
+}
+
+header {
+    background-image: url("../imgs/header-background.jpg");
+    background-position: center;
+}
+
+#title {
+    font-size: 7em;
+    font-weight: bold;
+    color: #f9f9f9;
+    -webkit-text-stroke: 3px #262626;
+}
+
+#main-nav {
+    text-align: center;
+    margin: 1.5rem 6% 0 6%;
+}
+
+#main-nav > ul  {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    border: 1px solid #485fc7;
+    padding: 10px 20px 10px 20px;
+}
+
+#main-nav ul[role="menubar"] > li {
+    position: relative;
+}
+
+#main-nav ul[role="menu"] {
+    z-index: 10;
+    position: absolute;
+    display: block;
+    background-color: #f9f9f9;
+    box-shadow: 0px 0px 5px -2px rgba(82,82,82,1);
+    border-radius: 5px;
+    padding: 0.5em;
+}
+
+#main-nav ul[role="menu"] a {
+    min-width: 11em;
+    text-align: left;
+    padding: 1em;
+}
+
+#main-nav > ul a {
+    display: inline-block;
+}
+
+a:focus {
+    border: 2px dashed #485fc7;
+    outline: none;
+}
+
+#main-nav a.active {
+    font-weight: bold;
+}
+
+.visually-hidden {
+    position: absolute;
+}
+
+.visually-hidden:not(:focus):not(:active) {
+    clip: rect(1px, 1px, 1px, 1px);
+    clip-path: inset(50%);
+    height: 1px;
+    width: 1px;
+    margin: -1px;
+    overflow: hidden;
+    padding: 0;
+    position: absolute;
+}
+
+@media all and (min-width: 500px) {
+    #main-nav {
+        margin: 1.5rem 15% 0 15%;
+    }
+}
+

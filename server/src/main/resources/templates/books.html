@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="de" xmlns:th="https://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>[[${title}]] - Buchl</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css">
+    <link rel="stylesheet" href="../static/css/header.css" th:href="@{/css/header.css}">
+    <link rel="stylesheet" href="../static/css/books.css" th:href="@{/css/books.css}">
+</head>
+<body>
+<script type="application/javascript" th:src="@{/js/books.js}" src="/js/books.js"></script>
+<div th:replace="fragments/header.html :: header"></div>
+<div th:replace="fragments/header.html :: skipNavigation(id='#main')"></div>
+<div th:replace="fragments/header.html :: navigation(activeLink='books')"></div>
+<main id="main">
+    <form id="form" role="search" method="get" action="/books">
+        <h1 class="is-size-3 mb-3">Suchen und Filtern</h1>
+        <a href="#search" class="visually-hidden">Filter überspringen</a>
+        <div class="form-content">
+            <div class="form-combobox-wrapper">
+                <label class="label" for="tag">Thema oder Lesealter</label>
+                <div class="select">
+                    <select class="select form-data" id="tag" name="tag">
+                        <!--<optgroup th:each="tag: ${tags.?[parent == null]}" th:label="${tag.name}" label="Gruppe">
+                                <option></option>
+                            </optgroup>-->
+                        <option value="" selected>Kein Thema</option>
+                        <optgroup th:each="parentTag: ${parentTags}" th:label="${parentTag.name}" label="Gruppe">
+                            <option th:each="tag: ${tags}"
+                                    th:if="${tag.parent.id == parentTag.id}"
+                                    th:text="${tag.name}" th:value="${tag.id}"></option>
+                        </optgroup>
+                    </select>
+                </div>
+            </div>
+            <div class="form-combobox-wrapper">
+                <label class="label" for="rating">Mindestbewertung</label>
+                <div class="select">
+                    <select class="select form-data" id="rating" name="rating">
+                        <option value="" selected>Keine Mindestbewertung</option>
+                        <option th:each="star: ${stars}"
+                                th:text="${star} == 1 ? '1 Stern' : ${star} + ' Sterne'"
+                                th:value="${star}"></option>
+                    </select>
+                </div>
+            </div>
+            <div class="form-combobox-wrapper">
+                <label class="label" for="author">Autor</label>
+                <div class="select">
+                    <select id="author" class="form-data" name="author">
+                        <option value="" selected>Kein(e) bestimmte(r) Autor(in)</option>
+                        <option th:each="author: ${authors}"
+                                th:text="${author.firstName} + ' ' + ${author.lastName}"
+                                th:value="${author.id}"></option>
+                    </select>
+                </div>
+            </div>
+            <div>
+                <p class="label" id="releaseYear">Erscheinungsjahr</p>
+                <div class="release-year-wrapper">
+                    <div>
+                        <label class="label" for="releaseYearFrom">Ab</label>
+                        <div class="control">
+                            <input id="releaseYearFrom"
+                                   aria-label="Erscheinungsjahr ab"
+                                   class="input form-data"
+                                   th:type="number" type="number"
+                                   min="1900" max="2022" name="releaseYearFrom">
+                        </div>
+                    </div>
+                    <div>
+                        <label class="label" for="releaseYearUntil">Bis</label>
+                        <div class="control">
+                            <input id="releaseYearUntil"
+                                   aria-label="Erscheinungsjahr bis"
+                                   class="input form-data"
+                                   th:type="number" type="number"
+                                   min="1900" max="2022" name="releaseYearUntil">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div id="searchWrapper">
+                <div>
+                    <label class="label" for="search">Suchen Sie nach Buchtitel, ISBN oder der Buchbeschreibung</label>
+                    <div class="control">
+                        <input type="search"
+                               class="input form-data"
+                               id="search"
+                               placeholder="Nach Buchtitel, ISBN oder der Buchbeschreibung suchen ..."
+                               name="q">
+                    </div>
+                </div>
+                <div class="control">
+                    <button class="button is-link" id="submitButton" type="submit" aria-busy="false">Suchen</button>
+                </div>
+            </div>
+        </div>
+    </form>
+    <section>
+        <h2 class="is-size-4">Suchergebnisse</h2>
+        <div id="searchResults" role="region" aria-label="Suchergebnisse" aria-busy="false" aria-live="polite" aria-atomic="true">
+            <div class="visually-hidden loader" aria-hidden="true" id="loadingCircle" aria-label="Lade Ergebnisse" aria-busy="true"></div>
+            <p id="noSearchResults">Es sind keine Suchergebnisse vorhanden.</p>
+        </div>
+    </section>
+</main>
+<footer th:replace="fragments/footer.html :: footer"></footer>
+</body>
+</html>

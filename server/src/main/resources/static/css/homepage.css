@@ -1,0 +1,84 @@
+main.columns {
+    margin: 1rem 6% 0 6%;
+}
+
+/*main {
+    display: flex;
+}
+
+main > section {
+    flex: 1 1 100%;
+}
+
+main > section:first-child {
+    padding-right: 15px;
+}
+
+main > section:last-child {
+    padding-left: 15px;
+}*/
+
+.todays-favourites {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+}
+
+.todays-favourites > article {
+    margin-top: 15px;
+    width: 45%;
+    display: flex;
+    flex-direction: column;
+}
+
+.book-image-wrapper {
+    height: 300px;
+    display: flex;
+    align-items: center;
+}
+
+.book-image-wrapper > figure {
+    margin: 0 auto;
+}
+
+.book-image-wrapper img {
+    max-height: 300px;
+}
+
+.article-book-content {
+    min-height: 130px;
+    display: flex;
+    flex-direction: column;
+    flex: 1 1 0%;
+    justify-content: space-between;
+    padding: .8rem;
+    background-color: #f5f5f5;
+}
+
+.article-book-content > h3 {
+    display: -webkit-box;
+    font-size: 1.07em;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+.book-infos > p {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+
+@media all and (min-width: 500px) {
+    main.columns {
+        margin: 1.5rem 15% 0 15%;
+    }
+}
+
+@media all and (min-width: 769px) {
+    .todays-favourites > article {
+        width: 30%;
+    }
+}
+
+

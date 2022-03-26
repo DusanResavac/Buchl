@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="de" xmlns:th="https://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>[[${title}]] - Buchl</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css">
+    <link rel="stylesheet" href="../static/css/header.css" th:href="@{/css/header.css}">
+    <link rel="stylesheet" href="../static/css/book.css" th:href="@{/css/book.css}">
+</head>
+<body>
+<div th:replace="fragments/header.html :: header"></div>
+<div th:replace="fragments/header.html :: skipNavigation(id='#main')"></div>
+<div th:replace="fragments/header.html :: navigation(activeLink='books')"></div>
+<main id="main">
+    <aside role="region" aria-label="Nebensächliche Buchinformationen">
+        <img loading="lazy"
+             th:src="${book.imageLink == null} ? @{/imgs/image-preview.png} : @{/imgs/} + ${book.imageLink}"
+             alt="" th:alt="${book.imageAlt == null} ? ${book.title} : ${book.imageAlt}">
+        <div>
+            <div>
+                <a th:each="tag: ${book.tags}" th:href="'/tag/' + ${tag.id}" th:text="${tag.parent.name == 'Lesealter'} ? 'Lesealter ' + ${tag.name} : ${tag.name}"></a>
+            </div>
+            <div>
+                <p>Seitenanzahl der Print-Ausgabe: [[${book.pages}]]</p>
+                <p>Sprache: [[${book.language.name}]]</p>
+                <p>Erscheinungsdatum: [[${#temporals.format(book.releaseDate, 'dd. MMMM yyyy')}]]</p>
+            </div>
+
+        </div>
+    </aside>
+    <section role="region" aria-label="Buchinformationen">
+        <h1 th:text="${book.title} + ' - ' + ${#temporals.format(book.releaseDate, 'yyyy')}"></h1>
+        <div>
+            <img th:src="${}">
+        </div>
+    </section>
+</main>
+<footer th:replace="fragments/footer.html :: footer"></footer>
+</body>
+</html>

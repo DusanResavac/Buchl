@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="de" xmlns:th="https://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>[[${title}]] - Buchl</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css">
+    <link rel="stylesheet" href="../static/css/header.css" th:href="@{/css/header.css}">
+    <link rel="stylesheet" href="/css/homepage.css" th:href="@{/css/homepage.css}">
+</head>
+<body>
+
+<div th:replace="fragments/header.html :: header"></div>
+<div th:replace="fragments/header.html :: skipNavigation(id='#main')"></div>
+<div th:replace="fragments/header.html :: navigation(activeLink='home')"></div>
+<main id="main" class="columns is-desktop">
+    <section class="column">
+        <h1 class="is-size-2">Was ist Buchl?</h1>
+        <p class="content">Buchl ist eine Plattform, auf der sich Gleichgesinnte treffen und über ihre Lieblingsbücher unterhalten können.
+            Außerdem kann die eigene Buchsammlung digital in einer Liste gesammelt werden, auf deren Basis dann Vorschläge
+            zur Erweiterung des Leserepertoires bereitgestellt werden. Nehmen Sie an hitzigen Debatten teil, um Ihren Standpunkt zu vertreten
+            oder informieren Sie sich über beliebte Klassiker.
+        </p>
+    </section>
+    <section class="column">
+        <h2 class="is-size-2">Heutige Favoriten</h2>
+        <div class="todays-favourites">
+            <article th:each="book: ${books}">
+                <div class="book-image-wrapper">
+                    <figure class="image">
+                        <img loading="lazy" th:src="${book.imageLink == null} ? @{/imgs/image-preview.png} : @{/imgs/} + ${book.imageLink}" alt="" th:alt="${book.imageAlt == null} ? ${book.title} : ${book.imageAlt}">
+                    </figure>
+                </div>
+                <div class="article-book-content">
+                    <h3 class="mb-4"><a th:title="${book.title}" th:href="${'/book/' + book.id}">[[ ${book.title} ]]</a></h3>
+                    <div class="book-infos">
+                        <p>
+                            <span th:text="${#temporals.year(book.releaseDate)}"></span>
+                            <span th:attr="aria-label=${ 'Geschrieben von ' + book.author.firstName + ' ' + book.author.lastName } "
+                                    th:title="${book.author.firstName + ' ' + book.author.lastName}"
+                                    th:text="
+                                    ${book.author.lastName == null || book.author.lastName == ''} ?
+                                    ${book.author.firstName} : ${book.author.lastName}"></span>
+                        </p>
+                    </div>
+                </div>
+            </article>
+        </div>
+    </section>
+</main>
+<footer th:replace="fragments/footer.html :: footer"></footer>
+</body>
+</html>
