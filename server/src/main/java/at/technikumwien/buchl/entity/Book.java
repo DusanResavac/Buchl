@@ -85,6 +85,12 @@ public class Book {
 
     @JsonManagedReference
     @OneToMany(mappedBy = "book", cascade = CascadeType.MERGE)
-    private List<Review> review;
+    @OrderBy("date DESC")
+    private List<Review> reviews;
+
+    @JsonManagedReference
+    @OneToMany(mappedBy = "book", cascade = CascadeType.MERGE)
+    @OrderBy("date DESC")
+    private List<Discussion> discussions;
 
 }

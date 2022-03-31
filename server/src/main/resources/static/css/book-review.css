@@ -1,0 +1,58 @@
+.review-li {
+    margin-top: 20px;
+}
+
+.review-li > article {
+    display: flex;
+    flex-direction: column;
+}
+
+article > .review-user-and-date {
+    display: flex;
+    flex-direction: column;
+}
+
+article > .review-user-and-date > div {
+    display: flex;
+    align-items: center;
+}
+
+.review-user-and-date > div > img {
+    width: 35px;
+    height: 35px;
+    border-radius: 50%;
+    margin-right: 15px;
+}
+
+.review-rating-and-text {
+    display: flex;
+    flex-direction: column;
+}
+
+.review-rating-and-text > img {
+    width: 100%;
+    max-width: 100px;
+}
+
+
+@media all and (min-width: 769px) {
+    .review-user-and-date > div > span{
+        margin-right: 15px;
+    }
+
+    article > .review-user-and-date {
+        align-items: center;
+        flex-direction: row;
+    }
+
+    .review-rating-and-text {
+        align-items: start;
+        max-width: 600px;
+        flex-direction: row;
+    }
+
+    .review-rating-and-text > img {
+        margin-right: 15px;
+        width: 100px;
+    }
+}

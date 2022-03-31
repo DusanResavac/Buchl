@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="de" xmlns:th="https://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>[[${title}]] - Buchl</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css">
+    <link rel="stylesheet" href="../static/css/header.css" th:href="@{/css/header.css}">
+    <link rel="stylesheet" href="../static/css/book.css" th:href="@{/css/book.css}">
+    <link rel="stylesheet" href="../static/css/book-review.css" th:href="@{/css/book-review.css}">
+</head>
+<body>
+<div th:replace="fragments/header.html :: header"></div>
+<div th:replace="fragments/header.html :: skipNavigation(id='#main')"></div>
+<div th:replace="fragments/header.html :: navigation(activeLink='books')"></div>
+<main id="main">
+    <div th:replace="book.html :: asideBookInfo"></div>
+    <section role="region" aria-label="Buchinformationen">
+        <div th:replace="book.html :: bookTitle"></div>
+        <div th:replace="book.html :: authorInfo"></div>
+        <div class="book-content">
+            <div th:replace="book.html :: bookRatingAndFavourite"></div>
+            <div role="region" aria-label="Rezensionen und Bewertungstexte">
+                <p th:if="${#arrays.length(book.reviews) <= 0}">Es sind keine Bewertungstexte vorhanden</p>
+                <ul th:if="${#arrays.length(book.reviews) > 0}">
+                    <li th:if="${review.user != null && review.title != null && review.date != null} "
+                        th:each="review: ${book.reviews}" class="review-li">
+                        <article>
+                            <div class="review-user-and-date">
+                                <div>
+                                    <img alt="" loading="lazy"
+                                         th:src="${review.user.image == null} ? '/imgs/user.png' : ${review.user.image}">
+                                    <span th:text="${review.user.nickname}"></span>
+                                </div>
+                                <p th:text="' am ' + ${#temporals.format(review.date, 'dd. MMMM yyyy')} + ' veröffentlicht'"></p>
+                            </div>
+                            <div class="review-rating-and-text">
+                                <img alt="x von 5 Sternen" loading="lazy"
+                                     th:alt="${review.rating} + ' von 5 Sternen'"
+                                     th:src="'/imgs/SVG/rating-' + ${review.rating} + '.svg'">
+                                <div>
+                                    <h2 class="mb-2 is-size-5" th:text="${review.title}"></h2>
+                                    <p th:utext="${review.text}"></p>
+                                </div>
+                            </div>
+                        </article>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+    </section>
+</main>
+<footer th:replace="fragments/footer.html :: footer"></footer>
+</body>
+</html>

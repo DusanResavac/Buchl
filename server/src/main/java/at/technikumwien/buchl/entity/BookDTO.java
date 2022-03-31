@@ -5,6 +5,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDate;
+import java.util.List;
 
 @Data
 @AllArgsConstructor
@@ -12,6 +13,7 @@ import java.time.LocalDate;
 public class BookDTO {
     private Long id;
     private String title;
+    private String description;
     private Language language;
     private Integer pages;
     private LocalDate releaseDate;
@@ -20,5 +22,8 @@ public class BookDTO {
     private String imageAlt;
     private String isbn;
     private Long numberOfReviews;
-    private Long averageRating;
+    private Double averageRating;
+    private List<Tag> tags;
+    private List<Review> reviews;
+    private List<Discussion> discussions;
 }

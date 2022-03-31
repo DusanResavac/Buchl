@@ -47,25 +47,25 @@ public class DBInitializer {
         ));
 
         authorRepository.saveAll(List.of(
-                new Author("Kugane", "Maruyama", "https://static.wikia.nocookie.net/overlordmaruyama/images/9/97/KuganeMaruyama.png/revision/latest/scale-to-width-down/720?cb=20200421021117", "Eine Person mit überzogener schwarzen Weste, die eine Brille und eine schwarze Skelett Maske trägt", null),
+                new Author("Kugane", "Maruyama", "KuganeMaruyama.webp", "Eine Person mit überzogener schwarzen Weste, die eine Brille und eine schwarze Skelett Maske trägt", null),
                 new Author("Ovid", "", null, null, null),
-                new Author("William", "Shakespeare", "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c5/First_Folio_%28cropped%29.jpg/800px-First_Folio_%28cropped%29.jpg", null, null),
-                new Author("Miguel", "Saavedra", "https://upload.wikimedia.org/wikipedia/commons/thumb/0/09/Cervantes_J%C3%A1uregui.jpg/800px-Cervantes_J%C3%A1uregui.jpg", null, null),
-                new Author("Gotthold", "Lessing", "https://upload.wikimedia.org/wikipedia/commons/thumb/c/cd/Gotthold_Ephraim_Lessing.PNG/330px-Gotthold_Ephraim_Lessing.PNG", null, null),
-                new Author("Friedrich", "Schiller", "https://upload.wikimedia.org/wikipedia/commons/7/74/Friedrich_Schiller_by_Ludovike_Simanowiz.jpg", null, null),
-                new Author("Charles", "Dickens", "https://upload.wikimedia.org/wikipedia/commons/thumb/8/86/Charlesdickens.jpg/800px-Charlesdickens.jpg", null, null),
-                new Author("Lew", "Tolstoi", "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c6/L.N.Tolstoy_Prokudin-Gorsky.jpg/390px-L.N.Tolstoy_Prokudin-Gorsky.jpg", "Ein sehr bärtiger alter Mann auf einem Stuhl in einem Park oder Wald sitzend.", null),
-                new Author("Lewis", "Carroll", "https://upload.wikimedia.org/wikipedia/commons/thumb/5/51/Lewis_Carroll_1863.jpg/300px-Lewis_Carroll_1863.jpg", null, null),
-                new Author("Rudyard", "Kipling", "https://upload.wikimedia.org/wikipedia/commons/thumb/f/f9/Collier_1891_rudyard-kipling.jpg/255px-Collier_1891_rudyard-kipling.jpg", null, null),
-                new Author("Mark", "Twain", "https://upload.wikimedia.org/wikipedia/commons/thumb/3/31/MarkTwain.LOC.jpg/800px-MarkTwain.LOC.jpg", null, null),
-                new Author("Hermann", "Hesse", "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c1/Hermann_Hesse_1927_Photo_Gret_Widmann.jpg/255px-Hermann_Hesse_1927_Photo_Gret_Widmann.jpg", null, null),
-                new Author("Robert", "Musil", "https://upload.wikimedia.org/wikipedia/commons/thumb/9/9a/Musil.jpg/330px-Musil.jpg", null, null),
-                new Author("Albert", "Camus", "https://upload.wikimedia.org/wikipedia/commons/thumb/0/08/Albert_Camus%2C_gagnant_de_prix_Nobel%2C_portrait_en_buste%2C_pos%C3%A9_au_bureau%2C_faisant_face_%C3%A0_gauche%2C_cigarette_de_tabagisme.jpg/330px-Albert_Camus%2C_gagnant_de_prix_Nobel%2C_portrait_en_buste%2C_pos%C3%A9_au_bureau%2C_faisant_face_%C3%A0_gauche%2C_cigarette_de_tabagisme.jpg", null, null),
+                new Author("William", "Shakespeare", "shakespeare.jpg", null, null),
+                new Author("Miguel", "Saavedra", "miguel.jpg", null, null),
+                new Author("Gotthold", "Lessing", "gotthold.png", null, null),
+                new Author("Friedrich", "Schiller", "schiller.jpg", null, null),
+                new Author("Charles", "Dickens", "dickens.jpg", null, null),
+                new Author("Lew", "Tolstoi", "tolstoj.jpg", "Ein sehr bärtiger alter Mann auf einem Stuhl in einem Park oder Wald sitzend.", null),
+                new Author("Lewis", "Carroll", "carroll.jpg", null, null),
+                new Author("Rudyard", "Kipling", "kipling.jpg", null, null),
+                new Author("Mark", "Twain", "twain.jpg", null, null),
+                new Author("Hermann", "Hesse", "hesse.jpg", null, null),
+                new Author("Robert", "Musil", "musil.jpg", null, null),
+                new Author("Albert", "Camus", "camus.jpg", null, null),
                 new Author("Marion Zimmer", "Bradley", null, null, null),
-                new Author("Karl", "Marx", "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d4/Karl_Marx_001.jpg/800px-Karl_Marx_001.jpg", null, null),
-                new Author("Edward", "Gibbon", "https://upload.wikimedia.org/wikipedia/commons/thumb/0/05/Edward_Gibbon_by_Henry_Walton_cleaned.jpg/800px-Edward_Gibbon_by_Henry_Walton_cleaned.jpg", null, null),
-                new Author("Arthur", "Schopenhauer", "https://upload.wikimedia.org/wikipedia/commons/thumb/b/bc/Arthur_Schopenhauer_by_J_Sch%C3%A4fer%2C_1859b.jpg/800px-Arthur_Schopenhauer_by_J_Sch%C3%A4fer%2C_1859b.jpg", null, null),
-                new Author("Jostein", "Gaarder", "https://upload.wikimedia.org/wikipedia/commons/thumb/a/ad/Jostein_Gaarder_2019%2C_3Sat_Interview_auf_der_Frankfurter_Buchmesse.jpg/1024px-Jostein_Gaarder_2019%2C_3Sat_Interview_auf_der_Frankfurter_Buchmesse.jpg", null, null)
+                new Author("Karl", "Marx", "marx.jpg", null, null),
+                new Author("Edward", "Gibbon", "gibbon.jpg", null, null),
+                new Author("Arthur", "Schopenhauer", "schopenhauer.jpg", null, null),
+                new Author("Jostein", "Gaarder", "gaarder.jpg", null, null)
         ));
 
         Author kugane = authorRepository.findFirstByFirstNameIgnoreCaseAndLastNameIgnoreCase("Kugane", "Maruyama");
@@ -101,16 +101,13 @@ public class DBInitializer {
                         "Hermann Heiser studierte Klassische Philologie in Mainz und Zürich. Neben der Tätigkeit als Gymnasiallehrer war er in verschiedenen Bereichen des Theaters aktiv, u.a. als freier Regisseur. Er ist Verfasser von zwei Erzählbänden.", ovid, "metamorphosen.jpg", "Der Anfang der Metamorphosen in der Handschrift Biblioteca Apostolica Vaticana", "593519360-4"),
                 new Book("Romeo und Julia", deutsch, 176, LocalDate.of(2017, 3, 3), "»Romeo und Julia«, das wohl berühmteste Liebespaar der Welt, ist eine Tragödie von William Shakespeare und erzählt von den unglücklichen Umständen einer verbotenen Liebe in der italienischen Stadt Verona. Erstmals erschienen 1597, gehört die Lektüre zu den unvergänglichen Werken der Literaturgeschichte.", william, "romeo und julia.jpg", "Ein Prinz im roten Gewand, der in einen Balkon einsteigt und eine Dame am Hals küsst.", "845938035-1"),
                 new Book("Don Quijote", deutsch, 1275, LocalDate.of(2010, 8, 31), "Mit grandiosem Einfallsreichtum erzählt Cervantes von den Abenteuern des verarmten Adligen, der in einer Traumwelt vergangener Ritterzeiten lebt, und seines treuen Waffenträgers Sancho Pansa. Ähnlich wie Goethes Faust für die Deutschen ist Don Quijote für die Spanier zum Sinnbild eines nationalen Genius geworden. Die Sympathie des Erzählers für seine Figuren und sein liebevoll-ironischer Ton machen Don Quijote zum wunderbarsten Antihelden der Weltliteratur.", miguel, "don quijote.jpg", "Ein dünner Mann mit einem Speer in einer Ritterrüstung und ein pummeliger sitzender Mann.", "993600645-3"),
-                new Book("Nathan der Weise", deutsch, 160, LocalDate.of(2005, 9, 1), "\n" +
-                        "\n" +
+                new Book("Nathan der Weise", deutsch, 160, LocalDate.of(2005, 9, 1),
                         "Die Szene ist Jerusalem zur Zeit der Kreuzzüge. Spannungsreich treffen die drei Weltreligionen Christentum, Judentum und Islam aufeinander. Inmitten eines dramatischen Geschehens um die Rettung seiner Tochter durch einen christlichen Ordensritter, den seinerseits der Sultan vor dem Tod bewahrt hat, steht Nathan der Weise als ruhender Pol der Vernunft, Aufklärung und Toleranz. In der berühmten Ringparabel klärt er die heikle Frage nach der wahren Religion. Keine der drei Weltreligionen ist absolut. Jede erweist ihre Wahrheit und ihren Sinn erst durch die Kraft, mit der sie praktische Humanität stiften kann. Nathan gelingt es, die Menschen verschiedenen Glaubens in friedvollem Miteinander als Angehörige einer großen Familie zu vereinen.\n" +
                         "\n" +
                         "Gotthold Ephraim Lessing, geb. 1729 in Kamenz/Oberlausitz, kam als Pfarrerssohn und drittes von zwölf Kindern zur Welt. Nach dem Abitur studierte er zunächst Theologie, wandte sich aber bald den philologischen Fächern zu. Der Schriftsteller arbeitete als Dramaturg für das Hamburger Nationaltheater und verfasste zahlreiche berühmte Werke. Privat hatte Lessing 1777/78 sowohl den Tod seines Sohnes als auch den seiner Frau zu verkraften. Er starb am 15. Februar 1781 vereinsamt in Braunschweig. Die Uraufführung seines \"Nathan\" im Jahr 1783 erlebte er nicht mehr. Als bedeutendster Dichter, Denker und Kritiker der Aufklärung, dessen Genialität sogar Goethe bewunderte, gilt er heute als erster moderner Autor Deutschlands.\n", gotthold, "nathan der weise.webp", "Ein älterer Herr in einem lockeren Gewand mit einem überzogenen gelben Tuch auf der Schulter.", "257098272-5"),
                 new Book("Don Carlos, Infant von Spanien", deutsch, 260, LocalDate.of(2016, 4, 9), "Don Carlos ist Schillers viertes Drama, das er als dramatisches Gedicht bezeichnete. Nach umfangreichen historischen Studien verfasste er es zwischen 1783 und 1787. In Hamburg wurde das Drama in fünf Akten am 29. August 1787 erstmals aufgeführt. Schiller nimmt in seinem Stück Bezug auf historische Ereignisse im 80-jährigen Krieg (1568–1648), in dem niederländische Provinzen um ihre Unabhängigkeit von der spanischen Krone kämpften. Zwischen König Phillip und seinem Sohn (Don Carlos) verarbeitet Schiller erneut einen Generationenkonflikt am Ende eines überkommenen Gesellschaftssystems – zwischen tyrannischen Despoten und dem aufstrebenden Bürgertum", schiller, "don carlos.jpg", null, "620080113-4"),
                 new Book("Oliver Twist (Roman)", deutsch, 416, LocalDate.of(2012, 1, 31), "Als Findelkind im Armenhaus einer englischen Kleinstadt aufgewachsen, flüchtet sich der junge Oliver Twist aus den Fängen seines brutalen Lehrherrn nach London. Doch im Moloch der Großstadt gerät er bald an den skrupellosen Hehler Fagin, der ein seltsames Interesse daran zu haben scheint, Oliver in die Welt des Verbrechens hineinzuziehen ... Wegen seiner präzisen Milieuschilderungen und seines entwaffnenden Sinns für skurrile Komik zählt \"Oliver Twist\" bis heute zu den bedeutendsten und beliebtesten Romanen der englischsprachigen Literatur. (Dickens, Charles 1812 - 1870)", dickens, "oliver twist.jpg", "Ein Junge in einem älteren, düsteren und finsteren England.", "797305090-6"),
-                new Book("Krieg und Frieden", deutsch, 2098, LocalDate.of(2009, 10, 29), "\n" +
-                        "\n" +
-                        "In seinem grandiosen Meisterwerk entfaltet Lew Tolstoj auf über 2000 Seiten ein großes Epos über das Schicksal dreier russischer Adelsfamilien in der Zeit der Napoleonischen Kriege Anfang des 19. Jahrhunderts.\n" +
+                new Book("Krieg und Frieden", deutsch, 2098, LocalDate.of(2009, 10, 29), "In seinem grandiosen Meisterwerk entfaltet Lew Tolstoj auf über 2000 Seiten ein großes Epos über das Schicksal dreier russischer Adelsfamilien in der Zeit der Napoleonischen Kriege Anfang des 19. Jahrhunderts.\n" +
                         "\n" +
                         "In seinen epischen Dimensionen von Tolstoj selbst in die Nähe der Ilias gestellt, behauptet dieser Roman nicht nur seinen Rang als eines der herausragenden Werke der Weltliteratur, sondern er ist auch und vor allem eines: spannende Lektüre.\n" +
                         "\n" +
@@ -477,6 +474,13 @@ public class DBInitializer {
                         5,
                         bookRepository.findFirstByTitleContainingIgnoreCase("Krieg und Frieden"),
                         users.get(4)),
+                new Review ("Weltklassiker❤",
+                        "Ich hatte vor kurzem das Vergnügen, den Film anzusehen. Er ist nichts im Gegensatz zu diesem Buch. Anfangs tat ich mich etwas schwer, ins Buch zu kommen. Aber es dauerte nicht lange, und der Stoff hielt mich fest. Der Schreibstil ist detailliert, aber sehr fliessend und fesselnd. Meine Lieblingsfigur männlich ist Fürst Andree und weiblich Fürstin Marie. Eine weitverzweigte Geschichte mit vielschichtigen Charakteren in einem traditionellen Rußland, dass stolz seine Geschichte erzählt. Ich kann das Buch zu 100% weiterempfehlen! \uD83D\uDC4D",
+                        LocalDate.of(2019, 1, 25),
+                        25,
+                        5,
+                        bookRepository.findFirstByTitleContainingIgnoreCase("Krieg und Frieden"),
+                        users.get(5)),
                 new Review("Alice im Wunderland ♦ Lewis Carroll | Rezension",
                         "Im Endeffekt tut die Sprache der Geschichte keinen Abbruch, denn Alice im Wunderland ist und bleibt ein Klassiker, auch für mich. Selbst wenn das Buch für mich nur 3 von 5 Sternen erhält, denn ich hab einfach ein wenig mehr von Alice als Charakter erwartet, ist es doch ein gutes Buch und ich habe jetzt auch so richtig Lust auf die letzte Verfilmung aus dem Jahre 2010.\n" +
                                 "\n" +
@@ -726,7 +730,7 @@ public class DBInitializer {
                         users.get(3),
                         d2)
         ));
-        new Review(null, null, null, null, 1, bookRepository.findById(1L).get(), null);
+
         Discussion d3 = new Discussion(
                 "Das Antlitz eines Herrschers würdig",
                 "Die Kleidung ist hervorragend beschrieben und illustriert.",
@@ -785,7 +789,7 @@ public class DBInitializer {
                 "Ich finde Romeo und Julia im Vergleich zur jetzigen Literatur schwach. Was meint ihr?",
                 LocalDate.of(2022, 2, 4),
                 users.get(4),
-                bookRepository.findFirstByTitleContainingIgnoreCase("Rome und Julia"),
+                bookRepository.findFirstByTitleContainingIgnoreCase("Romeo und Julia"),
                 null);
 
         d6.setComments(List.of(
@@ -827,7 +831,7 @@ public class DBInitializer {
         Discussion d9 = new Discussion(
                 "Passendes Buch für 12 Nichte?",
                 "Hallo,\n\ndenkt ihr, dass das Buch meiner 12 jährigen Nichte gefallen würde?",
-                LocalDate.now(),
+                LocalDate.of(2022, 3, 10),
                 users.get(0),
                 bookRepository.findFirstByTitleContainingIgnoreCase("Das Dschungelbuch"),
                 null
@@ -875,11 +879,11 @@ public class DBInitializer {
                 new Comment("Es lohnt sich definitv, jedoch wird es erst ab dem 3. Kapitel wirklich interessant!",
                         LocalDateTime.of(2019, 4, 2, 12, 0),
                         users.get(0),
-                        d3),
+                        d12),
                 new Comment("Ich finde, dass es sich auszahlt.",
                         LocalDateTime.of(2020, 10, 28, 12, 0),
                         users.get(7),
-                        d3)
+                        d12)
         ));
 
         Discussion d13 = new Discussion(

@@ -10,8 +10,16 @@ function init() {
     submitButton = document.getElementById('submitButton');
     formElements = document.getElementsByClassName('form-data');
 
+    const tag = document.getElementById('tag'),
+        rating = document.getElementById('rating'),
+        author = document.getElementById('author'),
+        releaseYearFrom = document.getElementById('releaseYearFrom'),
+        releaseYearUntil = document.getElementById('releaseYearUntil'),
+        search = document.getElementById('search');
+
+
     document.getElementById('form').addEventListener('submit', function (ev) {
-        ev.preventDefault();
+
 
         const loadingCircle = document.getElementById('loadingCircle'),
             noSearchResults = document.getElementById('noSearchResults');
@@ -72,7 +80,7 @@ function init() {
                     divWrapper.appendChild(img);
                     divWrapper.appendChild(divArticleContent);
                     divWrapper.classList.add('article-link-wrapper');
-                    img.setAttribute('src', book.imageLink === null ? staticUrl + "image-preview.png" : staticUrl + book.imageLink);
+                    img.setAttribute('src', book.imageLink === null ? staticUrl + 'image-preview.png' : staticUrl + book.imageLink);
                     img.setAttribute('loading', 'lazy');
                     img.setAttribute('alt', book.imageAlt === null ? book.title : book.imageAlt);
                     divArticleContent.appendChild(h3);
@@ -116,6 +124,14 @@ function init() {
             }
         }
         httpRequest.send();
+        window.history.pushState(null, '',
+            '/books?tag=' + tag.value +
+            '&rating=' + rating.value +
+            '&author=' + author.value +
+            '&releaseYearFrom=' + releaseYearFrom.value +
+            '&releaseYearUntil=' + releaseYearUntil.value +
+            '&q=' + search.value);
+        ev.preventDefault();
 
     });
 }

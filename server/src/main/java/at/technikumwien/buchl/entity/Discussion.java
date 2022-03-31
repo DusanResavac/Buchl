@@ -45,12 +45,10 @@ public class Discussion {
     @Column
     private LocalDate date;
 
-    @JsonBackReference
     @ManyToOne(cascade = CascadeType.MERGE)
     @JoinColumn(name = "user_id")
     private User user;
 
-    @JsonBackReference
     @ManyToOne(cascade = CascadeType.MERGE)
     @JoinColumn(name = "book_id")
     private Book book;

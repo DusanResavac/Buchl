@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="de" xmlns:th="https://www.thymeleaf.org">
+<head>
+    <meta char set="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>[[${title}]] - Buchl</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css">
+    <link rel="stylesheet" href="../static/css/header.css" th:href="@{/css/header.css}">
+    <link rel="stylesheet" href="../static/css/reviews.css" th:href="@{/css/reviews.css}">
+</head>
+<body>
+<div th:replace="fragments/header.html :: header"></div>
+<div th:replace="fragments/header.html :: skipNavigation(id='#main')"></div>
+<div th:replace="fragments/header.html :: navigation(activeLink='reviews')"></div>
+<main id="main">
+    <section>
+        <h2>Derzeit populär</h2>
+        <div class="book">
+            <article>
+                <img loading="lazy"
+                     th:src="${popularBook.imageLink == null} ? @{/imgs/image-preview.png} : @{/imgs/} + ${popularBook.imageLink}"
+                     alt="" th:alt="${popularBook.imageAlt == null} ? ${popularBook.title} : ${popularBook.imageAlt}">
+                <div class="book-title-and-author">
+                    <h3><a th:href="'/book/' + ${popularBook.id}" th:text="${popularBook.title}"></a></h3>
+                    <div class="author-info"  th:fragment="authorInfo">
+                        <img th:src="${popularBook.author.imageLink == null} ? @{/imgs/user.png} : '/imgs/' + ${popularBook.author.imageLink}"
+                             th:alt="${popularBook.author.imageAlt == null} ? '' : ${popularBook.author.imageAlt}">
+                        <p>
+                            <a th:href="'/books?author=' + ${popularBook.author.id}"
+                               th:text="${popularBook.author.firstName} + ' ' + ${popularBook.author.lastName}"></a>
+                        </p>
+                    </div>
+                    <div class="book-average-rating">
+                        <span th:if="${popularBook.averageRating != null}"
+                              th:attr="aria-label='Die durchschnittliche Bewertung ist ' + ${popularBook.averageRating} + ' von 5'"
+                              th:text="'Ø ' + ${popularBook.averageRating}"></span>
+                        <img th:if="${popularBook.averageRating != null}"
+                             th:src="'/imgs/SVG/rating-' + ${#numbers.formatDecimal(popularBook.averageRating, 0, 0)} + '.svg'"
+                             th:alt="${#numbers.formatDecimal(popularBook.averageRating, 0, 0)} + ' von 5 Sternen'">
+                        <span th:if="${popularBook.averageRating == null}">Keine Bewertungen</span>
+                    </div>
+                </div>
+            </article>
+            <div class="reviews-and-button">
+                <ul class="reviews">
+                    <li th:each="review: ${popularBook.reviews}" class="review">
+                        <article>
+                            <div class="review-user-and-date">
+                                <div>
+                                    <img alt="" loading="lazy"
+                                         th:src="${review.user.image == null} ? '/imgs/user.png' : ${review.user.image}">
+                                    <span th:text="${review.user.nickname}"></span>
+                                </div>
+                                <p th:text="' am ' + ${#temporals.format(review.date, 'dd. MMMM yyyy')} + ' veröffentlicht'"></p>
+                            </div>
+                            <div class="review-rating-and-text">
+                                <img alt="x von 5 Sternen" loading="lazy"
+                                     th:alt="${review.rating} + ' von 5 Sternen'"
+                                     th:src="'/imgs/SVG/rating-' + ${review.rating} + '.svg'">
+                                <div>
+                                    <h4 class="mb-2" th:text="${review.title}"></h4>
+                                </div>
+                            </div>
+                        </article>
+                    </li>
+                </ul>
+                <a th:href="'/book/' + ${popularBook.id} + '/reviews'" class="button is-normal is-responsive">Mehr Rezensionen zum Buch</a>
+            </div>
+        </div>
+    </section>
+    <section >
+        <h2>Derzeit kontrovers</h2>
+        <div class="book">
+            <article>
+                <img loading="lazy"
+                     th:src="${controversialBook.imageLink == null} ? @{/imgs/image-preview.png} : @{/imgs/} + ${controversialBook.imageLink}"
+                     alt="" th:alt="${controversialBook.imageAlt == null} ? ${controversialBook.title} : ${controversialBook.imageAlt}">
+                <div class="book-title-and-author">
+                    <h3><a th:href="'/book/' + ${controversialBook.id}" th:text="${controversialBook.title}"></a></h3>
+                    <div class="author-info"  th:fragment="authorInfo">
+                        <img th:src="${controversialBook.author.imageLink == null} ? @{/imgs/user.png} : '/imgs/' + ${controversialBook.author.imageLink}"
+                             th:alt="${controversialBook.author.imageAlt == null} ? '' : ${controversialBook.author.imageAlt}">
+                        <p>
+                            <a th:href="'/books?author=' + ${controversialBook.author.id}"
+                               th:text="${controversialBook.author.firstName} + ' ' + ${controversialBook.author.lastName}"></a>
+                        </p>
+                    </div>
+                    <div class="book-average-rating">
+                        <span th:if="${controversialBook.averageRating != null}"
+                              th:attr="aria-label='Die durchschnittliche Bewertung ist ' + ${controversialBook.averageRating} + ' von 5'"
+                              th:text="'Ø ' + ${controversialBook.averageRating}"></span>
+                        <img th:if="${controversialBook.averageRating != null}"
+                             th:src="'/imgs/SVG/rating-' + ${#numbers.formatDecimal(controversialBook.averageRating, 0, 0)} + '.svg'"
+                             th:alt="${#numbers.formatDecimal(controversialBook.averageRating, 0, 0)} + ' von 5 Sternen'">
+                        <span th:if="${controversialBook.averageRating == null}">Keine Bewertungen</span>
+                    </div>
+                </div>
+            </article>
+            <div class="reviews-and-button">
+                <ul class="reviews">
+                    <li th:each="review: ${controversialBook.reviews}" class="review">
+                        <article>
+                            <div class="review-user-and-date">
+                                <div>
+                                    <img alt="" loading="lazy"
+                                         th:src="${review.user.image == null} ? '/imgs/user.png' : ${review.user.image}">
+                                    <span th:text="${review.user.nickname}"></span>
+                                </div>
+                                <p th:text="' am ' + ${#temporals.format(review.date, 'dd. MMMM yyyy')} + ' veröffentlicht'"></p>
+                            </div>
+                            <div class="review-rating-and-text">
+                                <img alt="x von 5 Sternen" loading="lazy"
+                                     th:alt="${review.rating} + ' von 5 Sternen'"
+                                     th:src="'/imgs/SVG/rating-' + ${review.rating} + '.svg'">
+                                <div>
+                                    <h4 class="mb-2" th:text="${review.title}"></h4>
+                                </div>
+                            </div>
+                        </article>
+                    </li>
+                </ul>
+                <a th:href="'/book/' + ${controversialBook.id} + '/reviews'" class="button is-normal is-responsive">Mehr Rezensionen zum Buch</a>
+            </div>
+        </div>
+    </section>
+</main>
+<footer th:replace="fragments/footer.html :: footer"></footer>
+</body>
+</html>

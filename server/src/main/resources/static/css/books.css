@@ -1,12 +1,13 @@
 .loader {
     margin: 40px auto 40px auto;
-    border: 8px solid #f3f3f3;
-    border-radius: 50%;
-    border-top: 8px solid #555555;
+    border: 5px solid #dbdbdb;
+    border-right-color: transparent;
+    border-top-color: transparent;
+    border-radius: 100%;
     width: 60px;
     height: 60px;
-    -webkit-animation: spin 1.2s linear infinite; /* Safari */
-    animation: spin 1.2s linear infinite;
+    -webkit-animation: spin 0.7s linear infinite; /* Safari */
+    animation: spin 0.7s linear infinite;
 }
 
 /* Safari */
@@ -190,7 +191,8 @@ a.visually-hidden {
 
 @media all and (min-width: 500px) {
     main > form {
-        margin: 1.5rem 15% 0 15%;
+        margin: 1.5rem auto 0 auto;
+        max-width: 1100px;
     }
 
     #searchResults > .article-wrapper {

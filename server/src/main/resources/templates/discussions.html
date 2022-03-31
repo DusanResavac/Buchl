@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="de" xmlns:th="https://www.thymeleaf.org">
+<head>
+    <meta char set="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>[[${title}]] - Buchl</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css">
+    <link rel="stylesheet" href="../static/css/header.css" th:href="@{/css/header.css}">
+    <link rel="stylesheet" href="../static/css/book.css" th:href="@{/css/discussions.css}">
+</head>
+<body>
+<script type="application/javascript" src="../static/js/discussions.js" th:src="@{/js/discussions.js}"></script>
+<div th:replace="fragments/header.html :: header"></div>
+<div th:replace="fragments/header.html :: skipNavigation(id='#main')"></div>
+<div th:replace="fragments/header.html :: navigation(activeLink='discussions')"></div>
+<main aria-busy="true" id="main">
+    <div class="loader" aria-hidden="true" id="loadingCircle" aria-label="Lade Ergebnisse"></div>
+    <section>
+        <h2 class="is-size-4">Neue Diskussionen</h2>
+        <ul>
+            <li th:each="discussion: ${newDiscussions}">
+                <article>
+                    <div class="user-and-content">
+                        <div class="user-and-heading">
+                            <div class="user">
+                                <img th:src="${discussion.user.image == null} ? @{/imgs/user.png} : ${discussion.user.image}"
+                                     alt="">
+                                <span class="is-size-4-mobile is-size-6" th:text="${discussion.user.nickname}"></span>
+                            </div>
+                            <div class="article-heading">
+                                <h3 class="is-size-5 mt-3">
+                                    <a th:href="'/discussion/' + ${discussion.id}" th:text="${discussion.title}"></a>
+                                </h3>
+                            </div>
+                        </div>
+                        <div class="article-end">
+                            <div class="book-wrapper">
+                                <img loading="lazy"
+                                     th:if="${discussion.book != null}"
+                                     th:src="${discussion.book.imageLink == null} ? @{/imgs/image-preview.png} : '/imgs/' + ${discussion.book.imageLink}"
+                                     th:alt="${discussion.book.imageAlt == null} ? ${discussion.book.title} : ${discussion.book.imageAlt}">
+
+                                <h4 th:if="${discussion.book != null}"><a th:href="'/book/' + ${discussion.book.id}" th:text="${discussion.book.title}"></a></h4>
+                            </div>
+                            <a th:href="'/discussion/' + ${discussion.id}" th:text="${#arrays.length(discussion.comments)} + ' Antworten'"></a>
+                        </div>
+                    </div>
+                </article>
+            </li>
+        </ul>
+    </section>
+</main>
+<footer th:replace="fragments/footer.html :: footer"></footer>
+</body>
+</html>

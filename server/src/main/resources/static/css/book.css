@@ -1,0 +1,205 @@
+main {
+    display: flex;
+    flex-direction: column;
+    margin: 1.5rem 4% 0 4%;
+}
+
+main > aside {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: #f2f2f2;
+    padding: 15px 10px 15px 10px;
+    margin: 0;
+}
+
+main > aside > img {
+    max-width: 300px;
+    width: 100%;
+}
+
+.book-side {
+    display: flex;
+    flex-direction: column;
+}
+
+.book-tags {
+    display: flex;
+    flex-wrap: wrap;
+    margin: 20px 0 10px 0;
+}
+
+.book-tags > a {
+    border: 1px solid #485fc7;
+    border-radius: 20px;
+    padding: 5px 10px 5px 10px;
+    margin: 5px;
+}
+
+.book-info > p {
+    margin: 5px 0 5px 0;
+}
+
+.book-info > p > span {
+    white-space: nowrap;
+}
+
+.author-info {
+    margin-top: 15px;
+    display: flex;
+    align-items: center;
+}
+
+.author-info > img {
+    width: 50px;
+    height: 50px;
+    object-fit: cover;
+    border-radius: 100%;
+}
+
+.author-info > a {
+    margin-left:  15px;
+}
+
+.book-rating-and-favourite {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px 0 10px 0;
+}
+
+.book-rating-and-favourite > .rating {
+    display: flex;
+    align-items: center;
+    width: auto;
+}
+
+.book-rating-and-favourite > .rating > span {
+    font-size: 1em;
+    margin-right: 10px;
+}
+
+.book-rating-and-favourite > .rating > img {
+    min-width: 80px;
+}
+
+.book-rating-and-favourite > .favourite {
+    display: flex;
+    flex-grow: 1;
+    align-items: center;
+    justify-content: end;
+}
+
+.book-rating-and-favourite > .favourite > button {
+    margin-right: 10px;
+    white-space: nowrap;
+}
+
+.book-rating-and-favourite > .favourite > img {
+    height: 100%;
+    max-height: 50px;
+}
+
+.book-content > p {
+    margin-top: 10px;
+}
+
+.discussions > article > a:focus {
+    border: none;
+    outline: none;
+}
+
+.discussions > article > a:focus > div {
+    border: 2px dashed #485fc7;
+}
+
+.book-content > .discussions-wrapper {
+    margin-top: 15px;
+}
+
+.discussions-wrapper > h2 {
+    margin-bottom: 10px;
+}
+
+.discussions-wrapper .user {
+    display: flex;
+    align-items: center;
+}
+
+.discussions-wrapper .user > img {
+    border-radius: 50%;
+}
+
+.discussions-wrapper .user > span {
+    margin: 5px;
+}
+
+@media all and (min-width: 769px) {
+    main {
+        flex-direction: row;
+        margin: 1.5rem auto 0 auto;
+        max-width: 1100px;
+    }
+
+    main > aside {
+        padding: 25px 20px 25px 20px;
+        margin-right: 30px;
+        width: 30%;
+    }
+
+    main > section {
+        width: 70%;
+    }
+
+
+    .book-rating-and-favourite > .rating > span {
+        font-size: 1.2rem;
+    }
+
+    .book-rating-and-favourite > .rating > img {
+        min-width: 150px;
+    }
+
+    .book-content > p {
+        max-width: 600px;
+        font-size: 1.1rem;
+    }
+
+    .book-rating-and-favourite > .favourite > button {
+        margin-right: 10px;
+        white-space: initial;
+    }
+
+    .book-side {
+        max-width: 100%;
+        min-width: 200px;
+    }
+
+    .user-and-content {
+        display: flex;
+        padding: 10px;
+        background-color: #fafafa;
+    }
+
+    .user-and-content > .user {
+        flex-direction: column;
+        margin-right: 20px;
+        width: 110px;
+    }
+
+    .user-and-content > .article-content {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+    }
+
+    .user-and-content > .article-content > span {
+        align-self: end;
+    }
+
+    .discussions > p {
+        max-width: 600px;
+        font-size: 1.1rem;
+    }
+
+}

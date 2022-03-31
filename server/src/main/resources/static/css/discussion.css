@@ -1,0 +1,128 @@
+main {
+    display: flex;
+    flex-direction: column;
+    max-width: 1100px;
+    margin: 20px auto 20px auto;
+    padding: 10px;
+}
+
+h1 {
+    font-size: 1.5rem;
+    margin-bottom: 15px;
+}
+
+h2 {
+    font-size: 1.3rem;
+}
+
+h3 {
+    font-size: 1.1rem;
+    margin-bottom: 10px;
+}
+
+main > article > .discussion {
+    display: flex;
+    flex-direction: column;
+}
+
+main > p {
+    margin-bottom: 20px;
+}
+
+.discussion > .discussion-user {
+    display: flex;
+    align-items: center;
+}
+
+.discussion > .discussion-user > img {
+    width: 60px;
+    height: 60px;
+    object-fit: contain;
+    border-radius: 50%;
+    margin: 0 20px 0 0;
+}
+
+.discussion > .discussion-time-and-text > .discussion-text {
+    max-width: 600px;
+}
+
+.write-comment {
+    display: flex;
+    margin-bottom: 30px;
+}
+
+.write-comment > img {
+    width: 40px;
+    height: 40px;
+    object-fit: contain;
+    margin-right: 15px;
+    border-radius: 50%;
+}
+
+.write-comment > .comment-input-and-button {
+    display: flex;
+    flex-direction: column;
+    align-items: end;
+}
+
+.comment-input-and-button > div > textarea {
+    width: 100%;
+}
+
+.comment-input-and-button > button {
+    max-width: 170px;
+}
+
+li > .comment {
+    display: flex;
+    margin-bottom: 20px;
+}
+
+li > .comment > img {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    object-fit: contain;
+    margin: 3px 15px 0 3px;
+}
+
+li > .comment > div {
+    display: flex;
+    flex-direction: column;
+}
+
+.comment > div > .comment-info {
+    margin-bottom: 5px;
+}
+
+.comment > div > .comment-text {
+    max-width: 500px;
+}
+
+@media all and (min-width: 769px) {
+    main {
+        padding: 0;
+    }
+
+    main > article > .discussion {
+        flex-direction: row;
+    }
+
+    .discussion > .discussion-user {
+        flex-direction: column;
+        align-items: center;
+        margin-right: 20px;
+    }
+
+    .discussion > .discussion-user > img {
+        margin: 0 0 10px 0;
+    }
+
+    .write-comment > .comment-input-and-button {
+        flex-direction: row;
+    }
+
+    .comment-input-and-button > button {
+        margin-left: 15px;
+    }
+}

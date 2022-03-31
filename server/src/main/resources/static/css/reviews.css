@@ -1,0 +1,157 @@
+h2 {
+    font-size: 1.8rem;
+    margin-bottom: 10px;
+}
+
+h3 {
+    font-size: 1.2rem;
+    margin-bottom: 10px;
+}
+
+h4 {
+    font-size: 1.15rem;
+}
+
+main {
+    display: block;
+    margin: 1.5rem 4% 0 4%;
+}
+
+main > section {
+    margin-bottom: 30px;
+}
+
+.book {
+    display: flex;
+    flex-direction: column;
+}
+
+.book > article {
+    flex: 1 1 0%;
+    display: flex;
+    margin-bottom: 20px;
+}
+
+.book > article > img {
+    width: 100px;
+    object-fit: contain;
+    margin-right: 20px;
+}
+
+.book-title-and-author {
+    flex: 1 1 0%;
+}
+
+.book-title-and-author > .author-info {
+    display: flex;
+    align-items: center;
+}
+
+.author-info > img {
+    width: 50px;
+    height: 50px;
+    object-fit: cover;
+    border-radius: 50%;
+    margin-right: 12px;
+}
+
+.book-average-rating {
+    display: flex;
+    align-items: center;
+}
+
+.book-average-rating > span {
+    margin-right: 12px;
+    font-size: 1.05rem;
+    white-space: nowrap;
+}
+
+.book-average-rating > img {
+    width: 100%;
+    max-width: 200px;
+}
+
+.book > .reviews-and-button {
+    flex: 1 1 0%;
+}
+
+.reviews-and-button > ul > li {
+    margin-bottom: 20px;
+}
+
+.review-user-and-date {
+    display: flex;
+    flex-direction: column;
+}
+
+.review-user-and-date > div {
+    display: flex;
+    align-items: center;
+}
+
+.review-user-and-date > div > img {
+    width: 35px;
+    height: 35px;
+    border-radius: 50%;
+    margin-right: 15px;
+}
+
+.review-user-and-date > div > span{
+    margin-right: 15px;
+}
+
+.review-rating-and-text {
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+    max-width: 600px;
+}
+
+.review-rating-and-text > img {
+     width: 100%;
+     max-width: 100px;
+ }
+
+.review-rating-and-text > img {
+    margin-right: 15px;
+    width: 100px;
+    max-width: 100px;
+}
+
+
+@media all and (min-width: 769px) {
+    main {
+        margin: 1.5rem auto 0 auto;
+        max-width: 1100px;
+    }
+
+    .book > article {
+        margin-bottom: 0px;
+    }
+
+    .book > article > img {
+        width: 200px;
+    }
+
+    .review-user-and-date {
+        align-items: center;
+        flex-direction: row;
+    }
+
+    .review-rating-and-text {
+        flex-direction: row;
+    }
+}
+
+@media all and (min-width: 1216px) {
+    .book {
+        flex-direction: row;
+        align-items: start;
+    }
+
+    .book > article {
+        padding-right: 25px;
+        margin-right: 25px;
+        border-right: 1px solid #dddddd;
+    }
+}
