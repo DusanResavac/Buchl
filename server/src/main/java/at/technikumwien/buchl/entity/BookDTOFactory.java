@@ -21,7 +21,7 @@ public class BookDTOFactory {
         bookDTO.setImageLink(book.getImageLink());
         bookDTO.setImageAlt(book.getImageAlt());
         if (book.getStars() != null && book.getNumberOfReviews() != null && book.getNumberOfReviews() != 0) {
-            bookDTO.setAverageRating((double) Math.round((double) book.getStars() / (double) book.getNumberOfReviews()));
+            bookDTO.setAverageRating((double) (Math.round(((double) book.getStars() / (double) book.getNumberOfReviews())*10)) / 10);
         }
         return bookDTO;
     }

@@ -65,8 +65,15 @@ main > p {
     align-items: end;
 }
 
+.comment-input-and-button > div {
+    display: flex;
+    flex-direction: column;
+}
+
 .comment-input-and-button > div > textarea {
     width: 100%;
+    padding: 10px;
+
 }
 
 .comment-input-and-button > button {

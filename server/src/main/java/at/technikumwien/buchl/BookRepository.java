@@ -61,6 +61,13 @@ public interface BookRepository extends JpaRepository<Book, Long> {
             nativeQuery = true)
     List<Book> findTop3Favourites();
 
+    @Query(value = "select b.* from book b " +
+            "where b.id != :id and b.stars is not null " +
+            "order by rand() " +
+            "limit :records",
+            nativeQuery = true)
+    List<Book> findRecommendations(@Param("records") Integer records, @Param("id") Long id);
+
     Book findFirstByTitleIgnoreCase(String title);
 
     Book findFirstByTitleContainingIgnoreCase(String title);

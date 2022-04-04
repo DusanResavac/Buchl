@@ -20,6 +20,7 @@
         <div th:replace="book.html :: authorInfo"></div>
         <div class="book-content">
             <div th:replace="book.html :: bookRatingAndFavourite"></div>
+            <a th:href="'/book/' + ${book.id}">Zur Buchseite wechseln</a>
             <div role="region" aria-label="Rezensionen und Bewertungstexte">
                 <p th:if="${#arrays.length(book.reviews) <= 0}">Es sind keine Bewertungstexte vorhanden</p>
                 <ul th:if="${#arrays.length(book.reviews) > 0}">
@@ -35,8 +36,8 @@
                                 <p th:text="' am ' + ${#temporals.format(review.date, 'dd. MMMM yyyy')} + ' veröffentlicht'"></p>
                             </div>
                             <div class="review-rating-and-text">
-                                <img alt="x von 5 Sternen" loading="lazy"
-                                     th:alt="${review.rating} + ' von 5 Sternen'"
+                                <img alt="x von 5 Sterne" loading="lazy"
+                                     th:alt="${review.rating} + ' von 5 Sterne'"
                                      th:src="'/imgs/SVG/rating-' + ${review.rating} + '.svg'">
                                 <div>
                                     <h2 class="mb-2 is-size-5" th:text="${review.title}"></h2>

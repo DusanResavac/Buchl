@@ -36,7 +36,7 @@
                               th:text="'Ø ' + ${popularBook.averageRating}"></span>
                         <img th:if="${popularBook.averageRating != null}"
                              th:src="'/imgs/SVG/rating-' + ${#numbers.formatDecimal(popularBook.averageRating, 0, 0)} + '.svg'"
-                             th:alt="${#numbers.formatDecimal(popularBook.averageRating, 0, 0)} + ' von 5 Sternen'">
+                             th:alt="${#numbers.formatDecimal(popularBook.averageRating, 0, 0)} + ' von 5 Sterne'">
                         <span th:if="${popularBook.averageRating == null}">Keine Bewertungen</span>
                     </div>
                 </div>
@@ -54,8 +54,8 @@
                                 <p th:text="' am ' + ${#temporals.format(review.date, 'dd. MMMM yyyy')} + ' veröffentlicht'"></p>
                             </div>
                             <div class="review-rating-and-text">
-                                <img alt="x von 5 Sternen" loading="lazy"
-                                     th:alt="${review.rating} + ' von 5 Sternen'"
+                                <img alt="x von 5 Sterne" loading="lazy"
+                                     th:alt="${review.rating} + ' von 5 Sterne'"
                                      th:src="'/imgs/SVG/rating-' + ${review.rating} + '.svg'">
                                 <div>
                                     <h4 class="mb-2" th:text="${review.title}"></h4>
@@ -91,7 +91,7 @@
                               th:text="'Ø ' + ${controversialBook.averageRating}"></span>
                         <img th:if="${controversialBook.averageRating != null}"
                              th:src="'/imgs/SVG/rating-' + ${#numbers.formatDecimal(controversialBook.averageRating, 0, 0)} + '.svg'"
-                             th:alt="${#numbers.formatDecimal(controversialBook.averageRating, 0, 0)} + ' von 5 Sternen'">
+                             th:alt="${#numbers.formatDecimal(controversialBook.averageRating, 0, 0)} + ' von 5 Sterne'">
                         <span th:if="${controversialBook.averageRating == null}">Keine Bewertungen</span>
                     </div>
                 </div>
@@ -109,8 +109,8 @@
                                 <p th:text="' am ' + ${#temporals.format(review.date, 'dd. MMMM yyyy')} + ' veröffentlicht'"></p>
                             </div>
                             <div class="review-rating-and-text">
-                                <img alt="x von 5 Sternen" loading="lazy"
-                                     th:alt="${review.rating} + ' von 5 Sternen'"
+                                <img alt="x von 5 Sterne" loading="lazy"
+                                     th:alt="${review.rating} + ' von 5 Sterne'"
                                      th:src="'/imgs/SVG/rating-' + ${review.rating} + '.svg'">
                                 <div>
                                     <h4 class="mb-2" th:text="${review.title}"></h4>

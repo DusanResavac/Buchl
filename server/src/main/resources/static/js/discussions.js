@@ -9,17 +9,13 @@ function init() {
     loadingCircle.setAttribute('aria-hidden', 'false');
     loadingCircle.classList.remove('visually-hidden');
 
-    localStorage.setItem('bookFavourites', JSON.stringify([1,2,3]));
+    //localStorage.setItem('bookFavourites', JSON.stringify([1,2,3]));
     let httpRequest = new XMLHttpRequest(),
         bookFavouritesLS = localStorage.getItem('bookFavourites');
-
-
+    
     httpRequest.open('POST', url, true);
     httpRequest.setRequestHeader('Content-type', 'application/json');
     httpRequest.onreadystatechange = function () {
-        if (httpRequest.readyState === 4) {
-            console.log(httpRequest.response);
-        }
         if (httpRequest.readyState === 4 && httpRequest.status === 200) {
             let bookDiscussions = JSON.parse(httpRequest.response);
 

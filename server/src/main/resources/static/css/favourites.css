@@ -1,0 +1,59 @@
+h1 {
+    font-size: 1.5rem;
+    margin-bottom: 15px;
+}
+
+h2 {
+    font-size: 1.3rem;
+    margin-bottom: 15px;
+}
+
+h3 {
+    font-size: 1.1rem;
+    margin-bottom: 10px;
+}
+
+main {
+    display: block;
+    margin: 1.5rem 4% 0 4%;
+}
+
+#allFavourites {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+#allFavourites > article {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    position: relative;
+    width: 250px;
+    margin: 0 30px 30px 0;
+}
+
+#allFavourites > article > button {
+    padding: 0;
+    background: none;
+    border: none;
+    cursor: pointer;
+    position: absolute;
+    right: 0;
+}
+
+#allFavourites > article > img {
+    object-fit: contain;
+    height: 200px;
+    margin: 0 40px 20px 40px;
+}
+
+#allFavourites > article > h2 {
+    text-align: center;
+}
+
+@media all and (min-width: 769px) {
+    main {
+        margin: 1.5rem auto 0 auto;
+        max-width: 1100px;
+    }
+}

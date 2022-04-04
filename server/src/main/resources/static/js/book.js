@@ -9,7 +9,7 @@ function init() {
     const favourites = localStorage.getItem('bookFavourites') === null ? [] : JSON.parse(localStorage.getItem('bookFavourites'));
     const index = favourites.indexOf(id);
 
-    if (index > 0) {
+    if (index >= 0) {
         favouriteButton.innerText = "Favorit entfernen";
     }
 
@@ -22,7 +22,7 @@ function addOrRemoveFromFavourites(id) {
     const favourites = localStorage.getItem('bookFavourites') === null ? [] : JSON.parse(localStorage.getItem('bookFavourites'));
     const index = favourites.indexOf(id);
 
-    if (index > 0) {
+    if (index >= 0) {
         favourites.splice(index, 1);
         favouriteButton.innerText = "Als Favorit hinzufügen";
     } else {

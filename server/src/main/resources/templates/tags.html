@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="de" xmlns:th="https://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>[[${title}]] - Buchl</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css">
+    <link rel="stylesheet" href="../static/css/header.css" th:href="@{/css/header.css}">
+    <link rel="stylesheet" href="../static/css/tags.css" th:href="@{/css/tags.css}">
+</head>
+<body>
+<div th:replace="fragments/header.html :: header"></div>
+<div th:replace="fragments/header.html :: skipNavigation(id='#main')"></div>
+<div th:replace="fragments/header.html :: navigation(activeLink='tags')"></div>
+<main id="main" aria-busy="true">
+    <h1>Nach Genre und Themen filtern</h1>
+    <div>
+        <section class="genre" th:each="rootTag: ${rootTagDTOs}">
+            <h2 th:text="${rootTag.name}"></h2>
+            <ul>
+                <li th:each="tag: ${rootTag.tags}">
+                    <a th:href="'/books?tag=' + ${tag.id}" th:text="${tag.name}"></a>
+                </li>
+            </ul>
+        </section>
+    </div>
+</main>
+<footer th:replace="fragments/footer.html :: footer"></footer>
+</body>
+</html>

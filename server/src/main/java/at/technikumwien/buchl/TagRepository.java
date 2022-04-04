@@ -8,6 +8,7 @@ import java.util.List;
 
 @Repository
 public interface TagRepository extends JpaRepository<Tag, Long> {
+    List<Tag> findAllByParentId(Long id);
     List<Tag> findAllByParentIsNotNull ();
     List<Tag> findAllByParentIsNull ();
     Tag findFirstByNameIgnoreCase(String name);

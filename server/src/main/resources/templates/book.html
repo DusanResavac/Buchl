@@ -16,11 +16,11 @@
 <main id="main">
     <aside th:fragment="asideBookInfo" role="region" aria-label="Nebensächliche Buchinformationen">
         <img loading="lazy"
-             th:src="${book.imageLink == null} ? @{/imgs/image-preview.png} : @{/imgs/} + ${book.imageLink}"
+             th:src="${book.imageLink == null} ? '/imgs/image-preview.png' : '/imgs/' + ${book.imageLink}"
              alt="" th:alt="${book.imageAlt == null} ? ${book.title} : ${book.imageAlt}">
         <div class="book-side">
             <div class="book-tags">
-                <a th:each="tag: ${book.tags}" th:href="'/tag/' + ${tag.id}"
+                <a th:each="tag: ${book.tags}" th:href="'/books?tag=' + ${tag.id}"
                    th:text="${tag.parent.name == 'Lesealter'} ? 'Lesealter ' + ${tag.name} : ${tag.name}"></a>
             </div>
             <div class="book-info">
@@ -35,7 +35,7 @@
         <h1 th:fragment="bookTitle" class="is-size-4 is-size-3-desktop"
             th:text="${book.title} + ' - ' + ${#temporals.format(book.releaseDate, 'yyyy')}"></h1>
         <div class="author-info"  th:fragment="authorInfo">
-            <img th:src="${book.author.imageLink == null} ? @{/imgs/user.png} : '/imgs/' + ${book.author.imageLink}"
+            <img th:src="${book.author.imageLink == null} ? '/imgs/user.png' : '/imgs/' + ${book.author.imageLink}"
                  th:alt="${book.author.imageAlt == null} ? '' : ${book.author.imageAlt}">
             <a th:href="'/books?author=' + ${book.author.id}"
                th:text="${book.author.firstName} + ' ' + ${book.author.lastName}"></a>
@@ -46,7 +46,7 @@
                     <span th:if="${book.averageRating != null}" th:text="${book.averageRating}"></span>
                     <img th:if="${book.averageRating != null}"
                          th:src="'/imgs/SVG/rating-' + ${#numbers.formatDecimal(book.averageRating, 0, 0)} + '.svg'"
-                        th:alt="${#numbers.formatDecimal(book.averageRating, 0, 0)} + ' von 5 Sternen'">
+                        th:alt="${#numbers.formatDecimal(book.averageRating, 0, 0)} + ' von 5 Sterne'">
                     <span th:if="${book.averageRating == null}">Keine Bewertungen</span>
                 </a>
                 <div class="favourite">

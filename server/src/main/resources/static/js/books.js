@@ -96,8 +96,8 @@ function init() {
                     if (book.averageRating === null) {
                         imgRating.innerText = 'Noch nicht erschienen';
                     } else {
-                        imgRating.setAttribute('src', staticUrl + 'SVG/rating-' + book.averageRating + '.svg');
-                        imgRating.setAttribute('alt', book.averageRating + " von 5 Sternen");
+                        imgRating.setAttribute('src', staticUrl + 'SVG/rating-' + Math.round(book.averageRating) + '.svg');
+                        imgRating.setAttribute('alt', book.averageRating + " von 5 Sterne");
                     }
                     if (book.author === null) {
                         pAuthorName.innerText = "Unbekannt";

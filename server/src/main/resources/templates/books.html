@@ -25,11 +25,12 @@
                         <!--<optgroup th:each="tag: ${tags.?[parent == null]}" th:label="${tag.name}" label="Gruppe">
                                 <option></option>
                             </optgroup>-->
-                        <option value="" selected>Kein Thema</option>
+                        <option value="">Kein Thema</option>
                         <optgroup th:each="parentTag: ${parentTags}" th:label="${parentTag.name}" label="Gruppe">
                             <option th:each="tag: ${tags}"
                                     th:if="${tag.parent.id == parentTag.id}"
-                                    th:text="${tag.name}" th:value="${tag.id}"></option>
+                                    th:text="${tag.name}" th:value="${tag.id}"
+                                    th:selected="${tagId != null && tagId == tag.id}"></option>
                         </optgroup>
                     </select>
                 </div>
@@ -41,7 +42,8 @@
                         <option value="" selected>Keine Mindestbewertung</option>
                         <option th:each="star: ${stars}"
                                 th:text="${star} == 1 ? '1 Stern' : ${star} + ' Sterne'"
-                                th:value="${star}"></option>
+                                th:value="${star}"
+                                th:selected="${rating != null && rating == star}"></option>
                     </select>
                 </div>
             </div>
@@ -52,7 +54,8 @@
                         <option value="" selected>Kein(e) bestimmte(r) Autor(in)</option>
                         <option th:each="author: ${authors}"
                                 th:text="${author.firstName} + ' ' + ${author.lastName}"
-                                th:value="${author.id}"></option>
+                                th:value="${author.id}"
+                                th:selected="${authorId != null && authorId == author.id}"></option>
                     </select>
                 </div>
             </div>
@@ -66,7 +69,8 @@
                                    aria-label="Erscheinungsjahr ab"
                                    class="input form-data"
                                    th:type="number" type="number"
-                                   min="1900" max="2022" name="releaseYearFrom">
+                                   min="1900" max="2022" name="releaseYearFrom"
+                                   th:value="${releaseYearFrom != null}?${releaseYearFrom}">
                         </div>
                     </div>
                     <div>
@@ -76,7 +80,8 @@
                                    aria-label="Erscheinungsjahr bis"
                                    class="input form-data"
                                    th:type="number" type="number"
-                                   min="1900" max="2022" name="releaseYearUntil">
+                                   min="1900" max="2022" name="releaseYearUntil"
+                                   th:value="${releaseYearUntil != null}?${releaseYearUntil}">
                         </div>
                     </div>
                 </div>
@@ -89,7 +94,8 @@
                                class="input form-data"
                                id="search"
                                placeholder="Nach Buchtitel, ISBN oder der Buchbeschreibung suchen ..."
-                               name="q">
+                               name="q"
+                               th:value="${search != null && !#strings.isEmpty(search)}?${search}">
                     </div>
                 </div>
                 <div class="control">
@@ -100,9 +106,43 @@
     </form>
     <section>
         <h2 class="is-size-4">Suchergebnisse</h2>
-        <div id="searchResults" role="region" aria-label="Suchergebnisse" aria-busy="false" aria-live="polite" aria-atomic="true">
-            <div class="visually-hidden loader" aria-hidden="true" id="loadingCircle" aria-label="Lade Ergebnisse" aria-busy="true"></div>
-            <p id="noSearchResults">Es sind keine Suchergebnisse vorhanden.</p>
+        <div id="searchResults" role="region" aria-label="Suchergebnisse" aria-busy="false" aria-live="polite"
+             aria-atomic="true">
+            <div class="visually-hidden loader" aria-hidden="true" id="loadingCircle" aria-label="Lade Ergebnisse"
+                 aria-busy="true"></div>
+            <p th:class="${hasSearchResults}?'visually-hidden'"  id="noSearchResults">Es sind keine Suchergebnisse vorhanden.</p>
+            <ul th:if="${booksByQueryParams != null}" class="article-wrapper">
+                <li th:each="book: ${booksByQueryParams}">
+                    <article class="book-overview">
+                        <a th:href="'/book/' + ${book.id}">
+                            <div class="article-link-wrapper">
+                                <img th:src="${book.imageLink == null} ?
+                                            '/imgs/image-preview.png' :
+                                            '/imgs/' + ${book.imageLink}"
+                                    loading="lazy"
+                                    th:alt="${book.imageAlt == null} ?
+                                           ${book.title} :
+                                           ${book.imageAlt}">
+                                <div class="article-content">
+                                    <h3 th:text="${book.title}"></h3>
+                                    <div class="article-footer">
+                                        <p th:text="${#temporals.year(book.releaseDate)}">
+                                        <img loading="lazy"
+                                             th:if="${book.averageRating != null}"
+                                             th:src="'/imgs/SVG/rating-' + ${#numbers.formatDecimal(book.averageRating, 0, 0)} + '.svg'"
+                                             th:alt="${#numbers.formatDecimal(book.averageRating, 0, 0)} + ' von 5 Sterne'">
+                                        <p th:if="${book.averageRating == null}">Noch nicht erschienen</p>
+                                        <p th:if="${book.author != null}"
+                                           th:text="${book.author.lastName == null || #strings.isEmpty(book.author.lastName)} ?
+                                                    ${book.author.firstName} :
+                                                    ${book.author.lastName}"></p>
+                                    </div>
+                                </div>
+                            </div>
+                        </a>
+                    </article>
+                </li>
+            </ul>
         </div>
     </section>
 </main>

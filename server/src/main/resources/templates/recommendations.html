@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="de" xmlns:th="https://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>[[${title}]] - Buchl</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css">
+    <link rel="stylesheet" href="../static/css/header.css" th:href="@{/css/header.css}">
+    <link rel="stylesheet" href="../static/css/recommendations.css" th:href="@{/css/recommendations.css}">
+</head>
+<body>
+<script type="application/javascript" src="/js/recommendations.js"></script>
+<div th:replace="fragments/header.html :: header"></div>
+<div th:replace="fragments/header.html :: skipNavigation(id='#main')"></div>
+<div th:replace="fragments/header.html :: navigation(activeLink='recommendations')"></div>
+<main id="main" aria-busy="true">
+    <h1>Deine personalisierten Vorschläge</h1>
+    <section id="recommendations">
+
+    </section>
+</main>
+<footer th:replace="fragments/footer.html :: footer"></footer>
+</body>
+</html>

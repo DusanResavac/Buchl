@@ -581,7 +581,7 @@ public class DBInitializer {
                                 "Ja, unbedingt! Es ist gut lesbar, man schaut in tief in die menschliche Seele hinein, es ist ein Lesegenuss!",
                         LocalDate.of(2017, 4, 27),
                         24,
-                        1,
+                        5,
                         bookRepository.findFirstByTitleContainingIgnoreCase("Der Steppenwolf"),
                         users.get(7)),
                 new Review("Eine lange Lesereise",

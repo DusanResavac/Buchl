@@ -6,11 +6,9 @@ import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.Comparator;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 @RestController
 public class BookResource {
@@ -26,29 +24,29 @@ public class BookResource {
 
     @GetMapping("/books/search")
     public List<BookDTO> retrieveBooks(
-            @RequestParam("tag") Optional<Long> tag,
-            @RequestParam("rating") Optional<Long> rating,
-            @RequestParam("author") Optional<Long> author,
-            @RequestParam("releaseYearFrom") Optional<Long> releaseYearFrom,
-            @RequestParam("releaseYearUntil") Optional<Long> releaseYearUntil,
-            @RequestParam("q") Optional<String> search) {
+            @RequestParam(value = "tag", required = false) Long tag,
+            @RequestParam(value = "rating", required = false) Long rating,
+            @RequestParam(value = "author", required = false) Long author,
+            @RequestParam(value = "releaseYearFrom", required = false) Long releaseYearFrom,
+            @RequestParam(value = "releaseYearUntil", required = false) Long releaseYearUntil,
+            @RequestParam(value = "q", required = false) String search) {
 
         //var b = bookRepository.findAllByFilters(tag.get(), rating.get());
         List<Book> books = bookRepository.findAll();
         List<BookDTO> bookDTOs = books.stream()
-                .filter(b -> tag.isEmpty() || listOfTagsContainsTagId(b.getTags(), tag.get()))
-                .filter(b -> rating.isEmpty() ||
+                .filter(b -> tag == null || listOfTagsContainsTagId(b.getTags(), tag))
+                .filter(b -> rating == null ||
                         (b.getStars() != null &&
                                 b.getNumberOfReviews() != null &&
                                 b.getNumberOfReviews() != 0 &&
-                                rating.get() <= b.getStars() / b.getNumberOfReviews()))
-                .filter(b -> author.isEmpty() || b.getAuthor().getId().equals(author.get()))
-                .filter(b -> releaseYearFrom.isEmpty() || b.getReleaseDate().isAfter(LocalDate.of((int) (releaseYearFrom.get() - 1), 12, 31)))
-                .filter(b -> releaseYearUntil.isEmpty() || b.getReleaseDate().isBefore(LocalDate.of((int) (releaseYearUntil.get() + 1), 1, 1)))
-                .filter(b -> search.isEmpty() ||
-                        b.getTitle().contains(search.get()) ||
-                        b.getDescription().contains(search.get()) ||
-                        b.getIsbn().contains(search.get()))
+                                rating <= Math.round((float) b.getStars() / b.getNumberOfReviews())))
+                .filter(b -> author == null || b.getAuthor().getId().equals(author))
+                .filter(b -> releaseYearFrom == null || b.getReleaseDate().isAfter(LocalDate.of((int) (releaseYearFrom - 1), 12, 31)))
+                .filter(b -> releaseYearUntil == null || b.getReleaseDate().isBefore(LocalDate.of((int) (releaseYearUntil + 1), 1, 1)))
+                .filter(b -> search == null ||
+                        b.getTitle().contains(search) ||
+                        b.getDescription().contains(search) ||
+                        b.getIsbn().contains(search))
                 .map(b -> bookDTOFactory.createForBookOverview(b))
                 .collect(Collectors.toList());
 
@@ -63,6 +61,43 @@ public class BookResource {
         }
 
         return bookDTOFactory.createForBookDetails(b.get());
+    }
+
+    @GetMapping("/recommendation/{id}")
+    public List<BookDTO> getRecommendationForBook (@PathVariable Long id) {
+
+        List<Book> books = bookRepository.findRecommendations((int) (Math.random() * 4), id);
+        List<BookDTO> bookDTOs = new ArrayList<>();
+
+        books.forEach(b -> bookDTOs.add(bookDTOFactory.createForBookOverview(b)));
+
+        return bookDTOs;
+    }
+
+    @PostMapping("/recommendations")
+    public List<RecommendationDTO> getRecommendationsForBooks (@RequestBody List<Long> ids) {
+
+        List<RecommendationDTO> listOfRecommendations = new ArrayList<>();
+
+        for (Long id: ids) {
+            Optional<Book> book = bookRepository.findById(id);
+            List<Book> recommendedBooks = bookRepository.findRecommendations((int) (Math.random() * 3) + 1, id);
+            List<BookDTO> recommendedBookDTOs = new ArrayList<>();
+            recommendedBooks.forEach(b -> recommendedBookDTOs.add(bookDTOFactory.createForBookOverview(b)));
+
+            listOfRecommendations.add(new RecommendationDTO(id, book.map(Book::getTitle).orElse(null), recommendedBookDTOs));
+        }
+
+        return listOfRecommendations;
+    }
+
+    @PostMapping("/books-short")
+    public List<BookDTO> getShortBookInfosByIds (@RequestBody List<Long> ids) {
+        List<Book> books = bookRepository.findAllById(ids);
+
+        return books.stream()
+                .map(b -> bookDTOFactory.createForBookOverview(b))
+                .collect(Collectors.toList());
     }
 
     @GetMapping("/reviews/popular")
@@ -127,5 +162,4 @@ public class BookResource {
         }
         return false;
     }
-
 }
