@@ -107,10 +107,6 @@ li > .comment > div {
 }
 
 @media all and (min-width: 769px) {
-    main {
-        padding: 0;
-    }
-
     main > article > .discussion {
         flex-direction: row;
     }
@@ -131,5 +127,11 @@ li > .comment > div {
 
     .comment-input-and-button > button {
         margin-left: 15px;
+    }
+}
+
+@media all and (min-width: 1150px) {
+    main {
+        padding: 0;
     }
 }

@@ -103,13 +103,9 @@ main > aside > img {
     margin-top: 10px;
 }
 
-.discussions > article > a:focus {
-    border: none;
+a:focus {
     outline: none;
-}
-
-.discussions > article > a:focus > div {
-    border: 2px dashed #485fc7;
+    border: 2px dashed #485fc7 !important;
 }
 
 .book-content > .discussions-wrapper {
@@ -150,6 +146,14 @@ main > aside > img {
         width: 70%;
     }
 
+    h1 {
+        color: #232323;
+    }
+
+    h1 .subtitle {
+        font-size: 1.7rem;
+        color: #565959;
+    }
 
     .book-rating-and-favourite > .rating > span {
         font-size: 1.2rem;
@@ -193,7 +197,7 @@ main > aside > img {
         justify-content: space-between;
     }
 
-    .user-and-content > .article-content > span {
+    .user-and-content > .article-content > .commentQuantity {
         align-self: end;
     }
 

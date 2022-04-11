@@ -1,8 +1,5 @@
 package at.technikumwien.buchl.entity;
 
-import com.fasterxml.jackson.annotation.JsonIdentityInfo;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
-import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -10,9 +7,6 @@ import lombok.NoArgsConstructor;
 import javax.persistence.*;
 import java.util.List;
 
-@JsonIdentityInfo(
-        generator = ObjectIdGenerators.PropertyGenerator.class,
-        property = "id")
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
@@ -38,17 +32,12 @@ public class User {
     @Column(columnDefinition = "TEXT")
     private String image;
 
-    @JsonManagedReference
     @OneToMany(mappedBy = "user", cascade = CascadeType.MERGE)
     private List<Discussion> discussions;
 
-    @JsonManagedReference
     @OneToMany(mappedBy = "user", cascade = CascadeType.MERGE)
     private List<Comment> comments;
 
-    @JsonManagedReference
     @OneToMany(mappedBy = "user", cascade = CascadeType.MERGE)
     private List<Review> reviews;
-
-
 }

@@ -1,16 +1,11 @@
 package at.technikumwien.buchl.entity;
 
-import com.fasterxml.jackson.annotation.JsonIdentityInfo;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import lombok.*;
 
 import javax.persistence.*;
 import java.util.List;
 
-@JsonIdentityInfo(
-        generator = ObjectIdGenerators.PropertyGenerator.class,
-        property = "id")
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
@@ -43,7 +38,6 @@ public class Author {
     @Column
     private String imageAlt;
 
-    @JsonManagedReference
     @OneToMany(mappedBy = "author", cascade = CascadeType.MERGE)
     private List<Book> books;
 }

@@ -32,8 +32,9 @@
         </div>
     </aside>
     <section role="region" aria-label="Buchinformationen">
-        <h1 th:fragment="bookTitle" class="is-size-4 is-size-3-desktop"
-            th:text="${book.title} + ' - ' + ${#temporals.format(book.releaseDate, 'yyyy')}"></h1>
+        <h1 th:fragment="bookTitle" class="is-size-4 is-size-3-desktop">
+            <span th:text="${book.title}"></span><span class="subtitle"> - [[${#temporals.format(book.releaseDate, 'dd. MMM yyyy')}]]</span>
+        </h1>
         <div class="author-info"  th:fragment="authorInfo">
             <img th:src="${book.author.imageLink == null} ? '/imgs/user.png' : '/imgs/' + ${book.author.imageLink}"
                  th:alt="${book.author.imageAlt == null} ? '' : ${book.author.imageAlt}">
@@ -46,7 +47,7 @@
                     <span th:if="${book.averageRating != null}" th:text="${book.averageRating}"></span>
                     <img th:if="${book.averageRating != null}"
                          th:src="'/imgs/SVG/rating-' + ${#numbers.formatDecimal(book.averageRating, 0, 0)} + '.svg'"
-                        th:alt="${#numbers.formatDecimal(book.averageRating, 0, 0)} + ' von 5 Sterne'">
+                         th:alt="${#numbers.formatDecimal(book.averageRating, 0, 0)} + ' von 5 Sterne'">
                     <span th:if="${book.averageRating == null}">Keine Bewertungen</span>
                 </a>
                 <div class="favourite">
@@ -60,19 +61,21 @@
                 <div class="discussions">
                     <p th:if="${#arrays.length(book.discussions) <= 0}">Keine Diskussionen vorhanden</p>
                     <article th:each="discussion: ${book.discussions}">
-                        <a th:href="'/discussion/' + ${discussion.id}">
-                            <div class="user-and-content">
-                                <div class="user">
-                                    <img th:src="${discussion.user.image == null} ? @{/imgs/user.png} : ${discussion.user.image}"
-                                         alt="">
-                                    <span class="is-size-4-mobile is-size-6" th:text="${discussion.user.nickname}"></span>
-                                </div>
-                                <div class="article-content">
-                                    <h3 class="is-size-5-mobile is-size-6-tablet is-size-4" th:text="${discussion.title}"></h3>
-                                    <span th:text="${#arrays.length(discussion.comments)} + ' Antworten'"></span>
-                                </div>
+                        <div class="user-and-content">
+                            <div class="user">
+                                <img th:src="${discussion.user.image == null} ? @{/imgs/user.png} : ${discussion.user.image}"
+                                     alt="">
+                                <span class="is-size-4-mobile is-size-6" th:text="${discussion.user.nickname}"></span>
                             </div>
-                        </a>
+                            <div class="article-content">
+                                <h3 class="is-size-5-mobile is-size-6-tablet is-size-4">
+                                    <a th:href="'/discussion/' + ${discussion.id}" th:text="${discussion.title}"></a>
+                                </h3>
+                                <a class="commentQuantity"
+                                   th:href="'/discussion/' + ${discussion.id}"
+                                   th:text="${#arrays.length(discussion.comments)} + ' Antworten'"></a>
+                            </div>
+                        </div>
                     </article>
                 </div>
             </div>

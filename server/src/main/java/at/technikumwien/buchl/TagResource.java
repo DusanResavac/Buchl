@@ -2,6 +2,7 @@ package at.technikumwien.buchl;
 
 import at.technikumwien.buchl.entity.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
@@ -11,11 +12,13 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
+@CrossOrigin(origins = {"*"})
 @RestController
 public class TagResource {
     @Autowired
     private TagRepository tagRepository;
 
+    @CrossOrigin(origins = {"*"})
     @GetMapping("/api/tags")
     public List<RootTagDTO> retrieveRootTags () {
         List<Tag> rootTags = tagRepository.findAllByParentIsNull();

@@ -31,7 +31,7 @@ function init() {
         submitButton.setAttribute('disabled', '');
         submitButton.setAttribute('aria-busy', 'true');
         const searchResults = document.getElementById('searchResults'),
-            baseUrl = '/books/search';
+            baseUrl = '/api/books/search';
         let url = baseUrl + '?';
 
         searchResults.setAttribute('aria-busy', 'true');

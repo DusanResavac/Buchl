@@ -1,0 +1,30 @@
+.loader {
+    margin: 40px auto 40px auto;
+    border: 5px solid #dbdbdb;
+    border-right-color: transparent;
+    border-top-color: transparent;
+    border-radius: 100%;
+    width: 60px;
+    height: 60px;
+    -webkit-animation: spin 0.7s linear infinite; /* Safari */
+    animation: spin 0.7s linear infinite;
+}
+
+/* Safari */
+@-webkit-keyframes spin {
+    0% {
+        -webkit-transform: rotate(0deg);
+    }
+    100% {
+        -webkit-transform: rotate(360deg);
+    }
+}
+
+@keyframes spin {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+}

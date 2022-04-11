@@ -4,7 +4,7 @@ const staticUrl = '../imgs/';
 
 function init() {
     const loadingCircle = document.getElementById('loadingCircle'),
-        url = '/books/with-discussions';
+        url = '/api/books/with-discussions';
 
     loadingCircle.setAttribute('aria-hidden', 'false');
     loadingCircle.classList.remove('visually-hidden');

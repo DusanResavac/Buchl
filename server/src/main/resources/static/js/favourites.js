@@ -7,7 +7,7 @@ function init() {
     const allFavourites =  document.getElementById('allFavourites');
     const main = document.getElementById('main');
     const httpRequest = new XMLHttpRequest();
-    const url = '/books-short';
+    const url = '/api/books-short';
 
     httpRequest.open('POST', url, true);
     httpRequest.setRequestHeader('Content-type', 'application/json');
@@ -31,6 +31,7 @@ function init() {
                 heartButton.classList.add('heartButton');
                 heartButton.appendChild(heartButtonImg);
                 heartButton.setAttribute('data-book', 'book' + book.id);
+                heartButton.setAttribute('title', book.title + ' aus den Favoriten entfernen');
                 heartButton.addEventListener('click', function (ev) {
                     let id = 'book' + book.id,
                         element = document.getElementById(id);
@@ -47,7 +48,8 @@ function init() {
                 });
 
                 heartButtonImg.setAttribute('src', staticUrl + 'SVG/heart-red.svg');
-                heartButtonImg.setAttribute('aria-label', 'Als Favorit entfernen');
+                //heartButtonImg.setAttribute('aria-label', 'Als Favorit entfernen');
+                heartButtonImg.setAttribute('alt', '');
 
                 img.setAttribute('src', book.imageLink === null ? staticUrl + 'image-preview.png' : staticUrl + book.imageLink);
                 img.setAttribute('loading', 'lazy');

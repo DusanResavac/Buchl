@@ -7,7 +7,7 @@ function init() {
     const recommendationsSection = document.getElementById('recommendations');
     const main = document.getElementById('main');
     const httpRequest = new XMLHttpRequest();
-    const url = '/recommendations';
+    const url = '/api/recommendations';
 
     httpRequest.open('POST', url, true);
     httpRequest.setRequestHeader('Content-type', 'application/json');
@@ -24,7 +24,7 @@ function init() {
                 recommendationsForSingleBookWrapper.appendChild(h2);
                 recommendationsForSingleBookWrapper.appendChild(recommendationsForSingleBook);
                 recommendationsForSingleBook.classList.add('recommendation');
-                h2.innerHTML = 'Andere, die <a href="/book/' + book.bookId + '">'  + book.bookTitle + '</a> mochten, mögen auch :'
+                h2.innerHTML = 'Andere, die <a href="/book/' + book.bookId + '">'  + book.bookTitle + '</a> mochten, mögen auch:'
 
 
                 for (let b = 0; b  < book.recommendations.length; b++) {

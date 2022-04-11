@@ -9,7 +9,20 @@ import java.util.stream.Collectors;
 
 @Component
 public class BookDTOFactory {
-    public BookDTO createForBookOverview (Book book) {
+
+    public BookDTO createBasicBook(Book book) {
+        Author a = book.getAuthor();
+        BookDTO bookDTO = new BookDTO();
+        bookDTO.setId(book.getId());
+        bookDTO.setTitle(book.getTitle());
+        bookDTO.setReleaseDate(book.getReleaseDate());
+        bookDTO.setImageLink(book.getImageLink());
+        bookDTO.setImageAlt(book.getImageAlt());
+        bookDTO.setAuthor(new Author(a.getId(), a.getFirstName(), a.getLastName(), null, null, null));
+        return bookDTO;
+    }
+
+    public BookDTO createForBookOverview(Book book) {
         BookDTO bookDTO = new BookDTO();
         Author author = new Author();
         author.setFirstName(book.getAuthor().getFirstName());
@@ -21,12 +34,12 @@ public class BookDTOFactory {
         bookDTO.setImageLink(book.getImageLink());
         bookDTO.setImageAlt(book.getImageAlt());
         if (book.getStars() != null && book.getNumberOfReviews() != null && book.getNumberOfReviews() != 0) {
-            bookDTO.setAverageRating((double) (Math.round(((double) book.getStars() / (double) book.getNumberOfReviews())*10)) / 10);
+            bookDTO.setAverageRating((double) (Math.round(((double) book.getStars() / (double) book.getNumberOfReviews()) * 10)) / 10);
         }
         return bookDTO;
     }
 
-    public BookDTO createForBookDetails (Book book) {
+    public BookDTO createForBookDetails(Book book) {
         BookDTO bookDTO = new BookDTO();
         Author author = new Author();
         author.setId(book.getAuthor().getId());
@@ -45,15 +58,48 @@ public class BookDTOFactory {
         bookDTO.setImageLink(book.getImageLink());
         bookDTO.setImageAlt(book.getImageAlt());
         bookDTO.setIsbn(book.getIsbn());
-        bookDTO.setTags(book.getTags());
-        bookDTO.setDiscussions(book.getDiscussions());
+        List<Tag> tags = book.getTags()
+                .stream()
+                .map(t -> new Tag(t.getId(),
+                        t.getParent() != null ?
+                                new Tag(t.getParent().getId(), null, t.getParent().getName(), null) :
+                                null,
+                        t.getName(),
+                        null))
+                .collect(Collectors.toList());
+        bookDTO.setTags(tags);
+        // get the necessary information from the discussions
+        List<Discussion> discussions = book.getDiscussions()
+                .stream()
+                .map(d -> new Discussion(
+                        d.getId(),
+                        d.getTitle(),
+                        d.getText(),
+                        d.getDate(),
+                        // the user only needs to have the id, nickname and image assigned
+                        new User(d.getUser().getId(), d.getUser().getNickname(), d.getUser().getImage(), null, null, null),
+                        null,
+                        // the comments are only accessed to retrieve the number of comments -> replace each comment with an empty one
+                        d.getComments()
+                                .stream()
+                                .map(c -> new Comment(null, null, null, null, null))
+                                .collect(Collectors.toList())))
+                .collect(Collectors.toList());
+        bookDTO.setDiscussions(discussions);
         if (book.getStars() != null && book.getNumberOfReviews() != null && book.getNumberOfReviews() != 0) {
-            bookDTO.setAverageRating((double) (Math.round(((double) book.getStars() / (double) book.getNumberOfReviews())*10)) / 10);
+            bookDTO.setAverageRating((double) (Math.round(((double) book.getStars() / (double) book.getNumberOfReviews()) * 10)) / 10);
         }
+        bookDTO.setReviews(book.getReviews()
+                .stream()
+                .filter(r -> r.getDate() != null &&
+                        r.getUser() != null &&
+                        r.getTitle() != null)
+                .map(BookDTOFactory::createBareReview)
+                .collect(Collectors.toList()));
         return bookDTO;
     }
 
-    public BookDTO createForBookDiscussions (Book book) {
+    public BookDTO createForBookDiscussions(Book book) {
         BookDTO bookDTO = new BookDTO();
         Author a = new Author();
         Author aBook = book.getAuthor();
@@ -64,7 +110,7 @@ public class BookDTOFactory {
         a.setImageAlt(aBook.getImageAlt());
         bookDTO.setAuthor(a);
         List<Discussion> discussions = new ArrayList<>();
-        for (Discussion dBook: book.getDiscussions()) {
+        for (Discussion dBook : book.getDiscussions()) {
             Discussion d = new Discussion();
             User u = new User();
             u.setNickname(dBook.getUser().getNickname());
@@ -89,7 +135,7 @@ public class BookDTOFactory {
         return bookDTO;
     }
 
-    public BookDTO createForBookReviews (Book book, Optional<Integer> reviews) {
+    public BookDTO createForBookReviews(Book book, Optional<Integer> reviews) {
         BookDTO bookDTO = createForBookDetails(book);
         // get first x reviews if the parameter is present
         if (reviews.isPresent()) {
@@ -102,14 +148,44 @@ public class BookDTOFactory {
             List<Review> reviewList = new ArrayList<>();
 
             for (int i = 0; i < reviews.get() && i < bookReviews.size(); i++) {
-                reviewList.add(book.getReviews().get(i));
+                var review = book.getReviews().get(i);
+                reviewList.add(createBareReview(review));
             }
 
             bookDTO.setReviews(reviewList);
         } else {
-            bookDTO.setReviews(book.getReviews());
+            bookDTO.setReviews(book.getReviews()
+                    .stream()
+                    .filter(r -> r.getDate() != null &&
+                            r.getUser() != null &&
+                            r.getTitle() != null)
+                    .map(BookDTOFactory::createBareReview)
+                    .collect(Collectors.toList()));
         }
         bookDTO.setDiscussions(null);
         return bookDTO;
+    }
+
+    private static Review createBareReview(Review review) {
+        User user = review.getUser();
+        if (user != null) {
+            user = new User(
+                    user.getId(),
+                    user.getNickname(),
+                    user.getImage(),
+                    null,
+                    null,
+                    null);
+        }
+
+        return new Review(
+                review.getId(),
+                review.getTitle(),
+                review.getText(),
+                review.getDate(),
+                review.getLikes(),
+                review.getRating(),
+                null,
+                user);
     }
 }

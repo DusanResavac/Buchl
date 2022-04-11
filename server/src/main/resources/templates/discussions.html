@@ -19,6 +19,7 @@
         <h2 class="is-size-4">Neue Diskussionen</h2>
         <ul>
             <li th:each="discussion: ${newDiscussions}">
+                <hr th:if="${discussionStat.index != 0}">
                 <article>
                     <div class="user-and-content">
                         <div class="user-and-heading">

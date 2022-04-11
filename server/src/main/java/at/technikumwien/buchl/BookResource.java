@@ -10,6 +10,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
+@CrossOrigin(origins = "*")
 @RestController
 public class BookResource {
 
@@ -22,7 +23,15 @@ public class BookResource {
     @Autowired
     private BookDTOFactory bookDTOFactory;
 
-    @GetMapping("/books/search")
+    @GetMapping("/api/books/top3")
+    public List<BookDTO> retrieveTop3Books() {
+        List<Book> books = bookRepository.findTop3Favourites();
+        return books.stream()
+                .map(b -> bookDTOFactory.createBasicBook(b))
+                .collect(Collectors.toList());
+    }
+
+    @GetMapping("/api/books/search")
     public List<BookDTO> retrieveBooks(
             @RequestParam(value = "tag", required = false) Long tag,
             @RequestParam(value = "rating", required = false) Long rating,
@@ -53,7 +62,7 @@ public class BookResource {
         return bookDTOs;
     }
 
-    @GetMapping("/book/retrieve/{id}")
+    @GetMapping("/api/book/{id}")
     public BookDTO retrieveBook (@PathVariable Long id) {
         Optional<Book> b = bookRepository.findById(id);
         if (b.isEmpty()) {
@@ -74,7 +83,7 @@ public class BookResource {
         return bookDTOs;
     }
 
-    @PostMapping("/recommendations")
+    @PostMapping("/api/recommendations")
     public List<RecommendationDTO> getRecommendationsForBooks (@RequestBody List<Long> ids) {
 
         List<RecommendationDTO> listOfRecommendations = new ArrayList<>();
@@ -91,7 +100,7 @@ public class BookResource {
         return listOfRecommendations;
     }
 
-    @PostMapping("/books-short")
+    @PostMapping("/api/books-short")
     public List<BookDTO> getShortBookInfosByIds (@RequestBody List<Long> ids) {
         List<Book> books = bookRepository.findAllById(ids);
 
@@ -100,7 +109,7 @@ public class BookResource {
                 .collect(Collectors.toList());
     }
 
-    @GetMapping("/reviews/popular")
+    @GetMapping("/api/reviews/popular")
     public BookDTO retrieveCurrentlyPopularBook () {
         Optional<Book> b = bookRepository.findCurrentlyMostPopularBook();
         if (b.isEmpty()) {
@@ -110,7 +119,7 @@ public class BookResource {
         return bookDTOFactory.createForBookReviews(b.get(), Optional.of(2));
     }
 
-    @GetMapping("/reviews/controversial")
+    @GetMapping("/api/reviews/controversial")
     public BookDTO retrieveCurrentlyControversialBook() {
         Optional<Book> b = bookRepository.findCurrentlyMostControversialBook();
         if (b.isEmpty()) {
@@ -123,16 +132,22 @@ public class BookResource {
                 .filter(r -> r.getDate() != null && r.getUser() != null && r.getTitle() != null)
                 .collect(Collectors.toList());
 
-        List<Review> twoReviews = new ArrayList<>(){{
-            add(reviews.get(0));
-            add(reviews.get(reviews.size() - 1));
-        }};
+        List<Review> twoReviews = new ArrayList<>();
+
+        // Get most positive and most negative review
+        if (reviews.size() > 0) {
+            twoReviews.add(reviews.get(0));
+        }
+        if (reviews.size() > 1) {
+            twoReviews.add(reviews.get(reviews.size() - 1));
+        }
+
         bookDTO.setReviews(twoReviews);
 
         return bookDTO;
     }
 
-    @GetMapping("/book/retrieve/{id}/reviews")
+    @GetMapping("/api/book/{id}/reviews")
     public BookDTO retrieveBookWithReviews (@PathVariable Long id) {
         Optional<Book> b = bookRepository.findById(id);
         if (b.isEmpty()) {
@@ -142,7 +157,7 @@ public class BookResource {
         return bookDTOFactory.createForBookReviews(b.get(), Optional.empty());
     }
 
-    @PostMapping("/books/with-discussions")
+    @PostMapping("/api/books/with-discussions")
     public List<BookDTO> retrieveBookWithDiscussion (@RequestBody List<Long> ids) {
         List<BookDTO> bookDTOs = new ArrayList<>();
 

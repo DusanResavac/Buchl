@@ -1,8 +1,5 @@
 package at.technikumwien.buchl.entity;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonIdentityInfo;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import lombok.*;
 
@@ -10,9 +7,6 @@ import javax.persistence.*;
 import java.time.LocalDate;
 import java.util.List;
 
-@JsonIdentityInfo(
-        generator = ObjectIdGenerators.PropertyGenerator.class,
-        property = "id")
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
@@ -41,7 +35,6 @@ public class Book {
     @Column(nullable = false)
     private String title;
 
-    @JsonBackReference
     @ManyToOne(cascade = CascadeType.MERGE)
     @JoinColumn(name = "language_id")
     private Language language;
@@ -55,7 +48,6 @@ public class Book {
     @Column(columnDefinition = "TEXT")
     private String description;
 
-    @JsonBackReference
     @ManyToOne(cascade = CascadeType.MERGE)
     @JoinColumn(name = "author_id")
     private Author author;
@@ -83,12 +75,10 @@ public class Book {
     )
     private List<Tag> tags;
 
-    @JsonManagedReference
     @OneToMany(mappedBy = "book", cascade = CascadeType.MERGE)
     @OrderBy("date DESC")
     private List<Review> reviews;
 
-    @JsonManagedReference
     @OneToMany(mappedBy = "book", cascade = CascadeType.MERGE)
     @OrderBy("date DESC")
     private List<Discussion> discussions;

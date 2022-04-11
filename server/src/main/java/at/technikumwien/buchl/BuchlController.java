@@ -116,7 +116,7 @@ public class BuchlController {
     public String getDiscussion (@PathVariable("id") Long id, Model model) {
         DiscussionDTO discussionDTO = discussionResource.retrieveDiscussion(id);
 
-        model.addAttribute("title", "Diskussion: " + discussionDTO.getTitle());
+        model.addAttribute("title", "Diskussion zu " + discussionDTO.getBook().getTitle() + ": " + discussionDTO.getTitle());
         model.addAttribute("discussion", discussionDTO);
 
         return "discussion";
