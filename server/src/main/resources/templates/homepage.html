@@ -28,7 +28,15 @@
             <article th:each="book: ${books}">
                 <div class="book-image-wrapper">
                     <figure class="image">
-                        <img loading="lazy" th:src="${book.imageLink == null} ? @{/imgs/image-preview.png} : @{/imgs/} + ${book.imageLink}" alt="" th:alt="${book.imageAlt == null} ? ${book.title} : ${book.imageAlt}">
+                        <img loading="lazy"
+                             th:src="${book.imageLink == null} ? '/imgs/image-preview.png' : '/imgs/' + ${book.imageLink}"
+                             alt=""
+                             th:if="${book.imageAlt == null}">
+                        <img loading="lazy"
+                             th:src="${book.imageLink == null} ? '/imgs/image-preview.png' : '/imgs/' + ${book.imageLink}"
+                             alt=""
+                             th:unless="${book.imageAlt == null}"
+                             th:alt="${book.imageAlt}">
                     </figure>
                 </div>
                 <div class="article-book-content">

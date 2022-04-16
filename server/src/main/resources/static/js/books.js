@@ -82,7 +82,7 @@ function init() {
                     divWrapper.classList.add('article-link-wrapper');
                     img.setAttribute('src', book.imageLink === null ? staticUrl + 'image-preview.png' : staticUrl + book.imageLink);
                     img.setAttribute('loading', 'lazy');
-                    img.setAttribute('alt', book.imageAlt === null ? book.title : book.imageAlt);
+                    img.setAttribute('alt', book.imageAlt === null ? '' : book.imageAlt);
                     divArticleContent.appendChild(h3);
                     divArticleContent.appendChild(divFooter);
                     divArticleContent.classList.add('article-content');

@@ -53,7 +53,7 @@ function init() {
                         staticUrl + 'image-preview.png' :
                         staticUrl + recommendation.imageLink);
                     imgBook.setAttribute('alt', recommendation.imageAlt === null ?
-                        recommendation.title :
+                        '' :
                         recommendation.imageAlt);
                     titleA.setAttribute('href', '/book/' + recommendation.id);
                     titleA.innerText = recommendation.title;

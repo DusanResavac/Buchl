@@ -40,11 +40,17 @@ export default {
   name: 'BookReviews',
   components: { Fragment },
   created() {
-    console.log('Book Reviews', this.book);
+    // console.log('Book Reviews', this.book);
     this.book.reviews.forEach((r) => {
       r.date = new Date(r.date);
       return r;
     });
+  },
+  mounted() {
+    const title = `Rezensionen zu ${this.book.title} - Buchl`;
+    document.title = title;
+    this.$announcer.set(`${title} wurde geladen`, 'polite');
+    // document.getElementById('skipNavigation').focus();
   },
   props: ['book'],
 };

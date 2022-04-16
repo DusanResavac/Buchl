@@ -5,6 +5,7 @@ target/
 !**/src/test/**/target/
 
 spa/node_modules
+spa/dist
 
 ### STS ###
 .apt_generated

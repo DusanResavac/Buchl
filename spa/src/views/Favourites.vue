@@ -1,33 +1,28 @@
 <template>
-  <fragment>
-    <app-header active-link="favourites" main-id="#main"></app-header>
-    <main id="main" v-bind:aria-busy="searching">
-      <h1>Deine Favoriten</h1>
-      <section id="allFavourites">
-        <div class="loader" v-show="searching" v-bind:aria-hidden="!searching" id="loadingCircle"
-             aria-label="Lade Ergebnisse"
-             v-bind:aria-busy="searching"></div>
-        <p v-if="!searching && books.length === 0">Du hast noch keine Favoriten. Füge Bücher zu deinen Favoriten hinzu, um Buchvorschläge zu erhalten! Du kannst ein Buch auf der Buchseite als Favorit markieren.</p>
-        <article v-for="book in books" v-bind:key="book.id">
-          <button class="heartButton" v-bind:title="`${book.title} aus den Favoriten entfernen`" v-on:click="removeBookFromFavourites(book)">
-            <img v-bind:src="require('../assets/imgs/SVG/heart-red.svg')" alt="">
-          </button>
-          <book-image v-bind:title="book.title" v-bind:image-link="book.imageLink" v-bind:image-alt="book.imageAlt"></book-image>
-          <h2>
-            <router-link v-bind:to="`/book/${book.id}`">
-              {{ book.title }}
-            </router-link>
-          </h2>
-        </article>
-      </section>
-    </main>
-  </fragment>
+  <main tabindex="-1" id="main" v-bind:aria-busy="searching">
+    <h1>Deine Favoriten</h1>
+    <section id="allFavourites">
+      <div class="loader" v-show="searching" v-bind:aria-hidden="!searching" id="loadingCircle"
+           aria-label="Lade Ergebnisse"
+           v-bind:aria-busy="searching"></div>
+      <p v-if="!searching && books.length === 0">Du hast noch keine Favoriten. Füge Bücher zu deinen Favoriten hinzu, um Buchvorschläge zu erhalten! Du kannst ein Buch auf der Buchseite als Favorit markieren.</p>
+      <article v-for="book in books" v-bind:key="book.id">
+        <button class="heartButton" v-bind:title="`${book.title} aus den Favoriten entfernen`" v-on:click="removeBookFromFavourites(book)">
+          <img v-bind:src="require('../assets/imgs/SVG/heart-red.svg')" alt="">
+        </button>
+        <book-image v-bind:title="book.title" v-bind:image-link="book.imageLink" v-bind:image-alt="book.imageAlt"></book-image>
+        <h2>
+          <router-link v-bind:to="`/book/${book.id}`">
+            {{ book.title }}
+          </router-link>
+        </h2>
+      </article>
+    </section>
+  </main>
 </template>
 
 <script>
 import axios from 'axios';
-import AppHeader from '@/components/AppHeader.vue';
-import { Fragment } from 'vue-fragment';
 import BookImage from '@/components/BookImage.vue';
 
 export default {
@@ -39,15 +34,16 @@ export default {
     };
   },
   created() {
+    this.$emit('loaded', { mainId: '#main', activeLink: 'favourites' });
     let bookFavourites = JSON.parse(localStorage.getItem('bookFavourites'));
-    console.log(bookFavourites);
+    // console.log(bookFavourites);
     if (bookFavourites === null) {
       localStorage.setItem('bookFavourites', '[]');
       bookFavourites = [];
     }
     axios.post('api/books-short', bookFavourites, {})
       .then((response) => {
-        console.log(response);
+        // console.log(response);
         this.books = response.data;
         this.searching = false;
       });
@@ -69,7 +65,7 @@ export default {
       }
     },
   },
-  components: { BookImage, AppHeader, Fragment },
+  components: { BookImage },
 };
 </script>
 

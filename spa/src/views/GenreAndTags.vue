@@ -1,27 +1,22 @@
 <template>
-  <fragment>
-    <app-header main-id="#main" active-link="books"></app-header>
-    <main id="main" aria-busy="true">
-      <h1>Nach Genre und Themen filtern</h1>
-      <div>
-        <section class="genre"
-                 v-for="rootTag in rootTags"
-                 v-bind:key="rootTag.id">
-          <h2>{{ rootTag.name }}</h2>
-          <ul>
-            <li v-for="tag in rootTag.tags" v-bind:key="tag.id">
-              <router-link v-bind:to="`/books?tag=${tag.id}`">{{ tag.name }}</router-link>
-            </li>
-          </ul>
-        </section>
-      </div>
-    </main>
-  </fragment>
+  <main tabindex="-1" id="main" v-bind:aria-busy="searching">
+    <h1>Nach Genre und Themen filtern</h1>
+    <div>
+      <section class="genre"
+               v-for="rootTag in rootTags"
+               v-bind:key="rootTag.id">
+        <h2>{{ rootTag.name }}</h2>
+        <ul>
+          <li v-for="tag in rootTag.tags" v-bind:key="tag.id">
+            <router-link v-bind:to="`/books?tag=${tag.id}`">{{ tag.name }}</router-link>
+          </li>
+        </ul>
+      </section>
+    </div>
+  </main>
 </template>
 
 <script>
-import AppHeader from '@/components/AppHeader.vue';
-import { Fragment } from 'vue-fragment';
 import axios from 'axios';
 
 export default {
@@ -29,16 +24,20 @@ export default {
   data() {
     return {
       rootTags: [],
+      searching: true,
     };
   },
   created() {
+    this.$emit('loaded', { mainId: '#main', activeLink: 'books' });
     axios.get('api/tags')
       .then((response) => {
-        console.log('Tags', response.data);
+        // console.log('Tags', response.data);
         this.rootTags = response.data;
+      })
+      .finally(() => {
+        this.searching = false;
       });
   },
-  components: { AppHeader, Fragment },
 };
 </script>
 

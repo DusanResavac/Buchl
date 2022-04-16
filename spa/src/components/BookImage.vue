@@ -1,7 +1,7 @@
 <template>
   <img loading="lazy"
        v-bind:src="require(`../assets/imgs/${imageLink == null ? 'image-preview.png' : imageLink}`)"
-       v-bind:alt="imageAlt == null ? title : imageAlt">
+       v-bind:alt="imageAlt == null ? '' : imageAlt">
 </template>
 
 <script>

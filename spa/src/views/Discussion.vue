@@ -1,82 +1,84 @@
 <template>
-  <fragment>
-    <app-header active-link="discussions" main-id="#main"></app-header>
-    <main aria-busy="true" id="main">
-      <article>
-        <h1>Diskussion zu
-          <router-link v-bind:to="`/book/${discussion.book.id}`">{{ discussion.book.title }}</router-link>
-        </h1>
-        <div class="discussion">
-          <div class="discussion-user">
+  <main tabindex="-1" v-bind:aria-busy="searching" id="main">
+    <article v-if="discussion !== null">
+      <h1>Diskussion zu
+        <router-link v-bind:to="`/book/${discussion.book.id}`">{{ discussion.book.title }}</router-link>
+      </h1>
+      <div class="discussion">
+        <div class="discussion-user">
+          <img loading="lazy"
+               v-bind:src="discussion.user.image == null ? require('../assets/imgs/user.png') : discussion.user.image"
+               alt="">
+          <span>{{ discussion.user.nickname }}</span>
+        </div>
+        <div class="discussion-time-and-text">
+          <h2>{{ discussion.title }}</h2>
+          <p class="mb-4">{{ discussion.timePassed }} veröffentlicht</p>
+          <p class="discussion-text" v-html="discussion.text"></p>
+        </div>
+      </div>
+    </article>
+    <hr>
+    <p v-if="discussion !== null">
+      {{ discussion.comments.length === 1 ? '1 Kommentar' : discussion.comments.length + ' Kommentare' }}
+    </p>
+    <form class="write-comment" aria-label="Kommentar verfassen">
+      <img loading="lazy" v-bind:src="require('../assets/imgs/user.png')" alt="">
+      <div class="comment-input-and-button">
+        <div class="control">
+          <label for="comment">Kommentar verfassen</label>
+          <textarea id="comment" placeholder="Einen Kommentar schreiben..." type="text"></textarea>
+        </div>
+        <button class="button is-info">Veröffentlichen</button>
+      </div>
+    </form>
+    <section v-if="discussion !== null">
+      <ul>
+        <li v-for="comment in discussion.comments" v-bind:key="comment.id">
+          <article class="comment">
             <img loading="lazy"
-                 v-bind:src="discussion.user.image == null ? require('../assets/imgs/user.png') : discussion.user.image"
+                 v-bind:src="comment.user.image == null ? require('../assets/imgs/user.png') : comment.user.image"
                  alt="">
-            <span>{{ discussion.user.nickname }}</span>
-          </div>
-          <div class="discussion-time-and-text">
-            <h2>{{ discussion.title }}</h2>
-            <p class="mb-4">{{ discussion.timePassed }} veröffentlicht</p>
-            <p class="discussion-text" v-html="discussion.text"></p>
-          </div>
-        </div>
-      </article>
-      <hr>
-      <p>
-        {{ discussion.comments.length === 1 ? '1 Kommentar' : discussion.comments.length + ' Kommentare' }}
-      </p>
-      <form class="write-comment" aria-label="Kommentar verfassen">
-        <img loading="lazy" v-bind:src="require('../assets/imgs/user.png')" alt="">
-        <div class="comment-input-and-button">
-          <div class="control">
-            <label for="comment">Kommentar verfassen</label>
-            <textarea id="comment" placeholder="Einen Kommentar schreiben..." type="text"></textarea>
-          </div>
-          <button class="button is-info">Veröffentlichen</button>
-        </div>
-      </form>
-      <section>
-        <ul>
-          <li v-for="comment in discussion.comments" v-bind:key="comment.id">
-            <article class="comment">
-              <img loading="lazy"
-                   v-bind:src="comment.user.image == null ? require('../assets/imgs/user.png') : comment.user.image"
-                   alt="">
-              <div>
-                <p class="comment-info">
-                  {{ comment.user.nickname }} - {{ comment.timePassed }} veröffentlicht
-                </p>
-                <p class="comment-text">{{ comment.text }}</p>
-              </div>
-            </article>
-          </li>
-        </ul>
-      </section>
-    </main>
-  </fragment>
+            <div>
+              <p class="comment-info">
+                {{ comment.user.nickname }} - {{ comment.timePassed }} veröffentlicht
+              </p>
+              <p class="comment-text">{{ comment.text }}</p>
+            </div>
+          </article>
+        </li>
+      </ul>
+    </section>
+  </main>
 </template>
 
 <script>
 import axios from 'axios';
-import AppHeader from '@/components/AppHeader.vue';
-import { Fragment } from 'vue-fragment';
 
 export default {
   name: 'Discussion',
-  components: { AppHeader, Fragment },
   data() {
     return {
-      discussion: {},
+      discussion: null,
+      searching: true,
     };
   },
   created() {
+    this.$emit('loaded', { mainId: '#main', activeLink: 'discussion' });
     const discussionId = parseInt(this.$route.params.id, 10);
     if (!Number.isNaN(discussionId)) {
       const url = `api/discussion/${discussionId}`;
       axios.get(url)
         .then((response) => {
-          console.log('Discussion', response.data);
+          // console.log('Discussion', response.data);
           this.discussion = response.data;
-          document.title = `Diskussion zu ${this.discussion.book.title}: ${this.discussion.title} - Buchl`;
+          const title = `Diskussion zu ${this.discussion.book.title}: ${this.discussion.title} - Buchl`;
+          document.title = title;
+          this.$announcer.set(`${title} wurde geladen`, 'polite');
+          document.getElementsByTagName('body')[0].focus();
+        })
+        .finally(() => {
+          this.searching = false;
         });
     }
   },

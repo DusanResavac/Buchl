@@ -1,45 +1,40 @@
 <template>
-  <fragment>
-    <app-header active-link="recommendations" main-id="#main"></app-header>
-    <main id="main" aria-busy="true">
-      <h1>Deine personalisierten Vorschläge</h1>
-      <section id="recommendations">
-        <p v-if="books.length === 0">Du hast noch keine Favoriten. Füge Bücher zu deinen Favoriten hinzu, um Buchvorschläge zu erhalten! Du kannst ein Buch auf der Buchseite als Favorit markieren.</p>
-        <div class="recommendation-wrapper"
-             v-for="book in books"
-             v-bind:key="book.bookId">
-          <h2>Andere, die <router-link v-bind:to="`/book/${book.bookId}`">{{ book.bookTitle }}</router-link> mochten, mögen auch: </h2>
-          <div class="recommendation">
-            <div class="book"
-                 v-for="recommendation in book.recommendations"
-                 v-bind:key="recommendation.id">
-              <book-image
-                  v-bind:title="recommendation.title"
-                  v-bind:image-link="recommendation.imageLink"
-                  v-bind:image-alt="recommendation.imageAlt"></book-image>
-              <div class="book-info">
-                <h3>
-                  <router-link v-bind:to="`/book/${recommendation.id}`">{{ recommendation.title }}</router-link>
-                </h3>
-                <div>
-                  <span v-if="recommendation.averageRating != null" style="white-space: nowrap;">Ø {{ recommendation.averageRating }}</span>
-                  <img v-if="recommendation.averageRating != null"
-                       v-bind:src="require(`../assets/imgs/SVG/rating-${Math.round(recommendation.averageRating)}.svg`)"
-                       v-bind:alt="`${Math.round(recommendation.averageRating)} von 5 Sterne`">
-                  <span v-if="recommendation.averageRating == null">Noch keine Bewertungen</span>
-                </div>
+  <main tabindex="-1" id="main" v-bind:aria-busy="searching">
+    <h1>Deine personalisierten Vorschläge</h1>
+    <section id="recommendations">
+      <p v-if="books.length === 0">Du hast noch keine Favoriten. Füge Bücher zu deinen Favoriten hinzu, um Buchvorschläge zu erhalten! Du kannst ein Buch auf der Buchseite als Favorit markieren.</p>
+      <div class="recommendation-wrapper"
+           v-for="book in books"
+           v-bind:key="book.bookId">
+        <h2>Andere, die <router-link v-bind:to="`/book/${book.bookId}`">{{ book.bookTitle }}</router-link> mochten, mögen auch: </h2>
+        <div class="recommendation">
+          <div class="book"
+               v-for="recommendation in book.recommendations"
+               v-bind:key="recommendation.id">
+            <book-image
+                v-bind:title="recommendation.title"
+                v-bind:image-link="recommendation.imageLink"
+                v-bind:image-alt="recommendation.imageAlt"></book-image>
+            <div class="book-info">
+              <h3>
+                <router-link v-bind:to="`/book/${recommendation.id}`">{{ recommendation.title }}</router-link>
+              </h3>
+              <div>
+                <span v-if="recommendation.averageRating != null" style="white-space: nowrap;">Ø {{ recommendation.averageRating }}</span>
+                <img v-if="recommendation.averageRating != null"
+                     v-bind:src="require(`../assets/imgs/SVG/rating-${Math.round(recommendation.averageRating)}.svg`)"
+                     v-bind:alt="`${Math.round(recommendation.averageRating)} von 5 Sterne`">
+                <span v-if="recommendation.averageRating == null">Noch keine Bewertungen</span>
               </div>
             </div>
           </div>
         </div>
-      </section>
-    </main>
-  </fragment>
+      </div>
+    </section>
+  </main>
 </template>
 
 <script>
-import AppHeader from '@/components/AppHeader.vue';
-import { Fragment } from 'vue-fragment';
 import axios from 'axios';
 import BookImage from '@/components/BookImage.vue';
 
@@ -48,18 +43,25 @@ export default {
   data() {
     return {
       books: [],
+      searching: true,
     };
   },
-  components: { BookImage, AppHeader, Fragment },
+  components: { BookImage },
   created() {
+    this.$emit('loaded', { mainId: '#main', activeLink: 'recommendations' });
     const favourites = localStorage.getItem('bookFavourites') === null ? [] : JSON.parse(localStorage.getItem('bookFavourites'));
     if (favourites === []) {
       localStorage.setItem('bookFavourites', '[]');
     }
-    axios.post('api/recommendations', favourites)
+    axios.post('api/recommendations', favourites, {
+      'content-type': 'text/json',
+    })
       .then((response) => {
-        console.log('Recommendations', response.data);
+        // console.log('Recommendations', response.data);
         this.books = response.data;
+      })
+      .finally(() => {
+        this.searching = false;
       });
   },
 };

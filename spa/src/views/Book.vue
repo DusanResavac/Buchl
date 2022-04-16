@@ -1,56 +1,52 @@
 <template>
-  <fragment>
-    <app-header main-id="#main" active-link="books"></app-header>
-    <main id="main">
-      <aside role="region" aria-label="Nebensächliche Buchinformationen" v-if="book !== null">
-        <book-image v-bind:title="book.title" v-bind:image-link="book.imageLink" v-bind:image-alt="book.imageAlt"></book-image>
-        <div class="book-side">
-          <div class="book-tags">
-            <a v-for="tag in book.tags" v-bind:key="tag.id" v-bind:href="`/books?tag=${tag.id}`">
-              {{ tag.parent.name === 'Lesealter' ? 'Lesealter ' + tag.name : tag.name }}
-            </a>
-          </div>
-          <div class="book-info">
-            <p>Seitenanzahl der Print-Ausgabe: {{ book.pages }}</p>
-            <p>Sprache: {{ book.language.name }}</p>
-            <p>Erscheinungsdatum: <span>{{ book.releaseDate.toLocaleDateString('de-DE', { year: 'numeric', month: 'long', day: 'numeric' }) }}</span></p>
-          </div>
+  <main tabindex="-1" id="main">
+    <aside role="region" aria-label="Nebensächliche Buchinformationen" v-if="book !== null">
+      <book-image v-bind:title="book.title" v-bind:image-link="book.imageLink" v-bind:image-alt="book.imageAlt"></book-image>
+      <div class="book-side">
+        <div class="book-tags">
+          <router-link v-for="tag in book.tags" v-bind:key="tag.id" v-bind:to="`/books?tag=${tag.id}`">
+            {{ tag.parent.name === 'Lesealter' ? 'Lesealter ' + tag.name : tag.name }}
+          </router-link>
+        </div>
+        <div class="book-info">
+          <p>Seitenanzahl der Print-Ausgabe: {{ book.pages }}</p>
+          <p>Sprache: {{ book.language.name }}</p>
+          <p>Erscheinungsdatum: <span>{{ book.releaseDate.toLocaleDateString('de-DE', { year: 'numeric', month: 'long', day: 'numeric' }) }}</span></p>
+        </div>
 
-        </div>
-      </aside>
-      <section role="region" aria-label="Buchinformationen" v-if="book !== null">
-        <h1 class="is-size-4 is-size-3-desktop">
-          <span>{{ book.title }}</span><span class="subtitle"> - {{ book.releaseDate.toLocaleDateString('de-DE', { year: 'numeric', month: 'long', day: 'numeric' }) }}</span>
-        </h1>
-        <div class="author-info">
-          <author-image v-bind:image-link="book.author.imageLink" v-bind:image-alt="book.author.imageAlt"></author-image>
-          <a v-bind:href="`/books?author=${book.author.id}`">
-            {{ book.author.firstName }} {{ book.author.lastName }}
-          </a>
-        </div>
-        <div class="book-content">
-          <div class="book-rating-and-favourite">
-            <router-link  v-bind:to="`/book/${book.id}/reviews`" class="rating">
-              <span v-if="book.averageRating != null">{{ book.averageRating }}</span>
-              <img v-if="book.averageRating != null"
-                   v-bind:src="require(`../assets/imgs/SVG/rating-${Math.round(book.averageRating)}.svg`)"
-                   v-bind:alt="`${Math.round(book.averageRating)} von 5 Sterne`">
-              <span v-if="book.averageRating == null">Keine Bewertungen</span>
-            </router-link>
-            <div class="favourite">
-              <button id="favouriteButton" class="button is-ghost" v-on:click="addOrRemoveFromFavourites()">{{ isFavourite ? 'Favorit entfernen' : 'Als Favorit hinzufügen' }}</button>
-              <img v-bind:src="require('../assets/imgs/SVG/heart.svg')" alt="">
-            </div>
+      </div>
+    </aside>
+    <section role="region" aria-label="Buchinformationen" v-if="book !== null">
+      <h1 class="is-size-4 is-size-3-desktop">
+        <span>{{ book.title }}</span><span class="subtitle"> - {{ book.releaseDate.toLocaleDateString('de-DE', { year: 'numeric', month: 'long', day: 'numeric' }) }}</span>
+      </h1>
+      <div class="author-info">
+        <author-image v-bind:image-link="book.author.imageLink" v-bind:image-alt="book.author.imageAlt"></author-image>
+        <router-link v-bind:to="`/books?author=${book.author.id}`">
+          {{ book.author.firstName }} {{ book.author.lastName }}
+        </router-link>
+      </div>
+      <div class="book-content">
+        <div class="book-rating-and-favourite">
+          <router-link  v-bind:to="`/book/${book.id}/reviews`" class="rating">
+            <span v-if="book.averageRating != null">{{ book.averageRating }}</span>
+            <img v-if="book.averageRating != null"
+                 v-bind:src="require(`../assets/imgs/SVG/rating-${Math.round(book.averageRating)}.svg`)"
+                 v-bind:alt="`${Math.round(book.averageRating)} von 5 Sterne`">
+            <span v-if="book.averageRating == null">Keine Bewertungen</span>
+          </router-link>
+          <div class="favourite">
+            <button id="favouriteButton" class="button is-ghost" v-on:click="addOrRemoveFromFavourites()">{{ isFavourite ? 'Favorit entfernen' : 'Als Favorit hinzufügen' }}</button>
+            <img v-bind:src="require('../assets/imgs/SVG/heart.svg')" alt="">
           </div>
-          <router-view v-bind:book="book"></router-view>
         </div>
-      </section>
-    </main>
-  </fragment>
+        <router-view v-bind:book="book"></router-view>
+      </div>
+    </section>
+  </main>
 </template>
 
 <script>
-import AppHeader from '@/components/AppHeader.vue';
 import BookImage from '@/components/BookImage.vue';
 import AuthorImage from '@/components/AuthorImage.vue';
 import axios from 'axios';
@@ -65,17 +61,17 @@ export default {
     };
   },
   created() {
+    this.$emit('loaded', { mainId: '#main', activeLink: 'books' });
     this.bookId = parseInt(this.$route.params.id, 10);
     if (!Number.isNaN(this.bookId)) {
       axios.get(`api/book/${this.bookId}`)
         .then((response) => {
-          console.log(response);
+          // console.log(response);
           this.book = response.data;
           this.book.releaseDate = new Date(this.book.releaseDate);
-          document.title = `${this.book.title} - Buchl`;
         })
         .catch((error) => {
-          console.log(error);
+          console.error(error);
         });
 
       const bookFavourites = JSON.parse(localStorage.getItem('bookFavourites'));
@@ -105,7 +101,7 @@ export default {
       this.isFavourite = !this.isFavourite;
     },
   },
-  components: { AppHeader, BookImage, AuthorImage },
+  components: { BookImage, AuthorImage },
 };
 </script>
 

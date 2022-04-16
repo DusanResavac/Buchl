@@ -1,22 +1,17 @@
 <template>
-  <fragment>
-    <app-header main-id="#main" active-link="reviews"></app-header>
-    <main id="main">
-      <section>
-        <h2>Derzeit populär</h2>
-        <book-and-reviews v-if="popularBook !== null" v-bind:book="popularBook"></book-and-reviews>
-      </section>
-      <section >
-        <h2>Derzeit kontrovers</h2>
-        <book-and-reviews v-if="controversialBook !== null" v-bind:book="controversialBook"></book-and-reviews>
-      </section>
-    </main>
-  </fragment>
+  <main tabindex="-1" id="main">
+    <section>
+      <h2>Derzeit populär</h2>
+      <book-and-reviews v-if="popularBook !== null" v-bind:book="popularBook"></book-and-reviews>
+    </section>
+    <section >
+      <h2>Derzeit kontrovers</h2>
+      <book-and-reviews v-if="controversialBook !== null" v-bind:book="controversialBook"></book-and-reviews>
+    </section>
+  </main>
 </template>
 
 <script>
-import AppHeader from '@/components/AppHeader.vue';
-import { Fragment } from 'vue-fragment';
 import axios from 'axios';
 import BookAndReviews from '@/components/BookAndReviews.vue';
 
@@ -30,11 +25,12 @@ export default {
     };
   },
   created() {
+    this.$emit('loaded', { mainId: '#main', activeLink: 'reviews' });
     let requestsPending = 2;
 
     axios.get('api/reviews/popular')
       .then((response) => {
-        console.log('popular book', response.data);
+        // console.log('popular book', response.data);
         this.popularBook = response.data;
         this.popularBook.reviews.forEach((r) => {
           r.date = new Date(r.date);
@@ -50,7 +46,7 @@ export default {
 
     axios.get('api/reviews/controversial')
       .then((response) => {
-        console.log('controversial book', response.data);
+        // console.log('controversial book', response.data);
         this.controversialBook = response.data;
         this.controversialBook.reviews.forEach((r) => {
           r.date = new Date(r.date);
@@ -64,7 +60,7 @@ export default {
         }
       });
   },
-  components: { BookAndReviews, AppHeader, Fragment },
+  components: { BookAndReviews },
 };
 </script>
 

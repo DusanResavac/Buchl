@@ -1,53 +1,48 @@
 <template>
-  <fragment>
-    <app-header main-id="#main" active-link="home"></app-header>
-    <main id="main" class="columns">
-      <section class="column is-desktop">
-        <h1 class="is-size-2">Was ist Buchl?</h1>
-        <p class="content">Buchl ist eine Plattform, auf der sich Gleichgesinnte treffen und über ihre Lieblingsbücher unterhalten können.
-          Außerdem kann die eigene Buchsammlung digital in einer Liste gesammelt werden, auf deren Basis dann Vorschläge
-          zur Erweiterung des Leserepertoires bereitgestellt werden. Nehmen Sie an hitzigen Debatten teil, um Ihren Standpunkt zu vertreten
-          oder informieren Sie sich über beliebte Klassiker.
-        </p>
-      </section>
-      <section class="column">
-        <h2 class="is-size-2">Heutige Favoriten</h2>
-        <div class="todays-favourites">
-          <article v-for="book in books" v-bind:key="book.id">
-            <div class="book-image-wrapper">
-              <figure class="image">
-                <img loading="lazy"
-                     v-bind:src="require(`../assets/imgs/${book.imageLink == null ? 'image-preview.png' : book.imageLink}`)"
-                     v-bind:alt="book.imageAlt == null ? book.title : book.imageAlt">
-              </figure>
-            </div>
-            <div class="article-book-content">
-              <h3 class="mb-4">
-                <router-link v-bind:title="book.title" v-bind:to="`/book/${book.id}`">{{ book.title }}</router-link></h3>
-              <div class="book-infos">
-                <p>
-                  <span>{{getYearFromDateString(book.releaseDate)}}</span>
-                  <span v-bind:aria-label="`Geschrieben von ${book.author.firstName} ${book.author.lastName}`"
-                        v-bind:title="`${book.author.firstName} ${book.author.lastName}`">
+  <main tabindex="-1" id="main" class="columns">
+    <section class="column is-desktop">
+      <h1 class="is-size-2">Was ist Buchl?</h1>
+      <p class="content">Buchl ist eine Plattform, auf der sich Gleichgesinnte treffen und über ihre Lieblingsbücher unterhalten können.
+        Außerdem kann die eigene Buchsammlung digital in einer Liste gesammelt werden, auf deren Basis dann Vorschläge
+        zur Erweiterung des Leserepertoires bereitgestellt werden. Nehmen Sie an hitzigen Debatten teil, um Ihren Standpunkt zu vertreten
+        oder informieren Sie sich über beliebte Klassiker.
+      </p>
+    </section>
+    <section class="column">
+      <h2 class="is-size-2">Heutige Favoriten</h2>
+      <div class="todays-favourites">
+        <article v-for="book in books" v-bind:key="book.id">
+          <div class="book-image-wrapper">
+            <figure class="image">
+              <book-image v-bind:title="book.title" v-bind:image-alt="book.imageAlt" v-bind:image-link="book.imageLink"></book-image>
+            </figure>
+          </div>
+          <div class="article-book-content">
+            <h3 class="mb-4">
+              <router-link v-bind:title="book.title" v-bind:to="`/book/${book.id}`">{{ book.title }}</router-link></h3>
+            <div class="book-infos">
+              <p>
+                <span>{{getYearFromDateString(book.releaseDate)}}</span>
+                <span v-bind:aria-label="`Geschrieben von ${book.author.firstName} ${book.author.lastName}`"
+                      v-bind:title="`${book.author.firstName} ${book.author.lastName}`">
                     {{book.author.lastName === null || book.author.lastName === '' ? book.author.firstName : book.author.lastName}}
                   </span>
-                </p>
-              </div>
+              </p>
             </div>
-          </article>
-        </div>
-      </section>
-    </main>
-  </fragment>
+          </div>
+        </article>
+      </div>
+    </section>
+  </main>
 </template>
 
 <script>
 import axios from 'axios';
-import { Fragment } from 'vue-fragment';
-import AppHeader from '@/components/AppHeader.vue';
+import BookImage from '@/components/BookImage.vue';
 
 export default {
   name: 'Home',
+  components: { BookImage },
   data() {
     return {
       books: [],
@@ -60,13 +55,13 @@ export default {
     },
   },
   created() {
+    this.$emit('loaded', { mainId: '#main', activeLink: 'home' });
     axios.get('api/books/top3')
       .then((response) => {
         this.books = response.data;
-        console.log(response);
+        // console.log(response);
       });
   },
-  components: { AppHeader, Fragment },
 };
 </script>
 

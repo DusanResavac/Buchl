@@ -21,17 +21,17 @@ header {
 
 #main-nav > ul  {
     display: flex;
-    flex-wrap: wrap;
+    flex-direction: column;
     justify-content: space-between;
     border: 1px solid #485fc7;
     padding: 10px 20px 10px 20px;
 }
 
-#main-nav ul[role="menubar"] > li {
+#main-nav > ul > li {
     position: relative;
 }
 
-#main-nav ul[role="menu"] {
+#main-nav > ul > li > ul {
     z-index: 10;
     position: absolute;
     display: block;
@@ -41,7 +41,7 @@ header {
     padding: 0.5em;
 }
 
-#main-nav ul[role="menu"] a {
+#main-nav > ul > li > ul a {
     min-width: 11em;
     text-align: left;
     padding: 1em;
@@ -75,10 +75,25 @@ a:focus {
     position: absolute;
 }
 
+#main-nav ul.is-hidden {
+    display: block !important;
+    position: static;
+}
+
 @media all and (min-width: 500px) {
     #main-nav {
         margin: 1.5rem auto 0 auto;
         max-width: 1100px;
+    }
+
+    #main-nav > ul {
+        flex-wrap: wrap;
+        flex-direction: row;
+    }
+
+    #main-nav ul.is-hidden {
+        display: none !important;
+        position: absolute;
     }
 }
 

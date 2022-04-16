@@ -19,12 +19,22 @@
             <article>
                 <img loading="lazy"
                      th:src="${popularBook.imageLink == null} ? @{/imgs/image-preview.png} : @{/imgs/} + ${popularBook.imageLink}"
-                     alt="" th:alt="${popularBook.imageAlt == null} ? ${popularBook.title} : ${popularBook.imageAlt}">
+                     alt=""
+                     th:if="${popularBook.imageAlt == null}">
+                <img loading="lazy"
+                     th:src="${popularBook.imageLink == null} ? @{/imgs/image-preview.png} : @{/imgs/} + ${popularBook.imageLink}"
+                     alt=""
+                     th:unless="${popularBook.imageAlt == null}"
+                     th:alt="${popularBook.imageAlt}">
                 <div class="book-title-and-author">
                     <h3><a th:href="'/book/' + ${popularBook.id}" th:text="${popularBook.title}"></a></h3>
                     <div class="author-info"  th:fragment="authorInfo">
                         <img th:src="${popularBook.author.imageLink == null} ? @{/imgs/user.png} : '/imgs/' + ${popularBook.author.imageLink}"
-                             th:alt="${popularBook.author.imageAlt == null} ? '' : ${popularBook.author.imageAlt}">
+                             th:if="${popularBook.author.imageAlt == null}"
+                             alt="">
+                        <img th:src="${popularBook.author.imageLink == null} ? @{/imgs/user.png} : '/imgs/' + ${popularBook.author.imageLink}"
+                             th:unless="${popularBook.author.imageAlt == null}"
+                             th:alt="${popularBook.author.imageAlt}">
                         <p>
                             <a th:href="'/books?author=' + ${popularBook.author.id}"
                                th:text="${popularBook.author.firstName} + ' ' + ${popularBook.author.lastName}"></a>
@@ -74,12 +84,22 @@
             <article>
                 <img loading="lazy"
                      th:src="${controversialBook.imageLink == null} ? @{/imgs/image-preview.png} : @{/imgs/} + ${controversialBook.imageLink}"
-                     alt="" th:alt="${controversialBook.imageAlt == null} ? ${controversialBook.title} : ${controversialBook.imageAlt}">
+                     alt=""
+                     th:if="${controversialBook.imageAlt == null}">
+                <img loading="lazy"
+                     th:src="${controversialBook.imageLink == null} ? @{/imgs/image-preview.png} : @{/imgs/} + ${controversialBook.imageLink}"
+                     alt=""
+                     th:unless="${controversialBook.imageAlt == null}"
+                     th:alt="${controversialBook.imageAlt}">
                 <div class="book-title-and-author">
                     <h3><a th:href="'/book/' + ${controversialBook.id}" th:text="${controversialBook.title}"></a></h3>
                     <div class="author-info"  th:fragment="authorInfo">
                         <img th:src="${controversialBook.author.imageLink == null} ? @{/imgs/user.png} : '/imgs/' + ${controversialBook.author.imageLink}"
-                             th:alt="${controversialBook.author.imageAlt == null} ? '' : ${controversialBook.author.imageAlt}">
+                             th:if="${controversialBook.author.imageAlt == null}"
+                             alt="">
+                        <img th:src="${controversialBook.author.imageLink == null} ? @{/imgs/user.png} : '/imgs/' + ${controversialBook.author.imageLink}"
+                             th:unless="${controversialBook.author.imageAlt == null}"
+                             th:alt="${controversialBook.author.imageAlt}">
                         <p>
                             <a th:href="'/books?author=' + ${controversialBook.author.id}"
                                th:text="${controversialBook.author.firstName} + ' ' + ${controversialBook.author.lastName}"></a>

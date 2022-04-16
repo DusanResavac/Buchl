@@ -19,13 +19,23 @@ const routes = [
     path: '/',
     name: 'Home',
     component: Home,
-    meta: { title: 'Startseite' },
+    meta: {
+      title: 'Startseite',
+      announcer: {
+        message: 'Startseite - Buchl',
+      },
+    },
   },
   {
     path: '/books',
     name: 'Books',
     component: Books,
-    meta: { title: 'Bücher stöbern und filtern' },
+    meta: {
+      title: 'Bücher stöbern und filtern',
+      announcer: {
+        message: 'Bücher stöbern und filtern - Buchl',
+      },
+    },
   },
   {
     path: '/book/:id',
@@ -36,168 +46,143 @@ const routes = [
         path: 'reviews',
         name: 'BookReviews',
         component: BookReviews,
+        meta: {
+          announcer: {
+            skip: true,
+          },
+        },
       },
       {
         path: '',
         name: 'BookDetails',
         component: BookDetails,
+        meta: {
+          announcer: {
+            skip: true,
+          },
+        },
       },
     ],
-    meta: { },
+    meta: {
+      announcer: {
+        skip: true,
+      },
+    },
   },
   {
     path: '/favourites',
     name: 'Favourites',
     component: Favourites,
-    meta: { title: 'Favoriten' },
+    meta: {
+      title: 'Favoriten',
+      announcer: {
+        message: 'Favoriten - Buchl',
+      },
+    },
   },
   {
     path: '/discussions',
     name: 'Discussions',
     component: Discussions,
-    meta: { title: 'Diskussionen' },
+    meta: {
+      title: 'Diskussionen',
+      announcer: {
+        message: 'Diskussionen - Buchl',
+      },
+    },
   },
   {
     path: '/reviews',
     name: 'Reviews',
     component: Reviews,
-    meta: { title: 'Rezensionen' },
+    meta: {
+      title: 'Rezensionen',
+      announcer: {
+        message: 'Rezensionen - Buchl',
+      },
+    },
   },
   {
     path: '/discussion/:id',
     name: 'Discussion',
     component: Discussion,
-    meta: { },
+    meta: {
+      announcer: {
+        skip: true,
+      },
+    },
   },
   {
     path: '/recommendations',
     name: 'Recommendations',
     component: Recommendations,
-    meta: { title: 'Empfehlungen' },
+    meta: {
+      title: 'Empfehlungen',
+      announcer: {
+        message: 'Empfehlungen - Buchl',
+      },
+    },
   },
   {
     path: '/tags',
     name: 'Tags',
     component: GenreAndTags,
-    meta: { title: 'Themen und Genre' },
+    meta: {
+      title: 'Themen und Genre',
+      announcer: {
+        message: 'Themen und Genre - Buchl',
+      },
+    },
   },
   {
     path: '*',
     name: '404',
     component: Home,
-    meta: { title: 'Startseite' },
+    meta: {
+      title: 'Startseite',
+      announcer: {
+        message: 'Startseite - Buchl',
+      },
+    },
   },
-  /* {
-    path: '/dashboard',
-    name: 'Dashboard',
-    component: Dashboard,
-    meta: { hasNavigation: true },
-  },
-  {
-    path: '/portfolio/overview',
-    name: 'Portfolio-Overview',
-    component: Overview,
-    props: true,
-    meta: { hasNavigation: true },
-  },
-  {
-    path: '/transactions',
-    name: 'Transactions',
-    component: Transactions,
-    meta: { hasNavigation: true },
-  },
-  {
-    path: '/users',
-    name: 'Users',
-    component: Users,
-    meta: { hasNavigation: true },
-  },
-  {
-    path: '/users/new',
-    name: 'NewUser',
-    component: NewUser,
-    meta: { hasNavigation: true },
-  },
-  {
-    path: '/users/:id',
-    name: 'SingleUser',
-    component: SingleUser,
-    meta: { hasNavigation: true },
-  },
-  {
-    path: '/accounts',
-    name: 'Accounts',
-    component: Accounts,
-    meta: { hasNavigation: true },
-  },
-  {
-    path: '/accounts/new',
-    name: 'NewAccount',
-    component: NewAccount,
-    meta: { hasNavigation: true },
-  },
-  {
-    path: '/accounts/:id',
-    name: 'SingleAccount',
-    component: SingleAccount,
-    meta: { hasNavigation: true },
-  },
-  {
-    path: '/stock-exchanges',
-    name: 'StockExchanges',
-    component: StockExchanges,
-    meta: { hasNavigation: true },
-  },
-  {
-    path: '/stocks',
-    name: 'Stocks',
-    component: Stocks,
-    meta: { hasNavigation: true },
-  },
-  {
-    path: '/stocks/new',
-    name: 'NewStock',
-    component: NewStock,
-    meta: { hasNavigation: true },
-  },
-  {
-    path: '/stocks/:id',
-    name: 'SingleStock',
-    component: SingleStock,
-    meta: { hasNavigation: true },
-  },
-  {
-    path: '/sign-in',
-    name: 'SignIn',
-    component: SignIn,
-    meta: { isPublic: true },
-  },
-  {
-    path: '/sign-up',
-    name: 'SignUp',
-    component: SignUp,
-    meta: { isPublic: true },
-  },
-  {
-    path: '/legal',
-    name: 'Legal',
-    component: Legal,
-    meta: { isPublic: true },
-  },*/
 ];
 
 const router = new VueRouter({
   routes,
   mode: 'history',
+  scrollBehavior(to) {
+    if (to.hash) {
+      return {
+        el: to.hash,
+      };
+    }
+    return null;
+  },
 });
 
 const DEFAULT_TITLE = 'Buchl';
+
+router.beforeEach((to, from, next) => {
+  console.log('beforeEach', to, from);
+  if (to.hash === '') {
+    next();
+  } else {
+    return false;
+  }
+});
 
 router.afterEach((to) => {
   // Use next tick to handle router history correctly
   // see: https://github.com/vuejs/vue-router/issues/914#issuecomment-384477609
   Vue.nextTick(() => {
-    document.title = to.meta.title === undefined ? DEFAULT_TITLE : `${to.meta.title} - ${DEFAULT_TITLE}`;
+    console.log('next tick triggered');
+    document.getElementById('title').focus();
+
+    if (to.meta.title !== undefined) {
+      const title = `${to.meta.title} - ${DEFAULT_TITLE}`;
+      document.title = title;
+      // this.$announcer.set(`Navigiere zu ${title}`);
+    }
   });
 });
 

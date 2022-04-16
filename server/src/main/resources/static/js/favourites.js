@@ -53,7 +53,7 @@ function init() {
 
                 img.setAttribute('src', book.imageLink === null ? staticUrl + 'image-preview.png' : staticUrl + book.imageLink);
                 img.setAttribute('loading', 'lazy');
-                img.setAttribute('alt', book.imageAlt === null ? book.title : book.imageAlt);
+                img.setAttribute('alt', book.imageAlt === null ? '' : book.imageAlt);
 
                 h2.innerHTML = '<a href="book/' + book.id + '">' + book.title + '</a>';
 

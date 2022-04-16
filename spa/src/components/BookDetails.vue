@@ -33,6 +33,12 @@ export default {
   name: 'BookDetails',
   components: { Fragment },
   props: ['book'],
+  mounted() {
+    const title = `${this.book.title} - Buchl`;
+    document.title = title;
+    this.$announcer.set(`${title} wurde geladen`, 'polite');
+    // document.getElementById('skipNavigation').focus();
+  },
 };
 </script>
 

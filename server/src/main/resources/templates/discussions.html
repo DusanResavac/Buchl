@@ -37,9 +37,13 @@
                         <div class="article-end">
                             <div class="book-wrapper">
                                 <img loading="lazy"
-                                     th:if="${discussion.book != null}"
+                                     th:if="${discussion.book != null && discussion.book.imageAlt == null}"
                                      th:src="${discussion.book.imageLink == null} ? @{/imgs/image-preview.png} : '/imgs/' + ${discussion.book.imageLink}"
-                                     th:alt="${discussion.book.imageAlt == null} ? ${discussion.book.title} : ${discussion.book.imageAlt}">
+                                     alt="">
+                                <img loading="lazy"
+                                     th:if="${discussion.book != null && discussion.book.imageAlt != null}"
+                                     th:src="${discussion.book.imageLink == null} ? @{/imgs/image-preview.png} : '/imgs/' + ${discussion.book.imageLink}"
+                                     th:alt="${discussion.book.imageAlt}">
 
                                 <h4 th:if="${discussion.book != null}"><a th:href="'/book/' + ${discussion.book.id}" th:text="${discussion.book.title}"></a></h4>
                             </div>

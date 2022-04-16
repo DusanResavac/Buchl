@@ -17,7 +17,13 @@
     <aside th:fragment="asideBookInfo" role="region" aria-label="Nebensächliche Buchinformationen">
         <img loading="lazy"
              th:src="${book.imageLink == null} ? '/imgs/image-preview.png' : '/imgs/' + ${book.imageLink}"
-             alt="" th:alt="${book.imageAlt == null} ? ${book.title} : ${book.imageAlt}">
+             alt=""
+             th:if="${book.imageAlt == null}">
+        <img loading="lazy"
+             th:src="${book.imageLink == null} ? '/imgs/image-preview.png' : '/imgs/' + ${book.imageLink}"
+             alt=""
+             th:unless="${book.imageAlt == null}"
+             th:alt="${book.imageAlt}">
         <div class="book-side">
             <div class="book-tags">
                 <a th:each="tag: ${book.tags}" th:href="'/books?tag=' + ${tag.id}"
@@ -37,7 +43,11 @@
         </h1>
         <div class="author-info"  th:fragment="authorInfo">
             <img th:src="${book.author.imageLink == null} ? '/imgs/user.png' : '/imgs/' + ${book.author.imageLink}"
-                 th:alt="${book.author.imageAlt == null} ? '' : ${book.author.imageAlt}">
+                 alt=""
+                 th:if="${book.author.imageAlt == null}">
+            <img th:src="${book.author.imageLink == null} ? '/imgs/user.png' : '/imgs/' + ${book.author.imageLink}"
+                 th:unless="${book.author.imageAlt == null}"
+                 th:alt="${book.author.imageAlt}">
             <a th:href="'/books?author=' + ${book.author.id}"
                th:text="${book.author.firstName} + ' ' + ${book.author.lastName}"></a>
         </div>

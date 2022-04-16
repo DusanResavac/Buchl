@@ -116,17 +116,18 @@
                     <article class="book-overview">
                         <a th:href="'/book/' + ${book.id}">
                             <div class="article-link-wrapper">
-                                <img th:src="${book.imageLink == null} ?
-                                            '/imgs/image-preview.png' :
-                                            '/imgs/' + ${book.imageLink}"
-                                    loading="lazy"
-                                    th:alt="${book.imageAlt == null} ?
-                                           ${book.title} :
-                                           ${book.imageAlt}">
+                                <img th:src="${book.imageLink == null} ? '/imgs/image-preview.png' : '/imgs/' + ${book.imageLink}"
+                                     loading="lazy"
+                                     th:if="${book.imageAlt == null}"
+                                     alt="">
+                                <img th:src="${book.imageLink == null} ? '/imgs/image-preview.png' : '/imgs/' + ${book.imageLink}"
+                                     loading="lazy"
+                                     th:unless="${book.imageAlt == null}"
+                                     th:alt="${book.imageAlt}">
                                 <div class="article-content">
                                     <h3 th:text="${book.title}"></h3>
                                     <div class="article-footer">
-                                        <p th:text="${#temporals.year(book.releaseDate)}">
+                                        <p th:text="${#temporals.year(book.releaseDate)}"></p>
                                         <img loading="lazy"
                                              th:if="${book.averageRating != null}"
                                              th:src="'/imgs/SVG/rating-' + ${#numbers.formatDecimal(book.averageRating, 0, 0)} + '.svg'"

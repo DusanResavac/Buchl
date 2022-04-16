@@ -1,40 +1,41 @@
 <template>
   <fragment>
     <header class="has-text-centered">
-      <span id="title">BUCHL</span>
+      <span id="title" tabindex="-1">BUCHL</span>
     </header>
-    <a class="visually-hidden" ref="skipNavigation" v-bind:href="mainId">Navigation überspringen</a>
+    <a class="visually-hidden" id="skipNavigation" ref="skipNavigation" v-bind:href="mainId">Navigation überspringen</a>
     <nav id="main-nav" ref="mainNav" class="mt-5" role="navigation" aria-label="Hauptnavigation">
-      <ul role="menubar" aria-label="Hauptnavigation">
-        <li role="none">
-          <router-link role="menuitem" class="p-3 is-size-4-desktop" v-bind:class="isActiveLink('home')" aria-haspopup="false" to="/">Startseite</router-link>
+      <ul>
+        <li>
+          <router-link class="p-3 is-size-4-desktop" :aria-current="activeLink === 'home' ? 'page' : 'false'" v-bind:class="isActiveLink('home')" aria-haspopup="false" to="/">Startseite</router-link>
         </li>
-        <li role="none">
-          <router-link role="menuitem" class="p-3 is-size-4-desktop" v-bind:class="isActiveLink('favourites')" aria-haspopup="false" to="/favourites">Favoriten</router-link>
+        <li >
+          <router-link class="p-3 is-size-4-desktop" :aria-current="activeLink === 'favourites' ? 'page' : 'false'" v-bind:class="isActiveLink('favourites')" aria-haspopup="false" to="/favourites">Favoriten</router-link>
         </li>
-        <li role="none">
-          <router-link role="menuitem" class="p-3 is-size-4-desktop expandable-menu" data-menu="books-menu"
-             v-bind:class="isActiveLink('books')"
-             aria-haspopup="true"
-             aria-expanded="false"
-             to="/books">Bücher</router-link>
-          <ul role="menu" aria-label="Bücher" class="is-hidden" id="books-menu">
-            <li role="none">
-              <router-link role="menuitem" data-parentmenu="books-menu" tabindex="0" to="/books">Stöbern und Filtern</router-link>
+        <li >
+          <router-link class="p-3 is-size-4-desktop expandable-menu" data-menu="books-menu"
+                       :aria-current="activeLink === 'books' ? 'page' : 'false'"
+                       v-bind:class="isActiveLink('books')"
+                       aria-haspopup="true"
+                       aria-expanded="false"
+                       to="/books">Bücher</router-link>
+          <ul aria-label="Bücher" class="is-hidden" id="books-menu">
+            <li >
+              <router-link data-parentmenu="books-menu" tabindex="0" to="/books">Stöbern und Filtern</router-link>
             </li>
-            <li role="none">
-              <router-link role="menuitem" data-parentmenu="books-menu" tabindex="0" to="/tags">Themen und Genre</router-link>
+            <li >
+              <router-link data-parentmenu="books-menu" tabindex="0" to="/tags">Themen und Genre</router-link>
             </li>
           </ul>
         </li>
-        <li role="none">
-          <router-link role="menuitem" class="p-3 is-size-4-desktop" v-bind:class="isActiveLink('discussions')" aria-haspopup="false" to="/discussions">Diskussionen</router-link>
+        <li >
+          <router-link class="p-3 is-size-4-desktop" :aria-current="activeLink === 'discussions' ? 'page' : 'false'" v-bind:class="isActiveLink('discussions')" aria-haspopup="false" to="/discussions">Diskussionen</router-link>
         </li>
-        <li role="none">
-          <router-link role="menuitem" class="p-3 is-size-4-desktop" v-bind:class="isActiveLink('reviews')" aria-haspopup="false" to="/reviews">Rezensionen</router-link>
+        <li >
+          <router-link class="p-3 is-size-4-desktop" :aria-current="activeLink === 'reviews' ? 'page' : 'false'" v-bind:class="isActiveLink('reviews')" aria-haspopup="false" to="/reviews">Rezensionen</router-link>
         </li>
-        <li role="none">
-          <router-link role="menuitem" class="p-3 is-size-4-desktop" v-bind:class="isActiveLink('recommendations')" aria-haspopup="false" to="/recommendations">Vorschläge</router-link>
+        <li >
+          <router-link class="p-3 is-size-4-desktop" :aria-current="activeLink === 'recommendations' ? 'page' : 'false'" v-bind:class="isActiveLink('recommendations')" aria-haspopup="false" to="/recommendations">Vorschläge</router-link>
         </li>
       </ul>
     </nav>
@@ -47,6 +48,9 @@ export default {
   props: ['mainId', 'activeLink'],
   mounted() {
     const expandableMenus = this.$refs.mainNav.getElementsByClassName('expandable-menu');
+    this.$refs.skipNavigation.addEventListener('click', () => {
+      document.querySelector(this.mainId).focus();
+    });
     this.addDocumentEventListener(expandableMenus);
     this.addEventListenerToMenuAndSubmenu(expandableMenus);
   },
@@ -59,9 +63,9 @@ export default {
     addDocumentEventListener(expandableMenus) {
       document.addEventListener('keydown', (ev) => {
         if (ev.key === 'Escape' || ev.code === 'Escape' || ev.key === 'Esc') {
-          console.log('document - keydown escape');
+          // console.log('document - keydown escape');
           for (let i = 0; i < expandableMenus.length; i += 1) {
-            console.log(this.$refs.mainNav);
+            // console.log(this.$refs.mainNav);
             const menu = expandableMenus[i];
             const subMenu = this.$refs.mainNav.querySelector(`#${menu.getAttribute('data-menu')}`);
             this.closeMenu(menu, subMenu);
@@ -76,19 +80,19 @@ export default {
         const subMenuItems = this.$refs.mainNav.querySelectorAll(`#${menu.getAttribute('data-menu')} > li > a`);
 
         menu.addEventListener('focus', () => {
-          console.log('menu - focus');
+          // console.log('menu - focus');
           this.expandMenu(menu, subMenu);
         });
         menu.addEventListener('mouseenter', () => {
-          console.log('menu - mouseenter');
+          // console.log('menu - mouseenter');
           this.expandMenu(menu, subMenu);
         });
         menu.addEventListener('touchstart', () => {
-          console.log('menu - touchstart');
+          // console.log('menu - touchstart');
           this.expandMenu(menu, subMenu);
           const self = this;
           document.getElementsByTagName('body')[0].addEventListener('touchstart', function touchStartDocument(ev) {
-            console.log('body touchstart');
+            // console.log('body touchstart');
             if (!menu.contains(ev.target) && !subMenu.contains(ev.target)) {
               self.closeMenu(menu, subMenu);
               this.removeEventListener('touchstart', touchStartDocument);
@@ -96,19 +100,19 @@ export default {
           });
         });
         subMenu.addEventListener('mouseenter', () => {
-          console.log('subMenu - mouseenter');
+          // console.log('subMenu - mouseenter');
           this.expandMenu(menu, subMenu);
         });
         subMenu.addEventListener('mouseleave', () => {
-          console.log('subMenu - mouseleave');
+          // console.log('subMenu - mouseleave');
           this.closeMenu(menu, subMenu);
         });
         menu.addEventListener('mouseleave', () => {
-          console.log('menu - mouseleave');
+          // console.log('menu - mouseleave');
           this.closeMenu(menu, subMenu);
         });
         menu.addEventListener('blur', (ev) => {
-          console.log('menu - blur');
+          // console.log('menu - blur');
           // IE 11
           const relTarget = ev.relatedTarget || document.activeElement;
 
@@ -122,7 +126,7 @@ export default {
           const subMenuItem = subMenuItems[b];
 
           subMenuItem.addEventListener('blur', (ev) => {
-            console.log('subMenuItem - blur');
+            // console.log('subMenuItem - blur');
             const t = ev.relatedTarget || document.activeElement;
 
             if (t === null) {
@@ -141,16 +145,16 @@ export default {
       }
     },
     expandMenu(menu, subMenu) {
-      console.log('expanding');
+      // console.log('expanding');
       subMenu.classList.remove('is-hidden');
       menu.setAttribute('aria-expanded', 'true');
-      console.log('expanded');
+      // console.log('expanded');
     },
     closeMenu(menu, subMenu) {
-      console.log('closing');
+      // console.log('closing');
       subMenu.classList.add('is-hidden');
       menu.setAttribute('aria-expanded', 'false');
-      console.log('closed');
+      // console.log('closed');
     },
   },
   computed: {
@@ -202,17 +206,17 @@ header {
 
 #main-nav > ul  {
   display: flex;
-  flex-wrap: wrap;
+  flex-direction: column;
   justify-content: space-between;
   border: 1px solid #485fc7;
   padding: 10px 20px 10px 20px;
 }
 
-#main-nav ul[role="menubar"] > li {
+#main-nav > ul > li {
   position: relative;
 }
 
-#main-nav ul[role="menu"] {
+#main-nav > ul > li > ul {
   z-index: 10;
   position: absolute;
   display: block;
@@ -222,7 +226,7 @@ header {
   padding: 0.5em;
 }
 
-#main-nav ul[role="menu"] a {
+#main-nav > ul > li > ul a {
   min-width: 11em;
   text-align: left;
   padding: 1em;
@@ -241,10 +245,25 @@ a:focus {
   font-weight: bold;
 }
 
+#main-nav ul.is-hidden {
+  display: block !important;
+  position: static;
+}
+
 @media all and (min-width: 500px) {
   #main-nav {
     margin: 1.5rem auto 0 auto;
     max-width: 1100px;
+  }
+
+  #main-nav > ul {
+    flex-wrap: wrap;
+    flex-direction: row;
+  }
+
+  #main-nav ul.is-hidden {
+    display: none !important;
+    position: absolute;
   }
 }
 

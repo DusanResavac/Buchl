@@ -1,119 +1,113 @@
 <template>
-  <fragment>
-    <app-header main-id="#main" active-link="books"></app-header>
-    <main id="main">
-      <form id="form" role="search" method="get" action="/books" v-on:submit="getBooksFromApi">
-        <h1 class="is-size-3 is-size-4-mobile mb-3">Suchen und Filtern</h1>
-        <a href="#search" class="visually-hidden">Filter überspringen</a>
-        <div class="form-content">
-          <div class="form-combobox-wrapper">
-            <label class="label" for="tag">Thema oder Lesealter</label>
-            <div class="select">
-              <select class="select form-data" id="tag" name="tag" v-model="tag">
-                <option value="">Kein Thema</option>
-                <optgroup v-for="parentTag in tags" v-bind:key="parentTag.id" v-bind:label="parentTag.name">
-                  <option v-for="childTag in parentTag.tags" v-bind:key="childTag.id"
-                          v-bind:value="childTag.id">
-                    {{ childTag.name }}
-                  </option>
-                </optgroup>
-              </select>
-            </div>
-          </div>
-          <div class="form-combobox-wrapper">
-            <label class="label" for="rating">Mindestbewertung</label>
-            <div class="select">
-              <select class="select form-data" v-model="rating" id="rating" name="rating">
-                <option value="" v-bind:selected="rating === undefined || rating === null">Keine Mindestbewertung</option>
-                <option v-for="star in [1, 2, 3, 4, 5]" v-bind:key="star"
-                        v-bind:value="star"
-                        v-bind:selected="rating === star">
-                  {{ star === 1 ? '1 Stern' : star + ' Sterne' }}
+  <main tabindex="-1" id="main">
+    <form id="form" method="get" action="/books" v-on:submit="getBooksFromApi">
+      <h1 class="is-size-3 is-size-4-mobile mb-3">Suchen und Filtern</h1>
+      <a href="#search" class="visually-hidden">Filter überspringen</a>
+      <div role="search" class="form-content">
+        <div class="form-combobox-wrapper">
+          <label class="label" for="tag">Thema oder Lesealter</label>
+          <div class="select">
+            <select class="select form-data" id="tag" name="tag" v-model="tag">
+              <option value="">Kein Thema</option>
+              <optgroup v-for="parentTag in tags" v-bind:key="parentTag.id" v-bind:label="parentTag.name">
+                <option v-for="childTag in parentTag.tags" v-bind:key="childTag.id"
+                        v-bind:value="childTag.id">
+                  {{ childTag.name }}
                 </option>
-              </select>
-            </div>
+              </optgroup>
+            </select>
           </div>
-          <div class="form-combobox-wrapper">
-            <label class="label" for="author">Autor</label>
-            <div class="select">
-              <select id="author" v-model="author" class="form-data" name="author">
-                <option value="" v-bind:selected="author === undefined || author === null">Kein(e) bestimmte(r) Autor(in)</option>
-                <option v-for="a in authors" v-bind:key="a.id"
-                        v-bind:value="a.id"
-                        v-bind:selected="author === a.id">
-                  {{ a.firstName }} {{ a.lastName }}
-                </option>
-              </select>
-            </div>
+        </div>
+        <div class="form-combobox-wrapper">
+          <label class="label" for="rating">Mindestbewertung</label>
+          <div class="select">
+            <select class="select form-data" v-model="rating" id="rating" name="rating">
+              <option value="" v-bind:selected="rating === undefined || rating === null">Keine Mindestbewertung</option>
+              <option v-for="star in [1, 2, 3, 4, 5]" v-bind:key="star"
+                      v-bind:value="star"
+                      v-bind:selected="rating === star">
+                {{ star === 1 ? '1 Stern' : star + ' Sterne' }}
+              </option>
+            </select>
           </div>
-          <div>
-            <p class="label" id="releaseYear">Erscheinungsjahr</p>
-            <div class="release-year-wrapper">
-              <div>
-                <label class="label" for="releaseYearFrom">Ab</label>
-                <div class="control">
-                  <input id="releaseYearFrom"
-                         aria-label="Erscheinungsjahr ab"
-                         class="input form-data"
-                         v-model="releaseYearFrom" type="number"
-                         min="1900" max="2022" name="releaseYearFrom">
-                </div>
-              </div>
-              <div>
-                <label class="label" for="releaseYearUntil">Bis</label>
-                <div class="control">
-                  <input id="releaseYearUntil"
-                         aria-label="Erscheinungsjahr bis"
-                         class="input form-data"
-                         v-model="releaseYearUntil" type="number"
-                         min="1900" max="2022" name="releaseYearUntil">
-                </div>
-              </div>
-            </div>
+        </div>
+        <div class="form-combobox-wrapper">
+          <label class="label" for="author">Autor</label>
+          <div class="select">
+            <select id="author" v-model="author" class="form-data" name="author">
+              <option value="" v-bind:selected="author === undefined || author === null">Kein(e) bestimmte(r) Autor(in)</option>
+              <option v-for="a in authors" v-bind:key="a.id"
+                      v-bind:value="a.id"
+                      v-bind:selected="author === a.id">
+                {{ a.firstName }} {{ a.lastName }}
+              </option>
+            </select>
           </div>
-          <div id="searchWrapper">
+        </div>
+        <div>
+          <p class="label" id="releaseYear">Erscheinungsjahr</p>
+          <div class="release-year-wrapper">
             <div>
-              <label class="label" for="search">Suchen Sie nach Buchtitel, ISBN oder der Buchbeschreibung</label>
+              <label class="label" for="releaseYearFrom">Ab</label>
               <div class="control">
-                <input type="search"
+                <input id="releaseYearFrom"
+                       aria-label="Erscheinungsjahr ab"
                        class="input form-data"
-                       id="search"
-                       placeholder="Nach Buchtitel, ISBN oder der Buchbeschreibung suchen ..."
-                       name="q"
-                       v-model="search">
+                       v-model="releaseYearFrom" type="number"
+                       min="1900" max="2022" name="releaseYearFrom">
               </div>
             </div>
-            <div class="control">
-              <button class="button is-link" id="submitButton" type="submit" aria-busy="false">Suchen</button>
+            <div>
+              <label class="label" for="releaseYearUntil">Bis</label>
+              <div class="control">
+                <input id="releaseYearUntil"
+                       aria-label="Erscheinungsjahr bis"
+                       class="input form-data"
+                       v-model="releaseYearUntil" type="number"
+                       min="1900" max="2022" name="releaseYearUntil">
+              </div>
             </div>
           </div>
         </div>
-      </form>
-      <section>
-        <h2 class="is-size-4">Suchergebnisse</h2>
-        <div id="searchResults" role="region" aria-label="Suchergebnisse" v-bind:aria-busy="searching"
-             aria-live="polite"
-             aria-atomic="true">
-          <div class="loader" v-show="searching" v-bind:aria-hidden="!searching" id="loadingCircle"
-               aria-label="Lade Ergebnisse"
-               v-bind:aria-busy="searching"></div>
-          <p v-show="books.length === 0 && !searching" id="noSearchResults">Es sind keine Suchergebnisse vorhanden.</p>
-          <ul class="article-wrapper">
-            <li v-for="book in books" v-bind:key="book.id">
-              <book-overview v-bind:book="book"></book-overview>
-            </li>
-          </ul>
+        <div id="searchWrapper">
+          <div>
+            <label class="label" for="search">Suchen Sie nach Buchtitel, ISBN oder der Buchbeschreibung</label>
+            <div class="control">
+              <input type="search"
+                     class="input form-data"
+                     id="search"
+                     placeholder="Nach Buchtitel, ISBN oder der Buchbeschreibung suchen ..."
+                     name="q"
+                     v-model="search">
+            </div>
+          </div>
+          <div class="control">
+            <button class="button is-link" id="submitButton" type="submit" v-bind:aria-busy="searching">Suchen</button>
+          </div>
         </div>
-      </section>
-    </main>
-  </fragment>
+      </div>
+    </form>
+    <section>
+      <h2 class="is-size-4">Suchergebnisse</h2>
+      <div id="searchResults" ref="searchResults" role="region" aria-label="Suchergebnisse" v-bind:aria-busy="searching">
+        <div class="loader" v-show="searching" v-bind:aria-hidden="!searching" id="loadingCircle"
+             aria-label="Lade Ergebnisse"
+             v-bind:aria-busy="searching"></div>
+        <p v-show="books.length > 0">{{ books.length === 1 ? '1 Suchergebnis' : `${books.length} Suchergebnisse` }}</p>
+        <p v-show="books.length === 0 && !searching" id="noSearchResults">Es sind keine Suchergebnisse vorhanden.</p>
+        <ul class="article-wrapper">
+          <li v-for="book in books" v-bind:key="book.id">
+            <book-overview v-bind:book="book"></book-overview>
+          </li>
+        </ul>
+      </div>
+    </section>
+  </main>
 </template>
 
 <script>
 import axios from 'axios';
-import AppHeader from '@/components/AppHeader.vue';
 import BookOverview from '@/components/BookOverview.vue';
-import { Fragment } from 'vue-fragment';
 
 export default {
   name: 'Books',
@@ -132,6 +126,7 @@ export default {
     };
   },
   created() {
+    this.$emit('loaded', { mainId: '#main', activeLink: 'books' });
     this.tag = this.isUndefined(this.$route.query.tag, true) ? '' : parseInt(this.$route.query.tag, 10);
     this.rating = this.isUndefined(this.$route.query.rating, true) ? '' : parseInt(this.$route.query.rating, 10);
     this.author = this.isUndefined(this.$route.query.author, true) ? '' : parseInt(this.$route.query.author, 10);
@@ -145,12 +140,12 @@ export default {
 
     axios.get('api/tags')
       .then((response) => {
-        console.log('tags response', response);
+        // console.log('tags response', response);
         this.tags = response.data;
       });
     axios.get('api/authors')
       .then((response) => {
-        console.log('authors response', response);
+        // console.log('authors response', response);
         this.authors = response.data;
       });
   },
@@ -173,7 +168,7 @@ export default {
           q: this.search,
         },
       }).then((response) => {
-        console.log('books response', response);
+        // console.log('books response', response);
         const url = new URL(window.location);
         url.searchParams.set('tag', this.tag);
         url.searchParams.set('rating', this.rating);
@@ -191,11 +186,15 @@ export default {
             releaseDate,
           };
         });
+        // Don't change the focus on page load
+        if (ev !== null) {
+          this.$refs.searchResults.focus();
+        }
         this.searching = false;
       });
     },
   },
-  components: { BookOverview, AppHeader, Fragment },
+  components: { BookOverview },
 };
 </script>
 

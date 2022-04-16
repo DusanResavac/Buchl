@@ -61,7 +61,7 @@ function init() {
                     staticUrl + 'image-preview.png' :
                     staticUrl + bookDiscussion.imageLink);
                 imgBook.setAttribute('alt', bookDiscussion.imageAlt === null ?
-                    bookDiscussion.title :
+                    '' :
                     bookDiscussion.imageAlt);
                 imgBook.setAttribute('loading', 'lazy');
                 titleA.setAttribute('href', '/book/' + bookDiscussion.id);

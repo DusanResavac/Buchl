@@ -5,6 +5,10 @@ let expandableMenus;
 function init() {
     expandableMenus = document.getElementsByClassName('expandable-menu');
 
+    document.getElementById('skipNavigation').addEventListener('click', function () {
+        document.getElementById('main').focus();
+    });
+
     document.addEventListener('keydown', function (ev) {
         if (ev.key === 'Escape' || ev.code === 'Escape' || ev.key === 'Esc') {
             console.log('document - keydown escape');
@@ -49,7 +53,7 @@ function init() {
                     this.removeEventListener('touchstart', touchStartDocument);
                 }
             });
-        })
+        });
         subMenu.addEventListener('mouseenter', function () {
             console.log('subMenu - mouseenter');
             expandMenu(menu, subMenu);
