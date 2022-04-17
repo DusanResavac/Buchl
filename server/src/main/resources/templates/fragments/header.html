@@ -1,23 +1,37 @@
 
 <header class="has-text-centered" th:fragment="header">
-    <span id="title">BUCHL</span>
+    <span id="title">Buchl</span>
 </header>
 <a class="visually-hidden" id="skipNavigation" href="#main" th:href="${id}" th:fragment="skipNavigation(id)">Navigation überspringen</a>
 <nav id="main-nav" class="mt-5" role="navigation" aria-label="Hauptnavigation" th:fragment="navigation(activeLink)">
     <script src="/js/menu.js" th:src="@{/js/navigation.js}"></script>
     <ul>
         <li>
-            <a class="p-3 is-size-4-desktop" th:classappend="${activeLink == 'home'} ? 'active' : ''" aria-haspopup="false" href="/">Startseite</a>
+            <a class="p-3 is-size-4-desktop"
+               th:classappend="${activeLink == 'home'} ? 'active' : ''"
+               th:attr="aria-current=${activeLink == 'home' ? 'page' : 'false'}"
+               aria-haspopup="false"
+               href="/">Startseite</a>
         </li>
         <li>
-            <a class="p-3 is-size-4-desktop" th:classappend="${activeLink == 'favourites'} ? 'active' : ''" aria-haspopup="false" href="/favourites">Favoriten</a>
+            <a class="p-3 is-size-4-desktop"
+               th:classappend="${activeLink == 'favourites'} ? 'active' : ''"
+               th:attr="aria-current=${activeLink == 'favourites' ? 'page' : 'false'}"
+               aria-haspopup="false"
+               href="/favourites">Favoriten</a>
         </li>
         <li>
-            <a class="p-3 is-size-4-desktop expandable-menu" data-menu="books-menu"
+            <!--<a class="p-3 is-size-4-desktop expandable-menu" data-menu="books-menu"
                th:classappend="${activeLink == 'books'} ? 'active' : ''"
                aria-haspopup="true"
                aria-expanded="false"
-               href="/books">Bücher</a>
+               href="/books">Bücher</a>-->
+            <button class="button is-ghost expandable-menu p-3 is-size-4-desktop"
+                    th:classappend="${activeLink == 'books'} ? 'active' : ''"
+                    th:attr="aria-current=${activeLink == 'books' ? 'page' : 'false'}"
+                    data-menu="books-menu"
+                    aria-haspopup="true"
+                    aria-expanded="false">Bücher</button>
             <ul aria-label="Bücher" class="is-hidden" id="books-menu">
                 <li>
                     <a data-parentmenu="books-menu" tabindex="0" href="/books">Stöbern und Filtern</a>
@@ -28,13 +42,25 @@
             </ul>
         </li>
         <li>
-            <a class="p-3 is-size-4-desktop" th:classappend="${activeLink == 'discussions'} ? 'active' : ''" aria-haspopup="false" href="/discussions">Diskussionen</a>
+            <a class="p-3 is-size-4-desktop"
+               th:classappend="${activeLink == 'discussions'} ? 'active' : ''"
+               th:attr="aria-current=${activeLink == 'discussions' ? 'page' : 'false'}"
+               aria-haspopup="false"
+               href="/discussions">Diskussionen</a>
         </li>
         <li>
-            <a class="p-3 is-size-4-desktop" th:classappend="${activeLink == 'reviews'} ? 'active' : ''" aria-haspopup="false" href="/reviews">Rezensionen</a>
+            <a class="p-3 is-size-4-desktop"
+               th:classappend="${activeLink == 'reviews'} ? 'active' : ''"
+               th:attr="aria-current=${activeLink == 'reviews' ? 'page' : 'false'}"
+               aria-haspopup="false"
+               href="/reviews">Rezensionen</a>
         </li>
         <li>
-            <a class="p-3 is-size-4-desktop" th:classappend="${activeLink == 'recommendations'} ? 'active' : ''" aria-haspopup="false" href="/recommendations">Vorschläge</a>
+            <a class="p-3 is-size-4-desktop"
+               th:classappend="${activeLink == 'recommendations'} ? 'active' : ''"
+               th:attr="aria-current=${activeLink == 'recommendations' ? 'page' : 'false'}"
+               aria-haspopup="false"
+               href="/recommendations">Vorschläge</a>
         </li>
     </ul>
 </nav>

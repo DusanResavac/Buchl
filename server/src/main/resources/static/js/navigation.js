@@ -54,6 +54,9 @@ function init() {
                 }
             });
         });
+        menu.addEventListener('click', function () {
+           expandMenu(menu, subMenu);
+        });
         subMenu.addEventListener('mouseenter', function () {
             console.log('subMenu - mouseenter');
             expandMenu(menu, subMenu);

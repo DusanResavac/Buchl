@@ -55,9 +55,10 @@ public class BuchlController {
         int[] stars = new int[] {1, 2, 3, 4, 5};
         List<BookDTO> books = null;
 
-        if (tag != null || rating != null || authorId != null || releaseYearFrom != null || releaseYearUntil != null || search != null) {
+        books = bookResource.retrieveBooks(tag, rating, authorId, releaseYearFrom, releaseYearUntil, search);
+        /*if (tag != null || rating != null || authorId != null || releaseYearFrom != null || releaseYearUntil != null || search != null) {
             books = bookResource.retrieveBooks(tag, rating, authorId, releaseYearFrom, releaseYearUntil, search);
-        }
+        }*/
 
         model.addAttribute("title", "Bücher stöbern und filtern");
 

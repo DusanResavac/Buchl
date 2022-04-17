@@ -1,7 +1,7 @@
 <template>
   <fragment>
     <header class="has-text-centered">
-      <span id="title" tabindex="-1">BUCHL</span>
+      <span id="title" tabindex="-1">Buchl</span>
     </header>
     <a class="visually-hidden" id="skipNavigation" ref="skipNavigation" v-bind:href="mainId">Navigation überspringen</a>
     <nav id="main-nav" ref="mainNav" class="mt-5" role="navigation" aria-label="Hauptnavigation">
@@ -13,12 +13,18 @@
           <router-link class="p-3 is-size-4-desktop" :aria-current="activeLink === 'favourites' ? 'page' : 'false'" v-bind:class="isActiveLink('favourites')" aria-haspopup="false" to="/favourites">Favoriten</router-link>
         </li>
         <li >
-          <router-link class="p-3 is-size-4-desktop expandable-menu" data-menu="books-menu"
+<!--          <router-link class="p-3 is-size-4-desktop expandable-menu" data-menu="books-menu"
                        :aria-current="activeLink === 'books' ? 'page' : 'false'"
                        v-bind:class="isActiveLink('books')"
                        aria-haspopup="true"
                        aria-expanded="false"
-                       to="/books">Bücher</router-link>
+                       to="/books">Bücher</router-link>-->
+          <button class="button is-ghost expandable-menu p-3 is-size-4-desktop"
+                  v-bind:class="isActiveLink('books')"
+                  :aria-current="activeLink === 'books' ? 'page' : 'false'"
+                  data-menu="books-menu"
+                  aria-haspopup="true"
+                  aria-expanded="false">Bücher</button>
           <ul aria-label="Bücher" class="is-hidden" id="books-menu">
             <li >
               <router-link data-parentmenu="books-menu" tabindex="0" to="/books">Stöbern und Filtern</router-link>
@@ -98,6 +104,9 @@ export default {
               this.removeEventListener('touchstart', touchStartDocument);
             }
           });
+        });
+        menu.addEventListener('click', () => {
+          this.expandMenu(menu, subMenu);
         });
         subMenu.addEventListener('mouseenter', () => {
           // console.log('subMenu - mouseenter');
@@ -213,6 +222,9 @@ header {
 }
 
 #main-nav > ul > li {
+  display: flex;
+  justify-content: center;
+  align-items: center;
   position: relative;
 }
 
@@ -224,6 +236,8 @@ header {
   box-shadow: 0px 0px 5px -2px rgba(82,82,82,1);
   border-radius: 5px;
   padding: 0.5em;
+  bottom: 0;
+  transform: translateY(100%);
 }
 
 #main-nav > ul > li > ul a {
@@ -241,14 +255,18 @@ a:focus {
   outline: none;
 }
 
-#main-nav a.active {
+#main-nav a.active, #main-nav button.active {
   font-weight: bold;
 }
 
-#main-nav ul.is-hidden {
+#title {
+  text-transform: uppercase;
+}
+
+/*#main-nav ul.is-hidden {
   display: block !important;
   position: static;
-}
+}*/
 
 @media all and (min-width: 500px) {
   #main-nav {
@@ -261,10 +279,10 @@ a:focus {
     flex-direction: row;
   }
 
-  #main-nav ul.is-hidden {
+/*  #main-nav ul.is-hidden {
     display: none !important;
     position: absolute;
-  }
+  }*/
 }
 
 </style>

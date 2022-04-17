@@ -39,6 +39,8 @@ header {
     box-shadow: 0px 0px 5px -2px rgba(82,82,82,1);
     border-radius: 5px;
     padding: 0.5em;
+    bottom: 0;
+    transform: translateY(100%);
 }
 
 #main-nav > ul > li > ul a {
@@ -56,7 +58,7 @@ a:focus {
     outline: none;
 }
 
-#main-nav a.active {
+#main-nav a.active, #main-nav button.active {
     font-weight: bold;
 }
 
@@ -75,10 +77,14 @@ a:focus {
     position: absolute;
 }
 
-#main-nav ul.is-hidden {
+#title {
+    text-transform: uppercase;
+}
+
+/*#main-nav ul.is-hidden {
     display: block !important;
     position: static;
-}
+}*/
 
 @media all and (min-width: 500px) {
     #main-nav {
@@ -91,9 +97,9 @@ a:focus {
         flex-direction: row;
     }
 
-    #main-nav ul.is-hidden {
+/*    #main-nav ul.is-hidden {
         display: none !important;
         position: absolute;
-    }
+    }*/
 }
 

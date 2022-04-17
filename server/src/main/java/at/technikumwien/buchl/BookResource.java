@@ -53,9 +53,9 @@ public class BookResource {
                 .filter(b -> releaseYearFrom == null || b.getReleaseDate().isAfter(LocalDate.of((int) (releaseYearFrom - 1), 12, 31)))
                 .filter(b -> releaseYearUntil == null || b.getReleaseDate().isBefore(LocalDate.of((int) (releaseYearUntil + 1), 1, 1)))
                 .filter(b -> search == null ||
-                        b.getTitle().contains(search) ||
-                        b.getDescription().contains(search) ||
-                        b.getIsbn().contains(search))
+                        b.getTitle().toLowerCase().contains(search.toLowerCase()) ||
+                        b.getDescription().toLowerCase().contains(search.toLowerCase()) ||
+                        b.getIsbn().toLowerCase().contains(search.toLowerCase()))
                 .map(b -> bookDTOFactory.createForBookOverview(b))
                 .collect(Collectors.toList());
 
