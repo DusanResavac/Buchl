@@ -13,12 +13,12 @@
           <router-link class="p-3 is-size-4-desktop" :aria-current="activeLink === 'favourites' ? 'page' : 'false'" v-bind:class="isActiveLink('favourites')" aria-haspopup="false" to="/favourites">Favoriten</router-link>
         </li>
         <li >
-<!--          <router-link class="p-3 is-size-4-desktop expandable-menu" data-menu="books-menu"
-                       :aria-current="activeLink === 'books' ? 'page' : 'false'"
-                       v-bind:class="isActiveLink('books')"
-                       aria-haspopup="true"
-                       aria-expanded="false"
-                       to="/books">Bücher</router-link>-->
+          <!--          <router-link class="p-3 is-size-4-desktop expandable-menu" data-menu="books-menu"
+                                 :aria-current="activeLink === 'books' ? 'page' : 'false'"
+                                 v-bind:class="isActiveLink('books')"
+                                 aria-haspopup="true"
+                                 aria-expanded="false"
+                                 to="/books">Bücher</router-link>-->
           <button class="button is-ghost expandable-menu p-3 is-size-4-desktop"
                   v-bind:class="isActiveLink('books')"
                   :aria-current="activeLink === 'books' ? 'page' : 'false'"
@@ -86,26 +86,26 @@ export default {
         const subMenuItems = this.$refs.mainNav.querySelectorAll(`#${menu.getAttribute('data-menu')} > li > a`);
 
         menu.addEventListener('focus', () => {
-          // console.log('menu - focus');
           // this.expandMenu(menu, subMenu);
         });
-        menu.addEventListener('mouseenter', () => {
-          // console.log('menu - mouseenter');
-          this.expandMenu(menu, subMenu);
+        menu.addEventListener('mouseenter', (ev) => {
+          // console.log('menu - mouseenter', ev);
+          const relTarget = ev.relatedTarget;
+          // chrome triggers mouseenter event on touch devices
+          if (relTarget !== null) {
+            this.expandMenu(menu, subMenu);
+          }
         });
-        menu.addEventListener('touchstart', () => {
-          // console.log('menu - touchstart');
-          this.expandMenu(menu, subMenu);
-          const self = this;
-          document.getElementsByTagName('body')[0].addEventListener('touchstart', function touchStartDocument(ev) {
-            // console.log('body touchstart');
-            if (!menu.contains(ev.target) && !subMenu.contains(ev.target)) {
-              self.closeMenu(menu, subMenu);
-              this.removeEventListener('touchstart', touchStartDocument);
-            }
-          });
+        const self = this;
+        document.getElementsByTagName('body')[0].addEventListener('touchstart', function touchStartDocument(ev) {
+          // console.log('body touchstart');
+          if (!menu.contains(ev.target) && !subMenu.contains(ev.target)) {
+            self.closeMenu(menu, subMenu);
+            this.removeEventListener('touchstart', touchStartDocument);
+          }
         });
         menu.addEventListener('click', () => {
+          // console.log('menu - click');
           if (menu.getAttribute('aria-expanded') === 'true') {
             this.closeMenu(menu, subMenu);
           } else {
@@ -240,6 +240,7 @@ header {
   box-shadow: 0px 0px 5px -2px rgba(82,82,82,1);
   border-radius: 5px;
   padding: 0.5em;
+  left: 0;
   bottom: 0;
   transform: translateY(100%);
 }
@@ -304,10 +305,10 @@ a:focus {
     flex-direction: row;
   }
 
-/*  #main-nav ul.is-hidden {
-    display: none !important;
-    position: absolute;
-  }*/
+  /*  #main-nav ul.is-hidden {
+      display: none !important;
+      position: absolute;
+    }*/
 }
 
 </style>
