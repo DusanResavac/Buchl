@@ -1,5 +1,6 @@
 <template>
   <main tabindex="-1" v-bind:aria-busy="searching" id="main">
+    <div class="loader" v-show="searching" id="loadingCircle" aria-label="Lade Ergebnisse"></div>
     <section>
       <h2 class="is-size-4">Neue Diskussionen</h2>
       <ul>
@@ -34,7 +35,6 @@
         </li>
       </ul>
     </section>
-    <div class="loader" v-if="searching" v-bind:aria-hidden="!searching" id="loadingCircle" aria-label="Lade Ergebnisse"></div>
 
     <article v-for="bookWithDiscussions in booksWithDiscussions" v-bind:key="bookWithDiscussions.id">
       <h2 class="is-size-4 mb-5">Diskussionen zu deinen Favoriten</h2>

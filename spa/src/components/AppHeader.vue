@@ -87,7 +87,7 @@ export default {
 
         menu.addEventListener('focus', () => {
           // console.log('menu - focus');
-          this.expandMenu(menu, subMenu);
+          // this.expandMenu(menu, subMenu);
         });
         menu.addEventListener('mouseenter', () => {
           // console.log('menu - mouseenter');
@@ -106,7 +106,11 @@ export default {
           });
         });
         menu.addEventListener('click', () => {
-          this.expandMenu(menu, subMenu);
+          if (menu.getAttribute('aria-expanded') === 'true') {
+            this.closeMenu(menu, subMenu);
+          } else {
+            this.expandMenu(menu, subMenu);
+          }
         });
         subMenu.addEventListener('mouseenter', () => {
           // console.log('subMenu - mouseenter');
@@ -257,6 +261,27 @@ a:focus {
 
 #main-nav a.active, #main-nav button.active {
   font-weight: bold;
+}
+
+#main-nav button::after {
+  content: '';
+  background-image: url("./../assets/imgs/leftArrow.svg");
+  width: 18px;
+  height: 18px;
+  background-size: contain;
+  position: absolute;
+  right: 6px;
+  transform: rotate(0);
+  transition: transform linear 100ms;
+}
+
+#main-nav button {
+  position: relative;
+  padding-right: 30px !important;
+}
+
+#main-nav button[aria-expanded=true]::after {
+  transform: rotate(-90deg);
 }
 
 #title {

@@ -90,7 +90,7 @@
     <section>
       <h2 class="is-size-4">Suchergebnisse</h2>
       <div id="searchResults" ref="searchResults" role="region" aria-label="Suchergebnisse" v-bind:aria-busy="searching">
-        <div class="loader" v-show="searching" v-bind:aria-hidden="!searching" id="loadingCircle"
+        <div class="loader" v-show="searching" id="loadingCircle"
              aria-label="Lade Ergebnisse"
              v-bind:aria-busy="searching"></div>
         <p v-show="books.length > 0">{{ books.length === 1 ? '1 Suchergebnis' : `${books.length} Suchergebnisse` }}</p>

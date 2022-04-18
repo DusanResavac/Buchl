@@ -1,6 +1,7 @@
 <template>
   <main tabindex="-1" id="main" v-bind:aria-busy="searching">
     <h1>Deine personalisierten Vorschläge</h1>
+    <div class="loader" v-show="searching" id="loadingCircle" aria-label="Lade Ergebnisse"></div>
     <section id="recommendations">
       <p v-if="books.length === 0">Du hast noch keine Favoriten. Füge Bücher zu deinen Favoriten hinzu, um Buchvorschläge zu erhalten! Du kannst ein Buch auf der Buchseite als Favorit markieren.</p>
       <div class="recommendation-wrapper"

@@ -2,7 +2,8 @@
   <main tabindex="-1" id="main" v-bind:aria-busy="searching">
     <h1>Deine Favoriten</h1>
     <section id="allFavourites">
-      <div class="loader" v-show="searching" v-bind:aria-hidden="!searching" id="loadingCircle"
+      <div class="loader" v-show="searching"
+           id="loadingCircle"
            aria-label="Lade Ergebnisse"
            v-bind:aria-busy="searching"></div>
       <p v-if="!searching && books.length === 0">Du hast noch keine Favoriten. Füge Bücher zu deinen Favoriten hinzu, um Buchvorschläge zu erhalten! Du kannst ein Buch auf der Buchseite als Favorit markieren.</p>

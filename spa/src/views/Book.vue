@@ -1,5 +1,6 @@
 <template>
-  <main tabindex="-1" id="main">
+  <main tabindex="-1" id="main" v-bind:aria-busy="searching">
+    <div class="loader" v-show="searching" id="loadingCircle" aria-label="Lade Ergebnisse"></div>
     <aside role="region" aria-label="Nebensächliche Buchinformationen" v-if="book !== null">
       <book-image v-bind:title="book.title" v-bind:image-link="book.imageLink" v-bind:image-alt="book.imageAlt"></book-image>
       <div class="book-side">
@@ -58,6 +59,7 @@ export default {
       book: null,
       isFavourite: false,
       bookId: null,
+      searching: true,
     };
   },
   created() {
@@ -72,6 +74,9 @@ export default {
         })
         .catch((error) => {
           console.error(error);
+        })
+        .finally(() => {
+          this.searching = false;
         });
 
       const bookFavourites = JSON.parse(localStorage.getItem('bookFavourites'));

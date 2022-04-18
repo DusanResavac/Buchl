@@ -3,11 +3,14 @@ document.addEventListener('DOMContentLoaded', init);
 const staticUrl = '../imgs/';
 
 function init() {
+    const loadingCircle = document.getElementById('loadingCircle');
     const favourites = localStorage.getItem('bookFavourites') === null ? [] : JSON.parse(localStorage.getItem('bookFavourites'));
     const recommendationsSection = document.getElementById('recommendations');
     const main = document.getElementById('main');
     const httpRequest = new XMLHttpRequest();
     const url = '/api/recommendations';
+
+    loadingCircle.classList.remove('is-hidden');
 
     httpRequest.open('POST', url, true);
     httpRequest.setRequestHeader('Content-type', 'application/json');
@@ -75,6 +78,7 @@ function init() {
                 p.innerHTML = 'Du hast noch keine Favoriten. Füge Bücher zu deinen Favoriten hinzu, um Buchvorschläge zu erhalten! Du kannst ein Buch auf der Buchseite als Favorit markieren.';
                 recommendationsSection.appendChild(p);
             }
+            loadingCircle.classList.add('is-hidden');
             main.setAttribute('aria-busy', 'false');
         }
     };

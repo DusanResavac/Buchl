@@ -108,9 +108,8 @@
         <h2 class="is-size-4">Suchergebnisse</h2>
         <div id="searchResults" role="region" aria-label="Suchergebnisse" aria-busy="false" aria-live="polite"
              aria-atomic="true">
-            <div class="visually-hidden loader" aria-hidden="true" id="loadingCircle" aria-label="Lade Ergebnisse"
-                 aria-busy="true"></div>
-            <p th:class="${hasSearchResults}?'visually-hidden'"  id="noSearchResults">Es sind keine Suchergebnisse vorhanden.</p>
+            <div class="is-hidden loader" id="loadingCircle" aria-label="Lade Ergebnisse"></div>
+            <p th:class="${hasSearchResults}?'is-hidden'"  id="noSearchResults">Es sind keine Suchergebnisse vorhanden.</p>
             <ul th:if="${booksByQueryParams != null}" class="article-wrapper">
                 <li th:each="book: ${booksByQueryParams}">
                     <article class="book-overview">

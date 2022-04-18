@@ -27,7 +27,7 @@ function init() {
 
         menu.addEventListener('focus', function () {
             console.log('menu - focus');
-            expandMenu(menu, subMenu);
+            /*expandMenu(menu, subMenu);*/
         });
         /*menu.addEventListener('keydown', function (ev) {
             console.log('menu - keydown');
@@ -55,7 +55,11 @@ function init() {
             });
         });
         menu.addEventListener('click', function () {
-           expandMenu(menu, subMenu);
+            if (menu.getAttribute('aria-expanded') === 'true') {
+                closeMenu(menu, subMenu);
+            } else {
+                expandMenu(menu, subMenu);
+            }
         });
         subMenu.addEventListener('mouseenter', function () {
             console.log('subMenu - mouseenter');

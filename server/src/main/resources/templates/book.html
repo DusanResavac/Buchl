@@ -9,6 +9,9 @@
     <link rel="stylesheet" href="../static/css/book.css" th:href="@{/css/book.css}">
 </head>
 <body>
+<script>
+    const bookId = [[${book.id}]];
+</script>
 <script type="application/javascript" src="/js/book.js" th:src="@{/js/book.js}"></script>
 <div th:replace="fragments/header.html :: header"></div>
 <div th:replace="fragments/header.html :: skipNavigation(id='#main')"></div>

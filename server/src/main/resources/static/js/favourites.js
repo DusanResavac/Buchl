@@ -3,11 +3,14 @@ document.addEventListener('DOMContentLoaded', init);
 const staticUrl = '../imgs/';
 
 function init() {
+    const loadingCircle = document.getElementById('loadingCircle');
     let favourites = localStorage.getItem('bookFavourites') === null ? [] : JSON.parse(localStorage.getItem('bookFavourites'));
     const allFavourites =  document.getElementById('allFavourites');
     const main = document.getElementById('main');
     const httpRequest = new XMLHttpRequest();
     const url = '/api/books-short';
+
+    loadingCircle.classList.remove('is-hidden');
 
     httpRequest.open('POST', url, true);
     httpRequest.setRequestHeader('Content-type', 'application/json');
@@ -65,6 +68,7 @@ function init() {
                 allFavourites.appendChild(p);
             }
 
+            loadingCircle.classList.add('is-hidden');
             main.setAttribute('aria-busy', 'false');
         }
     }

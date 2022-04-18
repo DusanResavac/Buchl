@@ -6,8 +6,7 @@ function init() {
     const loadingCircle = document.getElementById('loadingCircle'),
         url = '/api/books/with-discussions';
 
-    loadingCircle.setAttribute('aria-hidden', 'false');
-    loadingCircle.classList.remove('visually-hidden');
+    loadingCircle.classList.remove('is-hidden');
 
     //localStorage.setItem('bookFavourites', JSON.stringify([1,2,3]));
     let httpRequest = new XMLHttpRequest(),
@@ -119,8 +118,7 @@ function init() {
                 document.getElementById('main').appendChild(article);
             }
 
-            loadingCircle.setAttribute('aria-hidden', 'true');
-            loadingCircle.classList.add('visually-hidden');
+            loadingCircle.classList.add('is-hidden');
             document.getElementById('main').setAttribute('aria-busy', 'false');
         }
     }

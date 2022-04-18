@@ -4,8 +4,7 @@ let favouriteButton;
 
 function init() {
     favouriteButton = document.getElementById('favouriteButton');
-    const path = window.location.href.split('/');
-    const id = parseInt(path[path.length - 1]);
+    const id = bookId;
     const favourites = localStorage.getItem('bookFavourites') === null ? [] : JSON.parse(localStorage.getItem('bookFavourites'));
     const index = favourites.indexOf(id);
 

@@ -1,11 +1,13 @@
 <template>
-  <main tabindex="-1" id="main">
+  <main tabindex="-1" id="main" v-bind:aria-busy="searching">
     <section>
       <h2>Derzeit populär</h2>
+      <div class="loader" v-show="searching" aria-label="Lade Ergebnisse"></div>
       <book-and-reviews v-if="popularBook !== null" v-bind:book="popularBook"></book-and-reviews>
     </section>
     <section >
       <h2>Derzeit kontrovers</h2>
+      <div class="loader" v-show="searching" aria-label="Lade Ergebnisse"></div>
       <book-and-reviews v-if="controversialBook !== null" v-bind:book="controversialBook"></book-and-reviews>
     </section>
   </main>

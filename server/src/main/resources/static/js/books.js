@@ -23,10 +23,9 @@ function init() {
 
         const loadingCircle = document.getElementById('loadingCircle'),
             noSearchResults = document.getElementById('noSearchResults');
-        loadingCircle.setAttribute('aria-hidden', 'false');
-        loadingCircle.classList.remove('visually-hidden');
-        noSearchResults.setAttribute('aria-hidden', 'true');
-        noSearchResults.classList.add('visually-hidden');
+
+        loadingCircle.classList.remove('is-hidden');
+        noSearchResults.classList.add('is-hidden');
 
         submitButton.setAttribute('disabled', '');
         submitButton.setAttribute('aria-busy', 'true');
@@ -110,13 +109,10 @@ function init() {
                     }
                 }
 
-
                 searchResults.appendChild(articleWrapper);
-                loadingCircle.setAttribute('aria-hidden', 'true');
-                loadingCircle.classList.add('visually-hidden');
+                loadingCircle.classList.add('is-hidden');
                 if (books.length === 0) {
-                    noSearchResults.setAttribute('aria-hidden', 'false');
-                    noSearchResults.classList.remove('visually-hidden');
+                    noSearchResults.classList.remove('is-hidden');
                 }
                 submitButton.removeAttribute('disabled');
                 submitButton.setAttribute('aria-busy', 'false');

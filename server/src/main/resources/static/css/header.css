@@ -62,6 +62,27 @@ a:focus {
     font-weight: bold;
 }
 
+#main-nav button::after {
+    content: '';
+    background-image: url("../imgs/leftArrow.svg");
+    width: 18px;
+    height: 18px;
+    background-size: contain;
+    position: absolute;
+    right: 6px;
+    transform: rotate(0);
+    transition: transform linear 100ms;
+}
+
+#main-nav button {
+    position: relative;
+    padding-right: 30px !important;
+}
+
+#main-nav button[aria-expanded=true]::after {
+    transform: rotate(-90deg);
+}
+
 .visually-hidden {
     position: absolute;
 }

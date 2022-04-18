@@ -1,6 +1,7 @@
 <template>
   <main tabindex="-1" id="main" v-bind:aria-busy="searching">
     <h1>Nach Genre und Themen filtern</h1>
+    <div class="loader" v-show="searching" id="loadingCircle" aria-label="Lade Ergebnisse"></div>
     <div>
       <section class="genre"
                v-for="rootTag in rootTags"

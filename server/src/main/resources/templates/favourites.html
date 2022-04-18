@@ -15,6 +15,7 @@
 <div th:replace="fragments/header.html :: navigation(activeLink='favourites')"></div>
 <main id="main" aria-busy="true">
     <h1>Deine Favoriten</h1>
+    <div class="loader" id="loadingCircle" aria-label="Lade Ergebnisse"></div>
     <section id="allFavourites"></section>
 </main>
 <footer th:replace="fragments/footer.html :: footer"></footer>

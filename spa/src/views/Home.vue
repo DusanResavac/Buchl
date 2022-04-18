@@ -11,6 +11,7 @@
     <section class="column">
       <h2 class="is-size-2">Heutige Favoriten</h2>
       <div class="todays-favourites">
+        <div class="loader" v-show="searching" id="loadingCircle" aria-label="Lade Ergebnisse"></div>
         <article v-for="book in books" v-bind:key="book.id">
           <div class="book-image-wrapper">
             <figure class="image">
@@ -46,6 +47,7 @@ export default {
   data() {
     return {
       books: [],
+      searching: true,
     };
   },
   methods: {
@@ -60,6 +62,9 @@ export default {
       .then((response) => {
         this.books = response.data;
         // console.log(response);
+      })
+      .finally(() => {
+        this.searching = false;
       });
   },
 };
