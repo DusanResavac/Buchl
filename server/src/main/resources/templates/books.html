@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>[[${title}]] - Buchl</title>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css">
+    <link rel="stylesheet" href="../static/css/bulma.css" th:href="@{/css/bulma.css}">
     <link rel="stylesheet" href="../static/css/header.css" th:href="@{/css/header.css}">
     <link rel="stylesheet" href="../static/css/books.css" th:href="@{/css/books.css}">
 </head>
@@ -106,8 +106,7 @@
     </form>
     <section>
         <h2 class="is-size-4">Suchergebnisse</h2>
-        <div id="searchResults" role="region" aria-label="Suchergebnisse" aria-busy="false" aria-live="polite"
-             aria-atomic="true">
+        <div id="searchResults" role="region" aria-label="Suchergebnisse" aria-busy="false">
             <div class="is-hidden loader" id="loadingCircle" aria-label="Lade Ergebnisse"></div>
             <p th:class="${hasSearchResults}?'is-hidden'"  id="noSearchResults">Es sind keine Suchergebnisse vorhanden.</p>
             <ul th:if="${booksByQueryParams != null}" class="article-wrapper">

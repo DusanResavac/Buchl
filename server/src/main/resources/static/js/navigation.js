@@ -11,7 +11,7 @@ function init() {
 
     document.addEventListener('keydown', function (ev) {
         if (ev.key === 'Escape' || ev.code === 'Escape' || ev.key === 'Esc') {
-            console.log('document - keydown escape');
+            // console.log('document - keydown escape');
             for (let i = 0; i < expandableMenus.length; i++) {
                 let menu = expandableMenus[i],
                     subMenu = document.getElementById(menu.getAttribute('data-menu'));
@@ -26,7 +26,7 @@ function init() {
         let subMenuItems = document.querySelectorAll("#" + menu.getAttribute('data-menu') + " > li > a");
 
         menu.addEventListener('focus', function () {
-            console.log('menu - focus');
+            // console.log('menu - focus');
             /*expandMenu(menu, subMenu);*/
         });
         /*menu.addEventListener('keydown', function (ev) {
@@ -40,19 +40,15 @@ function init() {
             }
         });*/
         menu.addEventListener('mouseenter', function () {
-            console.log('menu - mouseenter');
+            // console.log('menu - mouseenter');
             expandMenu(menu, subMenu);
         });
-        menu.addEventListener('touchstart', function () {
-            console.log('menu - touchstart');
-            expandMenu(menu, subMenu);
-            document.getElementsByTagName('body')[0].addEventListener('touchstart', function touchStartDocument(ev) {
-                console.log('body touchstart');
-                if (!menu.contains(ev.target) && !subMenu.contains(ev.target)) {
-                    closeMenu(menu, subMenu);
-                    this.removeEventListener('touchstart', touchStartDocument);
-                }
-            });
+        document.getElementsByTagName('body')[0].addEventListener('touchstart', function touchStartDocument(ev) {
+            // console.log('body touchstart');
+            if (!menu.contains(ev.target) && !subMenu.contains(ev.target)) {
+                closeMenu(menu, subMenu);
+                this.removeEventListener('touchstart', touchStartDocument);
+            }
         });
         menu.addEventListener('click', function () {
             if (menu.getAttribute('aria-expanded') === 'true') {
@@ -61,20 +57,24 @@ function init() {
                 expandMenu(menu, subMenu);
             }
         });
-        subMenu.addEventListener('mouseenter', function () {
-            console.log('subMenu - mouseenter');
-            expandMenu(menu, subMenu);
+        subMenu.addEventListener('mouseenter', function (ev) {
+            // console.log('subMenu - mouseenter');
+            const relTarget = ev.relatedTarget;
+            // chrome triggers mouseenter event on touch devices
+            if (relTarget !== null) {
+                expandMenu(menu, subMenu);
+            }
         });
         subMenu.addEventListener('mouseleave', function () {
-            console.log('subMenu - mouseleave');
+            // console.log('subMenu - mouseleave');
             closeMenu(menu, subMenu);
         });
         menu.addEventListener('mouseleave', function () {
-            console.log('menu - mouseleave');
+            // console.log('menu - mouseleave');
             closeMenu(menu, subMenu);
         });
         menu.addEventListener('blur', function (ev) {
-            console.log('menu - blur');
+            // console.log('menu - blur');
             // IE 11
             let relTarget = ev.relatedTarget || document.activeElement;
 
@@ -88,7 +88,7 @@ function init() {
             let subMenuItem = subMenuItems[b];
 
             subMenuItem.addEventListener('blur', function (ev) {
-                console.log('subMenuItem - blur');
+                // console.log('subMenuItem - blur');
                 let t = ev.relatedTarget || document.activeElement;
 
                 if (t === null) {
@@ -108,15 +108,15 @@ function init() {
 }
 
 function expandMenu(menu, subMenu) {
-    console.log("expanding");
+    // console.log("expanding");
     subMenu.classList.remove('is-hidden');
     menu.setAttribute('aria-expanded', 'true');
-    console.log("expanded");
+    // console.log("expanded");
 }
 
 function closeMenu(menu, subMenu) {
-    console.log("closing");
+    // console.log("closing");
     subMenu.classList.add('is-hidden');
     menu.setAttribute('aria-expanded', 'false');
-    console.log("closed");
+    // console.log("closed");
 }
