@@ -13,6 +13,7 @@
           <p>Seitenanzahl der Print-Ausgabe: {{ book.pages }}</p>
           <p>Sprache: {{ book.language.name }}</p>
           <p>Erscheinungsdatum: <span>{{ book.releaseDate.toLocaleDateString('de-DE', { year: 'numeric', month: 'long', day: 'numeric' }) }}</span></p>
+          <p>ISBN: {{ book.isbn }}</p>
         </div>
 
       </div>

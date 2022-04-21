@@ -4,7 +4,7 @@
       <span id="title" tabindex="-1">Buchl</span>
     </header>
     <a class="visually-hidden" id="skipNavigation" ref="skipNavigation" v-bind:href="mainId">Navigation überspringen</a>
-    <nav id="main-nav" ref="mainNav" class="mt-5" role="navigation" aria-label="Hauptnavigation">
+    <nav id="main-nav" ref="mainNav" class="mt-5" aria-label="Hauptnavigation">
       <ul>
         <li>
           <router-link class="p-3 is-size-4-desktop" :aria-current="activeLink === 'home' ? 'page' : 'false'" v-bind:class="isActiveLink('home')" aria-haspopup="false" to="/">Startseite</router-link>

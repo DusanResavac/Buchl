@@ -3,7 +3,7 @@
     <span id="title">Buchl</span>
 </header>
 <a class="visually-hidden" id="skipNavigation" href="#main" th:href="${id}" th:fragment="skipNavigation(id)">Navigation überspringen</a>
-<nav id="main-nav" class="mt-5" role="navigation" aria-label="Hauptnavigation" th:fragment="navigation(activeLink)">
+<nav id="main-nav" class="mt-5" aria-label="Hauptnavigation" th:fragment="navigation(activeLink)">
     <script src="/js/menu.js" th:src="@{/js/navigation.js}"></script>
     <ul>
         <li>
