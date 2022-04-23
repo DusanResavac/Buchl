@@ -2,17 +2,25 @@ hr {
     background-color: #ccc;
 }
 
+h1 {
+    font-size: 1.7rem;
+    margin-bottom: 15px;
+}
+
 main a {
     color: #142987 !important;
 }
 
 main {
-    display: flex;
-    flex-wrap: wrap;
-    flex-direction: column;
     max-width: 1100px;
     margin: 20px auto 20px auto;
     padding: 10px;
+}
+
+#discussions {
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
 }
 
 .loader {
@@ -42,13 +50,13 @@ main {
     }
 }
 
-main > section {
+#discussions > section {
     width: 100%;
     padding: 20px;
     background-color: #f5f5f5;
 }
 
-main > article {
+#discussions > article {
     margin-top: 40px;
 
 }
@@ -111,7 +119,7 @@ main > article {
     background-color: #dee7ed;
 }
 
-main > section article {
+#discussions > section article {
     margin: 10px 0 10px 0;
 }
 
@@ -170,30 +178,30 @@ main > section article {
 }
 
 @media all and (min-width: 769px) {
-    main {
+    #discussions {
         flex-direction: row;
     }
 
-    main > section {
+    #discussions > section {
         margin-right: 20px;
         width: calc(50% - 20px);
     }
 
-    main > article:nth-child(odd) {
+    #discussions > article:nth-child(odd) {
         margin-left: 20px;
         width: calc(50% - 20px);
     }
 
-    main > article:nth-child(even) {
+    #discussions > article:nth-child(even) {
         margin-right: 20px;
         width: calc(50% - 20px);
     }
 
-    main > section {
+    #discussions > section {
         margin-bottom: 40px;
     }
 
-    main > article {
+    #discussions > article {
         margin-top: 0;
         margin-bottom: 40px;
         padding: 20px;

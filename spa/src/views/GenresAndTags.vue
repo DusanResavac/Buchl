@@ -1,6 +1,6 @@
 <template>
   <main tabindex="-1" id="main" v-bind:aria-busy="searching">
-    <h1>Nach Genre und Themen filtern</h1>
+    <h1>Nach Themen und Genres filtern</h1>
     <div class="loader" v-show="searching" id="loadingCircle" aria-label="Lade Ergebnisse"></div>
     <div>
       <section class="genre"
@@ -21,7 +21,7 @@
 import axios from 'axios';
 
 export default {
-  name: 'GenreAndTags',
+  name: 'GenresAndTags',
   data() {
     return {
       rootTags: [],

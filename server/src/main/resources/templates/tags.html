@@ -12,8 +12,8 @@
 <div th:replace="fragments/header.html :: header"></div>
 <div th:replace="fragments/header.html :: skipNavigation(id='#main')"></div>
 <div th:replace="fragments/header.html :: navigation(activeLink='tags')"></div>
-<main id="main" aria-busy="true">
-    <h1>Nach Genre und Themen filtern</h1>
+<main id="main">
+    <h1>Nach Themen und Genres filtern</h1>
     <div>
         <section class="genre" th:each="rootTag: ${rootTagDTOs}">
             <h2 th:text="${rootTag.name}"></h2>

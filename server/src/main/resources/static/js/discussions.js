@@ -115,11 +115,11 @@ function init() {
                         (discussion.comments.length === 1 ? ' Antwort' : ' Antworten');
                 }
 
-                document.getElementById('main').appendChild(article);
+                document.getElementById('discussions').appendChild(article);
             }
 
             loadingCircle.classList.add('is-hidden');
-            document.getElementById('main').setAttribute('aria-busy', 'false');
+            document.getElementById('discussions').setAttribute('aria-busy', 'false');
         }
     }
     httpRequest.send(bookFavouritesLS === null ? '[]' : bookFavouritesLS);

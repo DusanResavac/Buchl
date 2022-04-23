@@ -154,7 +154,7 @@ public class BuchlController {
         List<RootTagDTO> rootTagDTOs = tagResource.retrieveRootTags();
 
         model.addAttribute("rootTagDTOs", rootTagDTOs);
-        model.addAttribute("title", "Themen und Genre");
+        model.addAttribute("title", "Themen und Genres");
 
         return "tags";
     }

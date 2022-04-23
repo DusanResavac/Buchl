@@ -12,7 +12,7 @@
 <div th:replace="fragments/header.html :: header"></div>
 <div th:replace="fragments/header.html :: skipNavigation(id='#main')"></div>
 <div th:replace="fragments/header.html :: navigation(activeLink='discussions')"></div>
-<main aria-busy="true" id="main">
+<main id="main">
     <article>
         <h1>Diskussion zu <a th:href="'/book/' + ${discussion.book.id}" th:text="${discussion.book.title}"></a></h1>
         <div class="discussion">

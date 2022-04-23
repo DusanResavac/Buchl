@@ -10,7 +10,7 @@ import BookReviews from '@/components/BookReviews.vue';
 import BookDetails from '@/components/BookDetails.vue';
 import Discussion from '@/views/Discussion.vue';
 import Recommendations from '@/views/Recommendations.vue';
-import GenreAndTags from '@/views/GenreAndTags.vue';
+import GenresAndTags from '@/views/GenresAndTags.vue';
 
 Vue.use(VueRouter);
 
@@ -126,11 +126,11 @@ const routes = [
   {
     path: '/tags',
     name: 'Tags',
-    component: GenreAndTags,
+    component: GenresAndTags,
     meta: {
-      title: 'Themen und Genre',
+      title: 'Themen und Genres',
       announcer: {
-        message: 'Themen und Genre - Buchl',
+        message: 'Themen und Genres - Buchl',
       },
     },
   },
@@ -163,7 +163,7 @@ const router = new VueRouter({
 const DEFAULT_TITLE = 'Buchl';
 
 router.beforeEach((to, from, next) => {
-  console.log('beforeEach', to, from);
+  // console.log('beforeEach', to, from);
   if (to.hash === '') {
     next();
   } else {
@@ -175,7 +175,7 @@ router.afterEach((to) => {
   // Use next tick to handle router history correctly
   // see: https://github.com/vuejs/vue-router/issues/914#issuecomment-384477609
   Vue.nextTick(() => {
-    console.log('next tick triggered');
+    // console.log('next tick triggered');
     document.getElementById('title').focus();
 
     if (to.meta.title !== undefined) {

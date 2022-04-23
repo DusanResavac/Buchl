@@ -30,7 +30,7 @@
               <router-link data-parentmenu="books-menu" tabindex="0" to="/books">Stöbern und Filtern</router-link>
             </li>
             <li >
-              <router-link data-parentmenu="books-menu" tabindex="0" to="/tags">Themen und Genre</router-link>
+              <router-link data-parentmenu="books-menu" tabindex="0" to="/tags">Themen und Genres</router-link>
             </li>
           </ul>
         </li>

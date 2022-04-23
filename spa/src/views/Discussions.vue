@@ -1,77 +1,80 @@
 <template>
-  <main tabindex="-1" v-bind:aria-busy="searching" id="main">
+  <main tabindex="-1" id="main">
+    <h1>Diskussionen</h1>
     <div class="loader" v-show="searching" id="loadingCircle" aria-label="Lade Ergebnisse"></div>
-    <section>
-      <h2 class="is-size-4">Neue Diskussionen</h2>
-      <ul>
-        <li v-for="(newDiscussion, index) in newDiscussions" v-bind:key="newDiscussion.id">
-          <hr v-if="index !==  0">
-          <article>
-            <div class="user-and-content">
-              <div class="user-and-heading">
-                <div class="user">
-                  <img loading="lazy"
-                       v-bind:src="newDiscussion.user.image === null ? require('../assets/imgs/user.png') : newDiscussion.user.image"
-                       alt="">
-                  <span class="is-size-4-mobile is-size-6">{{ newDiscussion.user.nickname }}</span>
-                </div>
-                <div class="article-heading">
-                  <h3 class="is-size-5 mt-3">
-                    <router-link v-bind:to="`/discussion/${newDiscussion.id}`">{{ newDiscussion.title }}</router-link>
-                  </h3>
-                </div>
-              </div>
-              <div class="article-end">
-                <div class="book-wrapper">
-                  <book-image v-bind:title="newDiscussion.book.title" v-bind:image-link="newDiscussion.book.imageLink" v-bind:image-alt="newDiscussion.book.imageAlt"></book-image>
-                  <h4 v-if="newDiscussion.book !== null">
-                    <router-link v-bind:to="`/book/${newDiscussion.book.id}`">{{ newDiscussion.book.title }}</router-link>
-                  </h4>
-                </div>
-                <router-link v-bind:to="`/discussion/${newDiscussion.id}`">{{ newDiscussion.comments.length === 1 ? '1 Antwort' : newDiscussion.comments.length + ' Antworten'}}</router-link>
-              </div>
-            </div>
-          </article>
-        </li>
-      </ul>
-    </section>
-
-    <article v-for="bookWithDiscussions in booksWithDiscussions" v-bind:key="bookWithDiscussions.id">
-      <h2 class="is-size-4 mb-5">Diskussionen zu deinen Favoriten</h2>
-      <div class="div-book">
-        <book-image v-bind:title="bookWithDiscussions.title" v-bind:image-link="bookWithDiscussions.imageLink" v-bind:image-alt="bookWithDiscussions.imageAlt"></book-image>
-        <div class="book-info-div">
-          <h3 class="is-size-5">
-            <router-link v-bind:to="`/book/${bookWithDiscussions.id}`">{{ bookWithDiscussions.title }}</router-link>
-          </h3>
-          <router-link v-bind:to="`/books?author=${bookWithDiscussions.author.id}`">
-            <div class="author-div">
-              <author-image v-bind:image-link="bookWithDiscussions.author.imageLink" v-bind:image-alt="bookWithDiscussions.author.imageAlt"></author-image>
-              <p>{{ bookWithDiscussions.author.firstName }} {{ bookWithDiscussions.author.lastName }}</p>
-            </div>
-          </router-link>
-        </div>
-      </div>
-
-      <div class="book-discussions">
+    <div id="discussions" v-bind:aria-busy="searching">
+      <section>
+        <h2 class="is-size-4">Neue Diskussionen</h2>
         <ul>
-          <li v-for="discussion in bookWithDiscussions.discussions" v-bind:key="discussion.id">
-            <article class="book-discussion">
-              <div class="book-discussion-user">
-                <img loading="lazy" v-bind:src="discussion.user.image == null ? require('../assets/imgs/user.png') : discussion.user.image" alt="">
-                <span>{{ discussion.user.nickname }}</span>
-              </div>
-              <div class="book-discussion-content">
-                <h4>
-                  <router-link v-bind:to="`/discussion/${discussion.id}`">{{ discussion.title }}</router-link>
-                </h4>
-                <router-link v-bind:to="`/discussion/${discussion.id}`">{{ discussion.comments.length + (discussion.comments.length === 1 ? ' Antwort' : ' Antworten') }}</router-link>
+          <li v-for="(newDiscussion, index) in newDiscussions" v-bind:key="newDiscussion.id">
+            <hr v-if="index !==  0">
+            <article>
+              <div class="user-and-content">
+                <div class="user-and-heading">
+                  <div class="user">
+                    <img loading="lazy"
+                         v-bind:src="newDiscussion.user.image === null ? require('../assets/imgs/user.png') : newDiscussion.user.image"
+                         alt="">
+                    <span class="is-size-4-mobile is-size-6">{{ newDiscussion.user.nickname }}</span>
+                  </div>
+                  <div class="article-heading">
+                    <h3 class="is-size-5 mt-3">
+                      <router-link v-bind:to="`/discussion/${newDiscussion.id}`">{{ newDiscussion.title }}</router-link>
+                    </h3>
+                  </div>
+                </div>
+                <div class="article-end">
+                  <div class="book-wrapper">
+                    <book-image v-bind:title="newDiscussion.book.title" v-bind:image-link="newDiscussion.book.imageLink" v-bind:image-alt="newDiscussion.book.imageAlt"></book-image>
+                    <h4 v-if="newDiscussion.book !== null">
+                      <router-link v-bind:to="`/book/${newDiscussion.book.id}`">{{ newDiscussion.book.title }}</router-link>
+                    </h4>
+                  </div>
+                  <router-link v-bind:to="`/discussion/${newDiscussion.id}`">{{ newDiscussion.comments.length === 1 ? '1 Antwort' : newDiscussion.comments.length + ' Antworten'}}</router-link>
+                </div>
               </div>
             </article>
           </li>
         </ul>
-      </div>
-    </article>
+      </section>
+
+      <article v-for="(bookWithDiscussions, index) in booksWithDiscussions" v-bind:key="bookWithDiscussions.id">
+        <h2 v-if="index === 0" class="is-size-4 mb-5">Diskussionen zu deinen Favoriten</h2>
+        <div class="div-book">
+          <book-image v-bind:title="bookWithDiscussions.title" v-bind:image-link="bookWithDiscussions.imageLink" v-bind:image-alt="bookWithDiscussions.imageAlt"></book-image>
+          <div class="book-info-div">
+            <h3 class="is-size-5">
+              <router-link v-bind:to="`/book/${bookWithDiscussions.id}`">{{ bookWithDiscussions.title }}</router-link>
+            </h3>
+            <router-link v-bind:to="`/books?author=${bookWithDiscussions.author.id}`">
+              <div class="author-div">
+                <author-image v-bind:image-link="bookWithDiscussions.author.imageLink" v-bind:image-alt="bookWithDiscussions.author.imageAlt"></author-image>
+                <p>{{ bookWithDiscussions.author.firstName }} {{ bookWithDiscussions.author.lastName }}</p>
+              </div>
+            </router-link>
+          </div>
+        </div>
+
+        <div class="book-discussions">
+          <ul>
+            <li v-for="discussion in bookWithDiscussions.discussions" v-bind:key="discussion.id">
+              <article class="book-discussion">
+                <div class="book-discussion-user">
+                  <img loading="lazy" v-bind:src="discussion.user.image == null ? require('../assets/imgs/user.png') : discussion.user.image" alt="">
+                  <span>{{ discussion.user.nickname }}</span>
+                </div>
+                <div class="book-discussion-content">
+                  <h4>
+                    <router-link v-bind:to="`/discussion/${discussion.id}`">{{ discussion.title }}</router-link>
+                  </h4>
+                  <router-link v-bind:to="`/discussion/${discussion.id}`">{{ discussion.comments.length + (discussion.comments.length === 1 ? ' Antwort' : ' Antworten') }}</router-link>
+                </div>
+              </article>
+            </li>
+          </ul>
+        </div>
+      </article>
+    </div>
   </main>
 </template>
 
@@ -135,17 +138,25 @@ hr {
   background-color: #ccc;
 }
 
+h1 {
+  font-size: 1.7rem;
+  margin-bottom: 15px;
+}
+
 main a {
   color: #142987 !important;
 }
 
 main {
-  display: flex;
-  flex-wrap: wrap;
-  flex-direction: column;
   max-width: 1100px;
   margin: 20px auto 20px auto;
   padding: 10px;
+}
+
+#discussions {
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: column;
 }
 
 .loader {
@@ -175,13 +186,13 @@ main {
   }
 }
 
-main > section {
+#discussions > section {
   width: 100%;
   padding: 20px;
   background-color: #f5f5f5;
 }
 
-main > article {
+#discussions > article {
   margin-top: 40px;
 
 }
@@ -243,7 +254,7 @@ main > article {
   background-color: #dee7ed;
 }
 
-main > section article {
+#discussions > section article {
   margin: 10px 0 10px 0;
 }
 
@@ -302,30 +313,30 @@ main > section article {
 }
 
 @media all and (min-width: 769px) {
-  main {
+  #discussions {
     flex-direction: row;
   }
 
-  main > section {
+  #discussions > section {
     margin-right: 20px;
     width: calc(50% - 20px);
   }
 
-  main > article:nth-child(odd) {
+  #discussions > article:nth-child(even) {
     margin-left: 20px;
     width: calc(50% - 20px);
   }
 
-  main > article:nth-child(even) {
+  #discussions > article:nth-child(odd) {
     margin-right: 20px;
     width: calc(50% - 20px);
   }
 
-  main > section {
+  #discussions > section {
     margin-bottom: 40px;
   }
 
-  main > article {
+  #discussions > article {
     margin-top: 0;
     margin-bottom: 40px;
     padding: 20px;

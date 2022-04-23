@@ -70,17 +70,17 @@ export default {
 
 <style scoped>
 h1 {
-  font-size: 1.5rem;
+  font-size: 1.6rem;
   margin-bottom: 15px;
 }
 
 h2 {
-  font-size: 1.3rem;
+  font-size: 1.5rem;
   margin-bottom: 15px;
 }
 
 h3 {
-  font-size: 1.1rem;
+  font-size: 1.3rem;
   margin-bottom: 10px;
 }
 

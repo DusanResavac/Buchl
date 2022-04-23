@@ -1,5 +1,6 @@
 <template>
   <main tabindex="-1" id="main" v-bind:aria-busy="searching">
+    <h1>Ausgewählte Bücher</h1>
     <section>
       <h2>Derzeit populär</h2>
       <div class="loader" v-show="searching" aria-label="Lade Ergebnisse"></div>
@@ -67,15 +68,33 @@ export default {
 </script>
 
 <style scoped>
+h1 {
+  font-size: 1.6rem;
+  margin-bottom: 15px;
+}
+
 h2 {
-  font-size: 1.8rem;
+  font-size: 1.5rem;
+  margin-bottom: 12px;
+}
+
+h3 {
+  font-size: 1.3rem;
   margin-bottom: 10px;
+}
+
+h4 {
+  font-size: 1.15rem;
 }
 
 main {
   display: block;
   margin: 1.5rem 4% 0 4%;
   padding: 10px;
+}
+
+main a {
+  color: #1a3496;
 }
 
 main > section {

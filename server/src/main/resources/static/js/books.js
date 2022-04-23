@@ -15,7 +15,8 @@ function init() {
         author = document.getElementById('author'),
         releaseYearFrom = document.getElementById('releaseYearFrom'),
         releaseYearUntil = document.getElementById('releaseYearUntil'),
-        search = document.getElementById('search');
+        search = document.getElementById('search'),
+        searchResultLength = document.getElementById('searchResultLength');
 
 
     document.getElementById('form').addEventListener('submit', function (ev) {
@@ -113,7 +114,11 @@ function init() {
                 loadingCircle.classList.add('is-hidden');
                 if (books.length === 0) {
                     noSearchResults.classList.remove('is-hidden');
+                    searchResultLength.classList.add('is-hidden');
+                } else {
+                    searchResultLength.classList.remove('is-hidden');
                 }
+                searchResultLength.innerText = books.length === 1 ? '1 Suchergebnis' : books.length + ' Suchergebnisse';
                 submitButton.removeAttribute('disabled');
                 submitButton.setAttribute('aria-busy', 'false');
                 searchResults.setAttribute('aria-busy', 'false');
