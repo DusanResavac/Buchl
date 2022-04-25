@@ -65,6 +65,10 @@ export default {
         this.searching = false;
       });
   },
+  mounted() {
+    // console.log('mounted Recommendations');
+    document.getElementById('title').focus();
+  },
 };
 </script>
 

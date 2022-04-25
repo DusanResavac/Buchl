@@ -21,13 +21,13 @@ public class BookResource {
     @Autowired
     private TagRepository tagRepository;
     @Autowired
-    private BookDTOFactory bookDTOFactory;
+    private BookDTOCreator bookDTOCreator;
 
     @GetMapping("/api/books/top3")
     public List<BookDTO> retrieveTop3Books() {
         List<Book> books = bookRepository.findTop3Favourites();
         return books.stream()
-                .map(b -> bookDTOFactory.createBasicBook(b))
+                .map(b -> bookDTOCreator.createBasicBook(b))
                 .collect(Collectors.toList());
     }
 
@@ -56,7 +56,7 @@ public class BookResource {
                         b.getTitle().toLowerCase().contains(search.toLowerCase()) ||
                         b.getDescription().toLowerCase().contains(search.toLowerCase()) ||
                         b.getIsbn().toLowerCase().contains(search.toLowerCase()))
-                .map(b -> bookDTOFactory.createForBookOverview(b))
+                .map(b -> bookDTOCreator.createForBookOverview(b))
                 .collect(Collectors.toList());
 
         return bookDTOs;
@@ -69,7 +69,7 @@ public class BookResource {
             return null;
         }
 
-        return bookDTOFactory.createForBookDetails(b.get());
+        return bookDTOCreator.createForBookDetails(b.get());
     }
 
     @GetMapping("/recommendation/{id}")
@@ -78,7 +78,7 @@ public class BookResource {
         List<Book> books = bookRepository.findRecommendations((int) (Math.random() * 4), id);
         List<BookDTO> bookDTOs = new ArrayList<>();
 
-        books.forEach(b -> bookDTOs.add(bookDTOFactory.createForBookOverview(b)));
+        books.forEach(b -> bookDTOs.add(bookDTOCreator.createForBookOverview(b)));
 
         return bookDTOs;
     }
@@ -92,7 +92,7 @@ public class BookResource {
             Optional<Book> book = bookRepository.findById(id);
             List<Book> recommendedBooks = bookRepository.findRecommendations((int) (Math.random() * 3) + 1, id);
             List<BookDTO> recommendedBookDTOs = new ArrayList<>();
-            recommendedBooks.forEach(b -> recommendedBookDTOs.add(bookDTOFactory.createForBookOverview(b)));
+            recommendedBooks.forEach(b -> recommendedBookDTOs.add(bookDTOCreator.createForBookOverview(b)));
 
             listOfRecommendations.add(new RecommendationDTO(id, book.map(Book::getTitle).orElse(null), recommendedBookDTOs));
         }
@@ -105,7 +105,7 @@ public class BookResource {
         List<Book> books = bookRepository.findAllById(ids);
 
         return books.stream()
-                .map(b -> bookDTOFactory.createForBookOverview(b))
+                .map(b -> bookDTOCreator.createForBookOverview(b))
                 .collect(Collectors.toList());
     }
 
@@ -116,7 +116,7 @@ public class BookResource {
             return null;
         }
 
-        return bookDTOFactory.createForBookReviews(b.get(), Optional.of(2));
+        return bookDTOCreator.createForBookReviews(b.get(), Optional.of(2));
     }
 
     @GetMapping("/api/reviews/controversial")
@@ -125,7 +125,7 @@ public class BookResource {
         if (b.isEmpty()) {
             return null;
         }
-        BookDTO bookDTO = bookDTOFactory.createForBookReviews(b.get(), Optional.empty());
+        BookDTO bookDTO = bookDTOCreator.createForBookReviews(b.get(), Optional.empty());
         List<Review> reviews = bookDTO.getReviews()
                 .stream()
                 .sorted((item1, item2) -> item2.getRating() - item1.getRating())
@@ -154,7 +154,7 @@ public class BookResource {
             return null;
         }
 
-        return bookDTOFactory.createForBookReviews(b.get(), Optional.empty());
+        return bookDTOCreator.createForBookReviews(b.get(), Optional.empty());
     }
 
     @PostMapping("/api/books/with-discussions")
@@ -163,7 +163,7 @@ public class BookResource {
 
         for (Long id: ids) {
             Optional<Book> book = bookRepository.findById(id);
-            book.ifPresent(value -> bookDTOs.add(bookDTOFactory.createForBookDiscussions(value)));
+            book.ifPresent(value -> bookDTOs.add(bookDTOCreator.createForBookDiscussions(value)));
         }
 
         return bookDTOs;

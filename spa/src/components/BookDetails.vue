@@ -1,5 +1,6 @@
 <template>
   <fragment>
+    <h2 class="is-size-4">Beschreibung</h2>
     <p id="bookDescription" v-html="book.description"></p>
     <div class="discussions-wrapper">
       <h2 class="is-size-4">Diskussionen zum Buch</h2>

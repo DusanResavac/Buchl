@@ -63,6 +63,10 @@ export default {
         }
       });
   },
+  mounted() {
+    // console.log('mounted Reviews');
+    document.getElementById('title').focus();
+  },
   components: { BookAndReviews },
 };
 </script>

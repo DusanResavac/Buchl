@@ -49,6 +49,10 @@ export default {
         this.searching = false;
       });
   },
+  mounted() {
+    // console.log('mounted Favourites');
+    document.getElementById('title').focus();
+  },
   methods: {
     removeBookFromFavourites(book) {
       let bookFavourites = JSON.parse(localStorage.getItem('bookFavourites'));

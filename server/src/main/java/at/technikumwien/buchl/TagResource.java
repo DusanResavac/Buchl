@@ -4,12 +4,10 @@ import at.technikumwien.buchl.entity.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 @CrossOrigin(origins = {"*"})
@@ -25,13 +23,13 @@ public class TagResource {
         List<RootTagDTO> rootTagDTOs = new ArrayList<>();
 
         rootTags.forEach(rTag -> {
-            rootTagDTOs.add(TagDTOFactory.createRootTagDTO(rTag));
+            rootTagDTOs.add(TagDTOCreator.createRootTagDTO(rTag));
         });
 
         for (RootTagDTO rootTagDTO: rootTagDTOs) {
             List<Tag> childTags = tagRepository.findAllByParentId(rootTagDTO.getId());
             List<TagDTO> childTagDTOs = childTags.stream()
-                    .map(TagDTOFactory::createTagDTO)
+                    .map(TagDTOCreator::createTagDTO)
                     .collect(Collectors.toList());
             rootTagDTO.setTags(childTagDTOs);
         }

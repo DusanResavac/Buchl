@@ -8,7 +8,7 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Component
-public class BookDTOFactory {
+public class BookDTOCreator {
 
     public BookDTO createBasicBook(Book book) {
         Author a = book.getAuthor();
@@ -94,7 +94,7 @@ public class BookDTOFactory {
                 .filter(r -> r.getDate() != null &&
                         r.getUser() != null &&
                         r.getTitle() != null)
-                .map(BookDTOFactory::createBareReview)
+                .map(BookDTOCreator::createBareReview)
                 .collect(Collectors.toList()));
         return bookDTO;
     }
@@ -159,7 +159,7 @@ public class BookDTOFactory {
                     .filter(r -> r.getDate() != null &&
                             r.getUser() != null &&
                             r.getTitle() != null)
-                    .map(BookDTOFactory::createBareReview)
+                    .map(BookDTOCreator::createBareReview)
                     .collect(Collectors.toList()));
         }
         bookDTO.setDiscussions(null);

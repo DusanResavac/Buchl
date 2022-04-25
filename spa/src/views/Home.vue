@@ -67,6 +67,10 @@ export default {
         this.searching = false;
       });
   },
+  mounted() {
+    // console.log('mounted Home');
+    document.getElementById('title').focus();
+  },
 };
 </script>
 

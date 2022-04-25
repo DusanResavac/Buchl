@@ -162,21 +162,11 @@ const router = new VueRouter({
 
 const DEFAULT_TITLE = 'Buchl';
 
-router.beforeEach((to, from, next) => {
-  // console.log('beforeEach', to, from);
-  if (to.hash === '') {
-    next();
-  } else {
-    return false;
-  }
-});
-
 router.afterEach((to) => {
   // Use next tick to handle router history correctly
   // see: https://github.com/vuejs/vue-router/issues/914#issuecomment-384477609
   Vue.nextTick(() => {
-    // console.log('next tick triggered');
-    document.getElementById('title').focus();
+    console.log('next tick triggered');
 
     if (to.meta.title !== undefined) {
       const title = `${to.meta.title} - ${DEFAULT_TITLE}`;

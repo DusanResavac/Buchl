@@ -45,7 +45,7 @@ header {
 }
 
 #main-nav > ul > li > ul a {
-    min-width: 11em;
+    min-width: 12em;
     text-align: left;
     padding: 1em;
 }

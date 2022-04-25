@@ -149,6 +149,10 @@ export default {
         this.authors = response.data;
       });
   },
+  mounted() {
+    // console.log('mounted Books');
+    document.getElementById('title').focus();
+  },
   methods: {
     isUndefined(variable, andIsNumber) {
       return variable === undefined || variable === null || (andIsNumber ? Number.isNaN(parseInt(variable, 10)) : false);
@@ -176,7 +180,7 @@ export default {
         url.searchParams.set('releaseYearFrom', this.releaseYearFrom);
         url.searchParams.set('releaseYearUntil', this.releaseYearUntil);
         url.searchParams.set('q', this.search);
-        window.history.replaceState({}, '', url);
+        window.history.replaceState({}, '', url.href);
         this.books = response.data;
         this.books = this.books.map((obj) => {
           const releaseDate = new Date(obj.releaseDate);

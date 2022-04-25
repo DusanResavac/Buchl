@@ -10,7 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Component
-public class DiscussionDTOFactory {
+public class DiscussionDTOCreator {
 
     public DiscussionDTO createDiscussionOverview(Discussion d) {
         DiscussionDTO dDto = new DiscussionDTO();

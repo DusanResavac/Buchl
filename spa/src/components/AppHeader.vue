@@ -9,7 +9,7 @@
         <li>
           <router-link class="p-3 is-size-4-desktop" :aria-current="activeLink === 'home' ? 'page' : 'false'" v-bind:class="isActiveLink('home')" aria-haspopup="false" to="/">Startseite</router-link>
         </li>
-        <li >
+        <li>
           <router-link class="p-3 is-size-4-desktop" :aria-current="activeLink === 'favourites' ? 'page' : 'false'" v-bind:class="isActiveLink('favourites')" aria-haspopup="false" to="/favourites">Favoriten</router-link>
         </li>
         <li >
@@ -34,10 +34,10 @@
             </li>
           </ul>
         </li>
-        <li >
+        <li>
           <router-link class="p-3 is-size-4-desktop" :aria-current="activeLink === 'discussions' ? 'page' : 'false'" v-bind:class="isActiveLink('discussions')" aria-haspopup="false" to="/discussions">Diskussionen</router-link>
         </li>
-        <li >
+        <li>
           <router-link class="p-3 is-size-4-desktop" :aria-current="activeLink === 'reviews' ? 'page' : 'false'" v-bind:class="isActiveLink('reviews')" aria-haspopup="false" to="/reviews">Rezensionen</router-link>
         </li>
         <li >
@@ -246,7 +246,7 @@ header {
 }
 
 #main-nav > ul > li > ul a {
-  min-width: 11em;
+  min-width: 12em;
   text-align: left;
   padding: 1em;
 }

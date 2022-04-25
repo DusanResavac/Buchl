@@ -82,6 +82,10 @@ export default {
         });
     }
   },
+  mounted() {
+    // console.log('mounted Discussion');
+    document.getElementById('title').focus();
+  },
 };
 </script>
 

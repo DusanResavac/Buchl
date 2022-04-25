@@ -130,6 +130,10 @@ export default {
         }
       });
   },
+  mounted() {
+    // console.log('mounted Discussions');
+    document.getElementById('title').focus();
+  },
 };
 </script>
 

@@ -1,6 +1,6 @@
 package at.technikumwien.buchl.entity;
 
-public class TagDTOFactory {
+public class TagDTOCreator {
 
     public static RootTagDTO createRootTagDTO (Tag t) {
         return new RootTagDTO(t.getId(), t.getName(), null);

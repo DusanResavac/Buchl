@@ -88,6 +88,10 @@ export default {
       }
     }
   },
+  mounted() {
+    // console.log('mounted Book');
+    document.getElementById('title').focus();
+  },
   methods: {
     addOrRemoveFromFavourites() {
       let bookFavourites = JSON.parse(localStorage.getItem('bookFavourites'));

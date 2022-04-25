@@ -2,7 +2,7 @@ package at.technikumwien.buchl;
 
 import at.technikumwien.buchl.entity.Discussion;
 import at.technikumwien.buchl.entity.DiscussionDTO;
-import at.technikumwien.buchl.entity.DiscussionDTOFactory;
+import at.technikumwien.buchl.entity.DiscussionDTOCreator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -20,7 +20,7 @@ public class DiscussionResource {
     @Autowired
     DiscussionRepository repository;
     @Autowired
-    DiscussionDTOFactory discussionDTOFactory;
+    DiscussionDTOCreator discussionDTOCreator;
 
 
     @GetMapping("/api/discussions/recent")
@@ -28,7 +28,7 @@ public class DiscussionResource {
         List<Discussion> discussions = repository.findTop3ByOrderByDateDesc();
         List<DiscussionDTO> dDTOs = new ArrayList<>();
         for (Discussion d: discussions) {
-            dDTOs.add(discussionDTOFactory.createDiscussionOverview(d));
+            dDTOs.add(discussionDTOCreator.createDiscussionOverview(d));
         }
         return dDTOs;
     }
@@ -40,6 +40,6 @@ public class DiscussionResource {
             return null;
         }
 
-        return discussionDTOFactory.createDiscussionDetail(d.get());
+        return discussionDTOCreator.createDiscussionDetail(d.get());
     }
 }

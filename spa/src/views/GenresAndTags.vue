@@ -39,6 +39,10 @@ export default {
         this.searching = false;
       });
   },
+  mounted() {
+    // console.log('mounted GenresAndTags');
+    document.getElementById('title').focus();
+  },
 };
 </script>
 
