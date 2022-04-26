@@ -1,5 +1,5 @@
 <template>
-  <main tabindex="-1" v-bind:aria-busy="searching" id="main">
+  <main tabindex="-1" id="main" aria-label="Inhalt">
     <article v-if="discussion !== null">
       <h1>Diskussion zu
         <router-link v-bind:to="`/book/${discussion.book.id}`">{{ discussion.book.title }}</router-link>
@@ -75,7 +75,7 @@ export default {
           const title = `Diskussion zu ${this.discussion.book.title}: ${this.discussion.title} - Buchl`;
           document.title = title;
           this.$announcer.set(`${title} wurde geladen`, 'polite');
-          document.getElementsByTagName('body')[0].focus();
+          document.getElementById('title').focus();
         })
         .finally(() => {
           this.searching = false;

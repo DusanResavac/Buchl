@@ -79,7 +79,6 @@ function init() {
                 recommendationsSection.appendChild(p);
             }
             loadingCircle.classList.add('is-hidden');
-            main.setAttribute('aria-busy', 'false');
         }
     };
 

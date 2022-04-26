@@ -1,5 +1,5 @@
 <template>
-  <main tabindex="-1" id="main" class="columns">
+  <main tabindex="-1" id="main" class="columns" aria-label="Inhalt">
     <section class="column is-desktop">
       <h1 class="is-size-2">Was ist Buchl?</h1>
       <p class="content">Buchl ist eine Plattform, auf der sich Gleichgesinnte treffen und über ihre Lieblingsbücher unterhalten können.

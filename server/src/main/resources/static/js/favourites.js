@@ -69,7 +69,6 @@ function init() {
             }
 
             loadingCircle.classList.add('is-hidden');
-            main.setAttribute('aria-busy', 'false');
         }
     }
 

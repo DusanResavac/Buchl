@@ -1,6 +1,6 @@
 <template>
-  <main tabindex="-1" id="main">
-    <form id="form" method="get" action="/books" v-on:submit="getBooksFromApi">
+  <main tabindex="-1" id="main" aria-label="Inhalt">
+    <form id="form" v-on:submit="getBooksFromApi">
       <h1 class="is-size-3 is-size-4-mobile mb-3">Suchen und Filtern</h1>
       <a href="#search" class="visually-hidden">Filter überspringen</a>
       <div role="search" class="form-content">

@@ -1,5 +1,5 @@
 <template>
-  <main tabindex="-1" id="main" v-bind:aria-busy="searching">
+  <main tabindex="-1" id="main" aria-label="Inhalt">
     <h1>Deine Favoriten</h1>
     <section id="allFavourites">
       <div class="loader" v-show="searching"

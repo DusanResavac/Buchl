@@ -1,5 +1,5 @@
 <template>
-  <main tabindex="-1" id="main" v-bind:aria-busy="searching">
+  <main tabindex="-1" id="main" aria-label="Inhalt">
     <h1>Ausgewählte Bücher</h1>
     <section>
       <h2>Derzeit populär</h2>

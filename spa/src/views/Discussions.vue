@@ -1,5 +1,5 @@
 <template>
-  <main tabindex="-1" id="main">
+  <main tabindex="-1" id="main" aria-label="Inhalt">
     <h1>Diskussionen</h1>
     <div class="loader" v-show="searching" id="loadingCircle" aria-label="Lade Ergebnisse"></div>
     <div id="discussions" v-bind:aria-busy="searching">

@@ -12,24 +12,18 @@
         <li>
           <router-link class="p-3 is-size-4-desktop" :aria-current="activeLink === 'favourites' ? 'page' : 'false'" v-bind:class="isActiveLink('favourites')" aria-haspopup="false" to="/favourites">Favoriten</router-link>
         </li>
-        <li >
-          <!--          <router-link class="p-3 is-size-4-desktop expandable-menu" data-menu="books-menu"
-                                 :aria-current="activeLink === 'books' ? 'page' : 'false'"
-                                 v-bind:class="isActiveLink('books')"
-                                 aria-haspopup="true"
-                                 aria-expanded="false"
-                                 to="/books">Bücher</router-link>-->
+        <li>
           <button class="button is-ghost expandable-menu p-3 is-size-4-desktop"
                   v-bind:class="isActiveLink('books')"
                   :aria-current="activeLink === 'books' ? 'page' : 'false'"
                   data-menu="books-menu"
-                  aria-haspopup="true"
-                  aria-expanded="false">Bücher</button>
-          <ul aria-label="Bücher" class="is-hidden" id="books-menu">
-            <li >
+                  aria-expanded="false"
+                  aria-controls="books-menu">Bücher</button>
+          <ul class="is-hidden" id="books-menu">
+            <li>
               <router-link data-parentmenu="books-menu" tabindex="0" to="/books">Stöbern und Filtern</router-link>
             </li>
-            <li >
+            <li>
               <router-link data-parentmenu="books-menu" tabindex="0" to="/tags">Themen und Genres</router-link>
             </li>
           </ul>
@@ -241,7 +235,7 @@ header {
   border-radius: 5px;
   padding: 0.5em;
   left: 0;
-  bottom: 0;
+  bottom: 5px;
   transform: translateY(100%);
 }
 

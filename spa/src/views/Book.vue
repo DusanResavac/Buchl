@@ -1,5 +1,5 @@
 <template>
-  <main tabindex="-1" id="main" v-bind:aria-busy="searching">
+  <main tabindex="-1" id="main" aria-label="Inhalt">
     <div class="loader" v-show="searching" id="loadingCircle" aria-label="Lade Ergebnisse"></div>
     <aside role="region" aria-label="Nebensächliche Buchinformationen" v-if="book !== null">
       <book-image v-bind:title="book.title" v-bind:image-link="book.imageLink" v-bind:image-alt="book.imageAlt"></book-image>
@@ -15,7 +15,6 @@
           <p>Erscheinungsdatum: <span>{{ book.releaseDate.toLocaleDateString('de-DE', { year: 'numeric', month: 'long', day: 'numeric' }) }}</span></p>
           <p>ISBN: {{ book.isbn }}</p>
         </div>
-
       </div>
     </aside>
     <section role="region" aria-label="Buchinformationen" v-if="book !== null">
@@ -64,7 +63,7 @@ export default {
     };
   },
   created() {
-    this.$emit('loaded', { mainId: '#main', activeLink: 'books' });
+    this.$emit('loaded', { mainId: '#main', activeLink: 'book' });
     this.bookId = parseInt(this.$route.params.id, 10);
     if (!Number.isNaN(this.bookId)) {
       axios.get(`api/book/${this.bookId}`)

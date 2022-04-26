@@ -119,7 +119,6 @@ function init() {
             }
 
             loadingCircle.classList.add('is-hidden');
-            document.getElementById('discussions').setAttribute('aria-busy', 'false');
         }
     }
     httpRequest.send(bookFavouritesLS === null ? '[]' : bookFavouritesLS);

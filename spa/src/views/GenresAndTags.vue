@@ -1,5 +1,5 @@
 <template>
-  <main tabindex="-1" id="main" v-bind:aria-busy="searching">
+  <main tabindex="-1" id="main" aria-label="Inhalt">
     <h1>Nach Themen und Genres filtern</h1>
     <div class="loader" v-show="searching" id="loadingCircle" aria-label="Lade Ergebnisse"></div>
     <div>

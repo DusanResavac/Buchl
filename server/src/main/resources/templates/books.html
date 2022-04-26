@@ -99,14 +99,14 @@
                     </div>
                 </div>
                 <div class="control">
-                    <button class="button is-link" id="submitButton" type="submit" aria-busy="false">Suchen</button>
+                    <button class="button is-link" id="submitButton" type="submit">Suchen</button>
                 </div>
             </div>
         </div>
     </form>
     <section>
         <h2 class="is-size-4">Suchergebnisse</h2>
-        <div id="searchResults" role="region" aria-label="Suchergebnisse" aria-busy="false">
+        <div id="searchResults" role="region" aria-label="Suchergebnisse">
             <div class="is-hidden loader" id="loadingCircle" aria-label="Lade Ergebnisse"></div>
             <p th:class="${hasSearchResults}?'is-hidden'" id="noSearchResults">Es sind keine Suchergebnisse vorhanden.</p>
             <p th:class="${!hasSearchResults}?'is-hidden'" id="searchResultLength" th:text="${#arrays.length(booksByQueryParams) == 1} ? '1 Suchergebnis' : ${#arrays.length(booksByQueryParams)} + ' Suchergebnisse'"></p>

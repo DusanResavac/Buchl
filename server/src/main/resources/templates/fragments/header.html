@@ -30,8 +30,8 @@
                     th:classappend="${activeLink == 'books'} ? 'active' : ''"
                     th:attr="aria-current=${activeLink == 'books' ? 'page' : 'false'}"
                     data-menu="books-menu"
-                    aria-haspopup="true"
-                    aria-expanded="false">Bücher</button>
+                    aria-expanded="false"
+                    aria-controls="books-menu">Bücher</button>
             <ul aria-label="Bücher" class="is-hidden" id="books-menu">
                 <li>
                     <a data-parentmenu="books-menu" tabindex="0" href="/books">Stöbern und Filtern</a>
