@@ -1,11 +1,10 @@
 <template>
   <main tabindex="-1" id="main" aria-label="Inhalt">
-    <h1>Deine Favoriten</h1>
+    <h1 tabindex="-1">Deine Favoriten</h1>
     <section id="allFavourites">
       <div class="loader" v-show="searching"
            id="loadingCircle"
-           aria-label="Lade Ergebnisse"
-           v-bind:aria-busy="searching"></div>
+           aria-label="Lade Ergebnisse"></div>
       <p v-if="!searching && books.length === 0">Du hast noch keine Favoriten. Füge Bücher zu deinen Favoriten hinzu, um Buchvorschläge zu erhalten! Du kannst ein Buch auf der Buchseite als Favorit markieren.</p>
       <article v-for="book in books" v-bind:key="book.id">
         <button class="heartButton" v-bind:title="`${book.title} aus den Favoriten entfernen`" v-on:click="removeBookFromFavourites(book)">
@@ -51,7 +50,7 @@ export default {
   },
   mounted() {
     // console.log('mounted Favourites');
-    document.getElementById('title').focus();
+    document.getElementsByTagName('h1')[0].focus();
   },
   methods: {
     removeBookFromFavourites(book) {

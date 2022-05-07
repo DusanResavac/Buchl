@@ -1,10 +1,10 @@
 <template>
   <main tabindex="-1" id="main" aria-label="Inhalt">
-    <article v-if="discussion !== null">
-      <h1>Diskussion zu
-        <router-link v-bind:to="`/book/${discussion.book.id}`">{{ discussion.book.title }}</router-link>
+    <article >
+      <h1 tabindex="-1">Diskussion zu
+        <router-link v-if="discussion !== null" v-bind:to="`/book/${discussion.book.id}`">{{ discussion.book.title }}</router-link>
       </h1>
-      <div class="discussion">
+      <div class="discussion" v-if="discussion !== null">
         <div class="discussion-user">
           <img loading="lazy"
                v-bind:src="discussion.user.image == null ? require('../assets/imgs/user.png') : discussion.user.image"
@@ -75,7 +75,7 @@ export default {
           const title = `Diskussion zu ${this.discussion.book.title}: ${this.discussion.title} - Buchl`;
           document.title = title;
           this.$announcer.set(`${title} wurde geladen`, 'polite');
-          document.getElementById('title').focus();
+          document.getElementsByTagName('h1')[0].focus();
         })
         .finally(() => {
           this.searching = false;
@@ -84,7 +84,7 @@ export default {
   },
   mounted() {
     // console.log('mounted Discussion');
-    document.getElementById('title').focus();
+    document.getElementsByTagName('h1')[0].focus();
   },
 };
 </script>

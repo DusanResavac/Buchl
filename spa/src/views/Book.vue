@@ -18,7 +18,7 @@
       </div>
     </aside>
     <section role="region" aria-label="Buchinformationen" v-if="book !== null">
-      <h1 class="is-size-4 is-size-3-desktop">
+      <h1 tabindex="-1" class="is-size-4 is-size-3-desktop">
         <span>{{ book.title }}</span><span class="subtitle"> - {{ book.releaseDate.toLocaleDateString('de-DE', { year: 'numeric', month: 'long', day: 'numeric' }) }}</span>
       </h1>
       <div class="author-info">
@@ -77,6 +77,7 @@ export default {
         })
         .finally(() => {
           this.searching = false;
+          document.getElementsByTagName('h1')[0].focus();
         });
 
       const bookFavourites = JSON.parse(localStorage.getItem('bookFavourites'));
@@ -89,7 +90,7 @@ export default {
   },
   mounted() {
     // console.log('mounted Book');
-    document.getElementById('title').focus();
+    // document.getElementsByTagName('h1')[0].focus();
   },
   methods: {
     addOrRemoveFromFavourites() {

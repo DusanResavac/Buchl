@@ -1,8 +1,8 @@
 <template>
   <main tabindex="-1" id="main" aria-label="Inhalt">
-    <h1>Diskussionen</h1>
+    <h1 tabindex="-1">Diskussionen</h1>
     <div class="loader" v-show="searching" id="loadingCircle" aria-label="Lade Ergebnisse"></div>
-    <div id="discussions" v-bind:aria-busy="searching">
+    <div id="discussions">
       <section>
         <h2 class="is-size-4">Neue Diskussionen</h2>
         <ul>
@@ -132,7 +132,7 @@ export default {
   },
   mounted() {
     // console.log('mounted Discussions');
-    document.getElementById('title').focus();
+    document.getElementsByTagName('h1')[0].focus();
   },
 };
 </script>

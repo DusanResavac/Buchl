@@ -1,6 +1,6 @@
 <template>
   <main tabindex="-1" id="main" aria-label="Inhalt">
-    <h1>Nach Themen und Genres filtern</h1>
+    <h1 tabindex="-1">Nach Themen und Genres filtern</h1>
     <div class="loader" v-show="searching" id="loadingCircle" aria-label="Lade Ergebnisse"></div>
     <div>
       <section class="genre"
@@ -41,7 +41,7 @@ export default {
   },
   mounted() {
     // console.log('mounted GenresAndTags');
-    document.getElementById('title').focus();
+    document.getElementsByTagName('h1')[0].focus();
   },
 };
 </script>

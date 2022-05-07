@@ -1,7 +1,7 @@
 <template>
   <main tabindex="-1" id="main" class="columns" aria-label="Inhalt">
     <section class="column is-desktop">
-      <h1 class="is-size-2">Was ist Buchl?</h1>
+      <h1 tabindex="-1" class="is-size-2">Was ist Buchl?</h1>
       <p class="content">Buchl ist eine Plattform, auf der sich Gleichgesinnte treffen und über ihre Lieblingsbücher unterhalten können.
         Außerdem kann die eigene Buchsammlung digital in einer Liste gesammelt werden, auf deren Basis dann Vorschläge
         zur Erweiterung des Leserepertoires bereitgestellt werden. Nehmen Sie an hitzigen Debatten teil, um Ihren Standpunkt zu vertreten
@@ -69,7 +69,7 @@ export default {
   },
   mounted() {
     // console.log('mounted Home');
-    document.getElementById('title').focus();
+    document.getElementsByTagName('h1')[0].focus();
   },
 };
 </script>

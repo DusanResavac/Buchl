@@ -1,7 +1,7 @@
 <template>
   <main tabindex="-1" id="main" aria-label="Inhalt">
     <form id="form" v-on:submit="getBooksFromApi">
-      <h1 class="is-size-3 is-size-4-mobile mb-3">Suchen und Filtern</h1>
+      <h1 tabindex="-1" class="is-size-3 is-size-4-mobile mb-3">Suchen und Filtern</h1>
       <a href="#search" class="visually-hidden">Filter überspringen</a>
       <div role="search" class="form-content">
         <div class="form-combobox-wrapper">
@@ -82,17 +82,16 @@
             </div>
           </div>
           <div class="control">
-            <button class="button is-link" id="submitButton" type="submit" v-bind:aria-busy="searching">Suchen</button>
+            <button class="button is-link" id="submitButton" type="submit">Suchen</button>
           </div>
         </div>
       </div>
     </form>
     <section>
       <h2 class="is-size-4">Suchergebnisse</h2>
-      <div id="searchResults" ref="searchResults" role="region" aria-label="Suchergebnisse" v-bind:aria-busy="searching">
+      <div id="searchResults" ref="searchResults" role="region" aria-label="Suchergebnisse">
         <div class="loader" v-show="searching" id="loadingCircle"
-             aria-label="Lade Ergebnisse"
-             v-bind:aria-busy="searching"></div>
+             aria-label="Lade Ergebnisse"></div>
         <p v-show="books.length > 0">{{ books.length === 1 ? '1 Suchergebnis' : `${books.length} Suchergebnisse` }}</p>
         <p v-show="books.length === 0 && !searching" id="noSearchResults">Es sind keine Suchergebnisse vorhanden.</p>
         <ul class="article-wrapper">
@@ -151,7 +150,7 @@ export default {
   },
   mounted() {
     // console.log('mounted Books');
-    document.getElementById('title').focus();
+    document.getElementsByTagName('h1')[0].focus();
   },
   methods: {
     isUndefined(variable, andIsNumber) {

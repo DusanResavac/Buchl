@@ -1,6 +1,6 @@
 <template>
   <main tabindex="-1" id="main" aria-label="Inhalt">
-    <h1>Deine personalisierten Vorschläge</h1>
+    <h1 tabindex="-1">Deine personalisierten Vorschläge</h1>
     <div class="loader" v-show="searching" id="loadingCircle" aria-label="Lade Ergebnisse"></div>
     <section id="recommendations">
       <p v-if="books.length === 0">Du hast noch keine Favoriten. Füge Bücher zu deinen Favoriten hinzu, um Buchvorschläge zu erhalten! Du kannst ein Buch auf der Buchseite als Favorit markieren.</p>
@@ -67,7 +67,7 @@ export default {
   },
   mounted() {
     // console.log('mounted Recommendations');
-    document.getElementById('title').focus();
+    document.getElementsByTagName('h1')[0].focus();
   },
 };
 </script>

@@ -1,6 +1,6 @@
 <template>
   <main tabindex="-1" id="main" aria-label="Inhalt">
-    <h1>Ausgewählte Bücher</h1>
+    <h1 tabindex="-1">Ausgewählte Bücher</h1>
     <section>
       <h2>Derzeit populär</h2>
       <div class="loader" v-show="searching" aria-label="Lade Ergebnisse"></div>
@@ -65,7 +65,7 @@ export default {
   },
   mounted() {
     // console.log('mounted Reviews');
-    document.getElementById('title').focus();
+    document.getElementsByTagName('h1')[0].focus();
   },
   components: { BookAndReviews },
 };
