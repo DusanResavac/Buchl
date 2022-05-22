@@ -34,11 +34,9 @@
 </template>
 
 <script>
-import { Fragment } from 'vue-fragment';
 
 export default {
   name: 'BookReviews',
-  components: { Fragment },
   created() {
     // console.log('Book Reviews', this.book);
     this.book.reviews.forEach((r) => {

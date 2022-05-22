@@ -28,11 +28,9 @@
 </template>
 
 <script>
-import { Fragment } from 'vue-fragment';
 
 export default {
   name: 'BookDetails',
-  components: { Fragment },
   props: ['book'],
   mounted() {
     const title = `${this.book.title} - Buchl`;
