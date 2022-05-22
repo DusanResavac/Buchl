@@ -1,5 +1,4 @@
 # BUCHL: Single-Page-Application and Multi-Page-Application
-## What is BUCHL / this repository about?
 This project was created as part of the bachelor thesis. 
 There are two websites with identical content in the repository. 
 One is an SPA with VueJS and the other is an MPA with Spring Boot and Thymeleaf. 
@@ -12,8 +11,10 @@ To get the project up and running, follow these steps:
 * Start the database and create a database scheme "buchl"
 * Install nodeJS
 * Install a Java IDE (such as IntelliJ or Eclipse)
+* Install all dependencies via maven
 * Start the Multi-Page-Application (under `server/src/main/java/at/technikumwien/buchl/MainApplication.java`)
 * Change the url and port of `axios.defaults.baseURL` (under `spa/src/main.js`) to your MPA Server `localhost:8080`
+* Run npm install (in the `spa` folder)
 * Start the Single-Page-Application by executing the command `npm run serve` in the spa directory
 
 The MPA should use localhost:8080. 
