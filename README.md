@@ -1,4 +1,4 @@
-#BUCHL: Single-Page-Application and Multi-Page-Application
+# BUCHL: Single-Page-Application and Multi-Page-Application
 ## What is BUCHL / this repository about?
 This project was created as part of the bachelor thesis. 
 There are two websites with identical content in the repository. 
